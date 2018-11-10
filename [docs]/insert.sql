@@ -54,5 +54,3 @@ INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
 -- arquivo
 INSERT INTO arquivo (arquivo_content, fake_news_id, extensao_id)
     VALUES(bytea('modelo-relacional.jpg'), 7, 1);
-
-SELECT * FROM fake_news

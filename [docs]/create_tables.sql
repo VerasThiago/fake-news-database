@@ -22,6 +22,12 @@ CREATE TABLE usuario
         usuario_id SERIAL PRIMARY KEY,
         usuario_name VARCHAR(50) NOT NULL
     );
+-- tabela partidos
+CREATE TABLE parties 
+    (
+        parties_id SERIAL PRIMARY KEY,
+        parties_name VARCHAR(50) NOT NULL
+    );
 -- metodo de propagação table
 CREATE TABLE propagation_method
     (
@@ -81,4 +87,11 @@ CREATE TABLE fake_news_propagation_method
         propagation_method_id INTEGER REFERENCES propagation_method(propagation_method_id),
         fake_news_id INTEGER REFERENCES fake_news(fake_news_id),
         PRIMARY KEY (propagation_method_id, fake_news_id)
+    );
+-- relacao fake news e partido
+CREATE TABLE parties_fake_news
+    (
+        parties_id INTEGER REFERENCES parties(parties_id),
+        fake_news_id INTEGER REFERENCES fake_news(fake_news_id),
+        PRIMARY KEY(parties_id, fake_news_id)
     );
