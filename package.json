@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/VerasThiago/fake-news-database#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "consign": "^0.1.6",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "nodemon": "^1.18.6",

@@ -1,7 +1,24 @@
 <html>
 	<body>
-			OLA MAIGOS
+
+		<h1>Adicionar Usuário</h1><br>
+		<form action = "/salvar" method="POST">
+			<label>Nome de usuário: </label>
+			<input type="text" id = "usuario_name%" name = "nome" placeholder="Nome do usuário"/><br/>	
+			<input type="submit" value="Enviar">
+		</form>
+
+		<h1>Lista de Usuários</h1><br>
+
+		<%for(var i = 0; i < x.rows.length; i++){%>
+			<tr>
+				<td>Código : <%= x.rows[i].usuario_id %></td><br>
+				<td>Nome  : <%= x.rows[i].usuario_name %></td><br>
+				<br>
+				<br>
+			</tr>
+
+
+		<%}%>
 	</body>
-
-
 </html>
