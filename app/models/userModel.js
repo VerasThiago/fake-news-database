@@ -5,10 +5,10 @@ module.exports = function (app) {
     }
 
     this.save_name = function(name, connection, callback) {
-
+        console.log(name['usuario_name'] );
         const query = {
-            text: 'INSERT INTO users(name) VALUES($1)',
-            values: name,
+            text: 'INSERT INTO usuario (usuario_name)VALUES($1)',
+            values: [name['usuario_name']],
         }
 
         // callback
@@ -19,6 +19,10 @@ module.exports = function (app) {
                 console.log(res.rows[0])
             }
         })
+
+
+
+      
 
     }
 
