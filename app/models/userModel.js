@@ -9,21 +9,18 @@ module.exports = function (app) {
         const query = {
             text: 'INSERT INTO usuario (usuario_name)VALUES($1)',
             values: [name['usuario_name']],
-        }
+        };
 
         // callback
         connection.query(query, (err, res) => {
             if (err) {
                 console.log(err.stack)
-            } else {
-                console.log(res.rows[0])
             }
-        })
+        });
+    }
 
-
-
-      
-
+    this.get_file = function(connection, callback){
+        connection.query('SELECT * FROM arquivo', callback);
     }
 
     return this;

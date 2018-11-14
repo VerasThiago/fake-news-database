@@ -52,5 +52,4 @@ INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, 
 INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
     VALUES(3, 7);
 -- arquivo
-INSERT INTO arquivo (arquivo_content, fake_news_id, extensao_id)
-    VALUES(bytea('modelo-relacional.jpg'), 7, 1);
+INSERT INTO arquivo (extensao_id, fake_news_id,arquivo_content )VALUES(1,7,lo_import('C:\Users\tvmma\Desktop\eu.png'))
