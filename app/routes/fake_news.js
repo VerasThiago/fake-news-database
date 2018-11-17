@@ -1,6 +1,6 @@
 module.exports = function(app){
 
-	app.get('/fake-news-list', function(req,res){
+	app.get('/fakenews/list', function(req,res){
 
 		// get connection with db
 		var connection = app.config.dbConnection();
@@ -13,28 +13,27 @@ module.exports = function(app){
 		
 
 		// erase all files before upload all
-		fileModel.erase_file(path, function(err, result){
-			if(!err)
-				throw err;
-		});
+		fileModel.erase_file(path);
 
-		// get all files from db
+		// get some data from db
 		fileModel.get_all_files(connection, function (err,result) {
 
-			fileModel.upload_all_files(connection, __dirname + '/../../public/uploads/', result);
+			// donwload all files from db
+			if(!err){
+				fileModel.download_all_files(connection, __dirname + '/../../public/uploads/', result);
+			}
 
 			// render files list page with json from db
 			res.render("fake_news/fake_news_list", {x:result})
 		});
 	});
 
-	app.get('/fake-news-insert', function(req,res){
-
+	app.get('/fakenews/insert', function(req,res){
 		// render insert new fake-news page
-		res.render('fake_news/fake_news_insert', {err:""})
+		res.render('fake_news/fake_news_insert')
 	});
 
-	app.post('/upload', function(req,res){
+	app.post('/fakenews/upload/file', function(req,res){
 		// get file from form
 		var file = req.files.upfile;
 
@@ -51,35 +50,50 @@ module.exports = function(app){
 		// connections with db
 		var connection = app.config.dbConnection();
 
-		// just to debug
-		var alert = ['','Nem tentou com BD'];
+		// save pc then db
+		fileModel.save_file(file, path, connection, function(err, result){
 
-		// save file on pc
-		fileModel.save_file_pc(file, path, function(err, result){
+			// debug
+			console.log(err ? err:"Arquivo saved!");
 
-			// alert message based on save pc error
-			alert[0] = err ? err:" Deu bom com o upload no PC";
-
-			// if got error so return that error
-			if(err){
-				// render upload page
-				res.render('fake_news/fake_news_insert', {err:alert} );
-			}
-
-			// else try to save on db
-			else{
-
-				// file function to save on db
-				fileModel.save_file_db(path, file, alert, connection, function(err, result){
-
-					// alert message based on save db error
-					alert[1] = err ? err:" Deu bom com o upload no DB";
-
-					// render upload page
-					res.render('fake_news/fake_news_insert', {err:alert} );
-
-				});
-			}
+			// get back to the insert view
+			res.redirect('/fakenews/insert');
 		});
+	});
+
+	app.post('/fakenews/edit/file', function(req, res){
+
+		// file functions
+		var fileModel = app.app.models.fileModel;
+
+		// get file from form
+		var file = req.files.upfile;
+
+		// file path
+		var path =  __dirname + '/../../public/uploads/'
+
+		// connections with db
+		var connection = app.config.dbConnection();
+
+		// data from form
+		var data = req.body;
+
+		if(data['delete'] == ''){
+			fileModel.delete_file(connection, parseInt(data['arquivo_id']), () => res.redirect('/fakenews/list'));
+		}
+		else{
+
+			// if have file, upload to pc to later upload on db
+			if(file){
+				file.mv(path + file.name, (err, res) => err ? file.name = null:console.log("File saved on PC!")); 
+			}
+
+			// reorganize data to array of name, id and filename;
+			var data = [data['arquivo_name'] == '' ?null:data['arquivo_name'], null, file ? path + file.name:null,  parseInt(data['arquivo_id'])];
+
+			// update file
+			fileModel.update_file(connection, data, () => res.redirect('/fakenews/list'));
+		}
+
 	});
 }

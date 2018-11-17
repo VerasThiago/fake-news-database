@@ -1,25 +1,22 @@
 module.exports = function(app){
 
-	app.get('/user-insert', function(req, res){
+	app.get('/user/insert', function(req, res){
 		res.render("user/user_insert", {err:""});
 	});
 
-	app.get('/users-list', function(req, res){
+	app.get('/user/list', function(req, res){
 		// get connection with db
 		var connection = app.config.dbConnection();
 
 		// user functions
 		var userModel = app.app.models.userModel;
 
-		// execute get_all data function to get users from db
-		userModel.get_all(connection, function (err,result) {
+		// execute get_all data function to get users from db and then render page with result
+		userModel.get_all(connection, (req,result) =>	res.render("user/user_list", {x:result}));
 
-			// render index page with json from db
-			res.render("user/users_list", {x:result});
-		});
 	});
 
-	app.post('/save', function (req,res) {
+	app.post('/user/upload/user', function (req,res) {
 
 		// get data from form
 		var data = req.body;
@@ -31,9 +28,7 @@ module.exports = function(app){
 		var userModel = app.app.models.userModel;
 
 		// execute save_name function to insert int db
-		userModel.save_name(data, connection, function(err, result) {
-			res.render("user/user_insert", {err : err ? err:"User saved!"});
-		});
+		userModel.save_name(data, connection, () =>	res.redirect("/user/insert"));
 
 	});
 };

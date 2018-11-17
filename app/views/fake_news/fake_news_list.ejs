@@ -1,24 +1,96 @@
 <html>
+	<head>
+		<script type="text/javascript">
+			<!--
+			    function toggle_visibility(id) {
+			       var e = document.getElementById(id);
+			       	if(e.style.display == 'block')
+			        	e.style.display = 'none';
+			       	else
+			        	e.style.display = 'block';
+
+			    }
+			//-->
+		</script>
+		<style type="text/css">
+			.popStyle{
+				top: 0; left: 0; position: fixed; width: 100%; height: 120%;
+				background-color: rgba(0,0,0,0.7); display: none;"
+			}
+			.popupBoxWrapper{
+				width: 550px; margin: 50px auto; text-align: left;
+			}
+			.popupBoxContent{
+				background-color: #FFF; padding: 15px;
+			}
+		</style>
+	</head>
 	<body>
 
 		<h1>ALL FILES</h1>
 		<%for(var i = 0; i < x.rows.length; i++){%>
 			<tr>
+				<!-- Display all data-->
 				<td>Código : <%= x.rows[i].arquivo_id %></td><br>
 				<td>Name : <%= x.rows[i].arquivo_name %></td><br>
 				<td>Extensão  : <%= x.rows[i].extensao_name %></td><br>
 				<td>Fake_news_id  : <%= x.rows[i].fake_news_id %></td><br>
+				
+				<!-- Check if extension is audio and display audio tag -->
 				<%if(x.rows[i].extensao_name == 'audio/mpeg'){%>
 					 <audio src="/uploads/<%= x.rows[i].arquivo_name %>" controls>
 					 	<p>Seu navegador não suporta o elemento audio </p>
 					 </audio>
+
+				<!-- Check if extension is video and display video tag -->
 				<%} else if (x.rows[i].extensao_name == 'video/mp4'){%>
 					<video width="320" height="240" controls>
 					  <source src="/uploads/<%= x.rows[i].arquivo_name %>" type="video/mp4">
 					</video>
+
+				<!-- Only possibility is image, so display image tag -->
 				<%} else{%>
 					<img src="/uploads/<%= x.rows[i].arquivo_name %>" height="100" width="150">
 				<% } %>
+
+				<!-- Update buttom-->
+				<div id="update_fake_news_<%= x.rows[i].arquivo_id %>" class = "popStyle">
+					<div class="popupBoxWrapper">
+						<div class="popupBoxContent">
+						
+							<!-- Update form-->
+							<form class="fileupload" action="edit/file" method="post" enctype="multipart/form-data">
+								<h1>Update here (leave it blank if have some data that you don't want to update)</h1>
+
+								<!-- invisble input with file id -->
+								<input type="text" name="arquivo_id" value = "<%= x.rows[i].arquivo_id %>" style = "display:none;" >
+
+								<!-- name input to write file name -->
+								<h3> Name  (with same extenstion): </h3><input type="text" name="arquivo_name" placeholder="<%= x.rows[i].arquivo_name %>"><br>
+
+								<!-- fake news id input to write fake news id -->
+								<h3> Fake news id : </h3><input type="text" name="fake_news_id" placeholder="<%= x.rows[i].fake_news_id %>"><br>
+								
+								<!-- file input to upload file -->
+								<h3> File : </h3><input type="file" name="upfile" value="" placeholder=""><br><br>
+
+								<h3> Delete : </h3><input type="checkbox" name="delete" value="" placeholder=""><br><br>
+
+								<!-- submit button  -->
+								<input type="submit"/>
+							</form>
+
+								
+							<!-- Exit button -->
+							<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= x.rows[i].arquivo_id %>');">Exit</a></p>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Update button -->
+				<div id="wrapper">
+					<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= x.rows[i].arquivo_id %>');">Edit</a></p>
+				</div>
 				<br>
 				<br>
 			</tr>
