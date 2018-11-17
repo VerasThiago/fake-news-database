@@ -67,8 +67,9 @@ CREATE TABLE fake_news_usuario
 -- tabela dos arquivos das fake news
 CREATE TABLE arquivo
     (
-        arquivo_id PRIMARY KEY SERIAL,
-        arquivo_content BYTEA NOT NULL,
+        arquivo_id SERIAL PRIMARY KEY,
+        arquivo_name VARCHAR(50),
+        arquivo_content OID NOT NULL,
         fake_news_id INTEGER REFERENCES fake_news(fake_news_id),
         extensao_id INTEGER REFERENCES extensao(extensao_id)
     );

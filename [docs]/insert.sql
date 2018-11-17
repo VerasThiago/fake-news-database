@@ -52,4 +52,28 @@ INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, 
 INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
     VALUES(3, 7);
 -- arquivo
-INSERT INTO arquivo (extensao_id, fake_news_id,arquivo_content )VALUES(1,7,lo_import('C:\Users\tvmma\Desktop\eu.png'))
+INSERT INTO arquivo (extensao_id,arquivo_name,fake_news_id,arquivo_content )VALUES(1,7,lo_import('C:\Users\tvmma\Desktop\eu.png'))
+-- procedure
+$$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION get_extension_id(name VARCHAR(50))
+RETURNS INT AS $$
+DECLARE
+    extension_id INT;                                    
+BEGIN
+    SELECT extensao.extensao_id INTO extension_id  FROM extensao  WHERE extensao.extensao_name = name;  
+    RETURN extension_id;                                                         
+END;
+$$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION insert_file_db(extensao_id INT, arquivo_name VARCHAR(50), fake_news_id INT, arquivo_path TEXT)
+RETURNS void AS $$
+BEGIN
+    if(extensao_id IS NULL)then
+        RAISE EXCEPTION 'Invalid extension type';
+    else
+        if(fake_news_id IS NULL)then
+            RAISE EXCEPTION 'Invalid fake_news_id type';
+        else
+            INSERT INTO arquivo(extensao_id, arquivo_name, fake_news_id,arquivo_content ) VALUES(extensao_id, arquivo_name, fake_news_id, lo_import(arquivo_path));
+        end if;
+    end if;
+END;

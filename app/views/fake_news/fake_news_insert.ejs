@@ -2,8 +2,10 @@
 	<body>
 		<form class="fileupload" action="upload" method="post" enctype="multipart/form-data">
 		  <h1>Upload File Here</h1>
-	      <h1><%=err%></h1>
+	      <h1><%=err[0]%></h1>
+	      <h1><%=err[1]%></h1>
 		  <input type="file" name="upfile" value="">
 		  <input type="submit" />
 		</form>
+		<h1><a href="fake-news-list">Files List</a></h1>
 </html>

@@ -1,0 +1,13 @@
+<html>
+	<body>
+		<h1>Lista de Usuários</h1><br>
+		<%for(var i = 0; i < x.rows.length; i++){%>
+			<tr>
+				<td>Código : <%= x.rows[i].usuario_id %></td><br>
+				<td>Nome  : <%= x.rows[i].usuario_name %></td><br>
+				<br>
+				<br>
+			</tr>
+		<%}%>
+	</body>
+</html>

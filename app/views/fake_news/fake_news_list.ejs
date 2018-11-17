@@ -1,0 +1,26 @@
+<html>
+	<body>
+
+		<h1>ALL FILES</h1>
+		<%for(var i = 0; i < x.rows.length; i++){%>
+			<tr>
+				<td>Código : <%= x.rows[i].arquivo_id %></td><br>
+				<td>Name : <%= x.rows[i].arquivo_name %></td><br>
+				<td>Extensão  : <%= x.rows[i].extensao_name %></td><br>
+				<td>Fake_news_id  : <%= x.rows[i].fake_news_id %></td><br>
+				<%if(x.rows[i].extensao_name == 'audio/mpeg'){%>
+					 <audio src="/uploads/<%= x.rows[i].arquivo_name %>" controls>
+					 	<p>Seu navegador não suporta o elemento audio </p>
+					 </audio>
+				<%} else if (x.rows[i].extensao_name == 'video/mp4'){%>
+					<video width="320" height="240" controls>
+					  <source src="/uploads/<%= x.rows[i].arquivo_name %>" type="video/mp4">
+					</video>
+				<%} else{%>
+					<img src="/uploads/<%= x.rows[i].arquivo_name %>" height="100" width="150">
+				<% } %>
+				<br>
+				<br>
+			</tr>
+		<%}%>
+</html>
