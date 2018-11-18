@@ -120,7 +120,17 @@ INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, 
            'blah', FALSE, 9, 1, 1);
 -- fake news usuario
 INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
-    VALUES(3, 7);
+    VALUES(1, 1);
+INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
+    VALUES(2, 2);
+INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
+    VALUES(3, 3);
+INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
+    VALUES(4, 4);
+INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
+    VALUES(5, 5);
+INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
+    VALUES(6, 6);
 -- arquivo
 INSERT INTO arquivo (extensao_id,arquivo_name,fake_news_id,arquivo_content )VALUES(1,7,lo_import('C:\Users\tvmma\Desktop\eu.png'))
 -- procedure
