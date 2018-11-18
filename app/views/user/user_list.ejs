@@ -1,10 +1,71 @@
 <html>
+	<head>
+		<script type="text/javascript">
+			<!--
+			    function toggle_visibility(id) {
+			       var e = document.getElementById(id);
+			       	if(e.style.display == 'block')
+			        	e.style.display = 'none';
+			       	else
+			        	e.style.display = 'block';
+
+			    }
+			//-->
+		</script>
+		<style type="text/css">
+			.popStyle{
+				top: 0; left: 0; position: fixed; width: 100%; height: 120%;
+				background-color: rgba(0,0,0,0.7); display: none;"
+			}
+			.popupBoxWrapper{
+				width: 550px; margin: 50px auto; text-align: left;
+			}
+			.popupBoxContent{
+				background-color: #FFF; padding: 15px;
+			}
+		</style>
+	</head>
 	<body>
 		<h1>Lista de Usuários</h1><br>
 		<%for(var i = 0; i < x.rows.length; i++){%>
 			<tr>
 				<td>Código : <%= x.rows[i].usuario_id %></td><br>
 				<td>Nome  : <%= x.rows[i].usuario_name %></td><br>
+				
+				<!-- Update buttom-->
+				<div id="update_fake_news_<%= x.rows[i].usuario_id %>" class = "popStyle">
+					<div class="popupBoxWrapper">
+						<div class="popupBoxContent">
+						
+							<!-- Update form-->
+							<form class="fileupload" action="edit/user" method="post" enctype="multipart/form-data">
+								<h1>Update here</h1>
+
+								<!-- invisble input with file id -->
+								<input type="text" name="usuario_id" value = "<%= x.rows[i].usuario_id %>" style = "display:none;" >
+
+								<!-- name input to write file name -->
+								<h3> Name : </h3><input type="text" name="usuario_name" placeholder="<%= x.rows[i].usuario_name %>"><br>
+								
+								<!-- Delete button -->
+								<h3> Delete : </h3><input type="checkbox" name="delete" value="" placeholder=""><br><br>
+
+								<!-- submit button  -->
+								<input type="submit"/>
+							</form>
+
+								
+							<!-- Exit button -->
+							<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= x.rows[i].usuario_id %>');">Exit</a></p>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Update button -->
+				<div id="wrapper">
+					<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= x.rows[i].usuario_id %>');">Edit</a></p>
+				</div>
+
 				<br>
 				<br>
 			</tr>

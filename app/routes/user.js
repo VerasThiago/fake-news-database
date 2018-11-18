@@ -28,7 +28,33 @@ module.exports = function(app){
 		var userModel = app.app.models.userModel;
 
 		// execute save_name function to insert int db
-		userModel.save_name(data, connection, () =>	res.redirect("/user/insert"));
+		userModel.save_user(data, connection, () =>	res.redirect("/user/insert"));
+
+	});
+
+	app.post('/user/edit/user', function (req,res) {
+
+		// get data from form
+		var data = req.body;
+
+		// get connection with db
+		var connection = app.config.dbConnection();
+
+		// user functions
+		var userModel = app.app.models.userModel;
+
+		if(data['delete'] == ''){
+
+			// deleting user
+			userModel.delete_user(parseInt(data['usuario_id']), connection, () => res.redirect('/user/list'));
+		}
+		else{
+			// reorganizing data
+			data = [data['usuario_name'], parseInt(data['usuario_id'])];
+
+			// execute save_name function to insert int db
+			userModel.update_user(data, connection, () =>	res.redirect("/user/list"));
+		}
 
 	});
 };
