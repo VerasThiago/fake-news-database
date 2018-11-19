@@ -1,6 +1,6 @@
 var app = require("./config/server");
 
-app.listen(3000, function(req, res){
+app.listen(3000, (req, res) =>{
 
 	// get file functions
 	var fileModel = app.app.models.fileModel;
@@ -13,3 +13,7 @@ app.listen(3000, function(req, res){
 
 	console.log("Server ON");
 });
+
+
+
+

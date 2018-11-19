@@ -1,10 +1,10 @@
-module.exports = function(app){
+module.exports = (app) => {
 
-	app.get('/user/insert', function(req, res){
+	app.get('/user/insert', (req, res) => {
 		res.render("user/user_insert", {err:""});
 	});
 
-	app.get('/user/list', function(req, res){
+	app.get('/user/list', (req, res) => {
 		// get connection with db
 		var connection = app.config.dbConnection();
 
@@ -16,7 +16,7 @@ module.exports = function(app){
 
 	});
 
-	app.post('/user/upload/user', function (req,res) {
+	app.post('/user/upload/user', (req,res)  => {
 
 		// get data from form
 		var data = req.body;
@@ -32,7 +32,7 @@ module.exports = function(app){
 
 	});
 
-	app.post('/user/edit/user', function (req,res) {
+	app.post('/user/edit/user', (req,res)  => {
 
 		// get data from form
 		var data = req.body;

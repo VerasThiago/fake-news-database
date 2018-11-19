@@ -1,8 +1,8 @@
 var rimraf = require('rimraf');
 
-module.exports = function (app) {
+module.exports = (app)  => {
 
-	this.save_file_db = function(file, path, connection, callback){
+	this.save_file_db = (file, path, connection, callback) => {
 
 		// SQL query
         const query = {
@@ -14,17 +14,16 @@ module.exports = function (app) {
         connection.query(query, callback);
 	}
 
-	this.save_file = function(file, path, connection, callback){
+	this.save_file = (file, path, connection, callback) =>{
 
-		// get file name
-		name = file.name,
-
+        // get file name
+        name = file.name;
+            
 		// move to a folder in server
 		file.mv(path + name, () => this.save_file_db(file, path, connection, callback));
-		
 	}
 
-	this.get_all_files = function(connection, callback){
+	this.get_all_files = (connection, callback) => {
 
 		// SQL query
         const query = {
@@ -35,7 +34,7 @@ module.exports = function (app) {
         connection.query(query, callback);
     }
 
-    this.download_all_files = function(connection, path, files){
+    this.download_all_files = (connection, path, files) => {
 
     	
     	for(var i = 0; i < files.rows.length; i++){
@@ -49,7 +48,7 @@ module.exports = function (app) {
 
     }
 
-    this.update_file = function(connection, data, callback){
+    this.update_file = (connection, data, callback) => {
     	//SQL query
     	const query = {
 			text:	'SELECT update_file($1, $2, $3, $4)',
@@ -60,13 +59,13 @@ module.exports = function (app) {
 	    connection.query(query, callback);
     }
 
-    this.erase_file = function(path){
+    this.erase_file = (path) => {
 
     	// erase all files inside this folder
-    	rimraf(path, function () {	 });
+    	rimraf(path,() => {});
     }
 
-    this.delete_file = function(connection, id, callback){
+    this.delete_file = (connection, id, callback) => {
     	//SQL query
     	const query = {
 			text: 'DELETE FROM arquivo WHERE arquivo.arquivo_id = $1',

@@ -1,6 +1,6 @@
-module.exports = function(app){
+module.exports = (app) => {
 
-	app.get('/fakenews/list', function(req,res){
+	app.get('/fakenews/list', (req,res) => {
 
 		// get connection with db
 		var connection = app.config.dbConnection();
@@ -13,10 +13,10 @@ module.exports = function(app){
 		
 
 		// erase all files before upload all
-		fileModel.erase_file(path);
+		//fileModel.erase_file(path);
 
 		// get some data from db
-		fileModel.get_all_files(connection, function (err,result) {
+		fileModel.get_all_files(connection, (err,result) => {
 
 			// donwload all files from db
 			if(!err){
@@ -28,14 +28,15 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/fakenews/insert', function(req,res){
+	app.get('/fakenews/insert', (req,res) => {
 		// render insert new fake-news page
 		res.render('fake_news/fake_news_insert')
 	});
 
-	app.post('/fakenews/upload/file', function(req,res){
+	app.post('/fakenews/upload/file', (req,res) => {
 		// get file from form
 		var file = req.files.upfile;
+
 
 		// if file exist
 		if(!file)
@@ -51,7 +52,7 @@ module.exports = function(app){
 		var connection = app.config.dbConnection();
 
 		// save pc then db
-		fileModel.save_file(file, path, connection, function(err, result){
+		fileModel.save_file(file, path, connection, (err, result) => {
 
 			// debug
 			console.log(err ? err:"Arquivo saved!");
@@ -61,7 +62,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/fakenews/edit/file', function(req, res){
+	app.post('/fakenews/edit/file', (req, res) => {
 
 		// file functions
 		var fileModel = app.app.models.fileModel;
