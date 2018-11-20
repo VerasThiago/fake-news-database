@@ -79,6 +79,12 @@ INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
     VALUES(3,5);
 INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
     VALUES(1,6);
+INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
+    VALUES(1,7);
+INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
+    VALUES(2,8);
+INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
+    VALUES(3,9);
 -- fake news type
 INSERT INTO fake_news_type (fake_news_type_name)
     VALUES ('Conteudo_enganoso');
@@ -118,6 +124,19 @@ INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, 
                         government_power_id, fake_news_type_id)
     VALUES('O Candidato Cabo Daciolo foi visto beijando Ciro Gomes',
            'blah', FALSE, 9, 1, 1);
+INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id,
+                      government_power_id, fake_news_type_id)
+    VALUES('Haddad pede doações pós eleições','blah', FALSE, 1, 1, 2);
+INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id,
+                      government_power_id, fake_news_type_id)
+    VALUES('Haddad faz 200 mil escolas em um dia',
+          'blah', TRUE, 10, 1, 4);
+INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id,
+                      government_power_id, fake_news_type_id)
+    VALUES('Estudos apontam bolsonaro ganhou uma guerra civil sozinho',
+          'blah', TRUE, 7, 1, 6);
+
+
 -- fake news usuario
 INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
     VALUES(1, 1);
@@ -131,6 +150,12 @@ INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
     VALUES(5, 5);
 INSERT INTO fake_news_usuario (usuario_id, fake_news_id)
     VALUES(6, 6);
+INSERT INTO fake_news_usuario(usuario_id, fake_news_id)
+    VALUES(7, 7);
+INSERT INTO fake_news_usuario(usuario_id, fake_news_id)
+    VALUES(8, 8);
+INSERT INTO fake_news_usuario(usuario_id, fake_news_id)
+    VALUES(9, 9);    
 -- arquivo
 INSERT INTO arquivo (extensao_id,arquivo_name,fake_news_id,arquivo_content )VALUES(1,7,lo_import('C:\Users\tvmma\Desktop\eu.png'))
 -- procedure
@@ -186,5 +211,3 @@ BEGIN
     end if;
 END;
 $$ LANGUAGE plpgsql;
-
-
