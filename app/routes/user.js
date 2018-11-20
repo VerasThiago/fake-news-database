@@ -8,11 +8,13 @@ module.exports = (app) => {
 		// get connection with db
 		var connection = app.config.dbConnection();
 
+		console.log('teste de connection = '+ connection);
+
 		// user functions
-		var userModel = app.app.models.userModel;
+		var UserDAO = new app.app.models.UserDAO(connection);
 
 		// execute get_all data function to get users from db and then render page with result
-		userModel.get_all(connection, (req,result) =>	res.render("user/user_list", {x:result}));
+		UserDAO.get_all((req,result) =>	res.render("user/user_list", {x:result}));
 
 	});
 
@@ -25,10 +27,10 @@ module.exports = (app) => {
 		var connection = app.config.dbConnection();
 
 		// user functions
-		var userModel = app.app.models.userModel;
+		var UserDAO = new app.app.models.UserDAO(connection);
 
 		// execute save_name function to insert int db
-		userModel.save_user(data, connection, () =>	res.redirect("/user/insert"));
+		UserDAO.save_user(data, () =>	res.redirect("/user/insert"));
 
 	});
 
@@ -41,19 +43,19 @@ module.exports = (app) => {
 		var connection = app.config.dbConnection();
 
 		// user functions
-		var userModel = app.app.models.userModel;
+		var UserDAO = new app.app.models.UserDAO(connection);
 
 		if(data['delete'] == ''){
 
 			// deleting user
-			userModel.delete_user(parseInt(data['usuario_id']), connection, () => res.redirect('/user/list'));
+			UserDAO.delete_user(parseInt(data['usuario_id']), () => res.redirect('/user/list'));
 		}
 		else{
 			// reorganizing data
 			data = [data['usuario_name'], parseInt(data['usuario_id'])];
 
 			// execute save_name function to insert int db
-			userModel.update_user(data, connection, () =>	res.redirect("/user/list"));
+			UserDAO.update_user(data, () =>	res.redirect("/user/list"));
 		}
 
 	});

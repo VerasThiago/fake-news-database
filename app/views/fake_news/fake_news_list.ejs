@@ -31,30 +31,30 @@
 		<%for(var i = 0; i < x.rows.length; i++){%>
 			<tr>
 				<!-- Display all data-->
-				<td>Código : <%= x.rows[i].arquivo_id %></td><br>
-				<td>Name : <%= x.rows[i].arquivo_name %></td><br>
-				<td>Extensão  : <%= x.rows[i].extensao_name %></td><br>
+				<td>Código : <%= x.rows[i].id %></td><br>
+				<td>Name : <%= x.rows[i].name %></td><br>
+				<td>Extensão  : <%= x.rows[i].extension %></td><br>
 				<td>Fake_news_id  : <%= x.rows[i].fake_news_id %></td><br>
 				
 				<!-- Check if extension is audio and display audio tag -->
-				<%if(x.rows[i].extensao_name == 'audio/mpeg'){%>
-					 <audio src="/uploads/<%= x.rows[i].arquivo_name %>" controls>
+				<%if(x.rows[i].extension == 'audio/mpeg'){%>
+					 <audio src="/uploads/<%= x.rows[i].name %>" controls>
 					 	<p>Seu navegador não suporta o elemento audio </p>
 					 </audio>
 
 				<!-- Check if extension is video and display video tag -->
-				<%} else if (x.rows[i].extensao_name == 'video/mp4'){%>
+				<%} else if (x.rows[i].extension == 'video/mp4'){%>
 					<video width="320" height="240" controls>
-					  <source src="/uploads/<%= x.rows[i].arquivo_name %>" type="video/mp4">
+					  <source src="/uploads/<%= x.rows[i].name %>" type="video/mp4">
 					</video>
 
 				<!-- Only possibility is image, so display image tag -->
 				<%} else{%>
-					<img src="/uploads/<%= x.rows[i].arquivo_name %>" height="100" width="150" alt = "/uploads/<%= x.rows[i].arquivo_name %>">
+					<img src="/uploads/<%= x.rows[i].name %>" height="100" width="150" alt = "/uploads/<%= x.rows[i].name %>">
 				<% } %>
 
 				<!-- Update buttom-->
-				<div id="update_fake_news_<%= x.rows[i].arquivo_id %>" class = "popStyle">
+				<div id="update_fake_news_<%= x.rows[i].id %>" class = "popStyle">
 					<div class="popupBoxWrapper">
 						<div class="popupBoxContent">
 						
@@ -63,10 +63,10 @@
 								<h1>Update here (leave it blank if have some data that you don't want to update)</h1>
 
 								<!-- invisble input with file id -->
-								<input type="text" name="arquivo_id" value = "<%= x.rows[i].arquivo_id %>" style = "display:none;" >
+								<input type="text" name="id" value = "<%= x.rows[i].id %>" style = "display:none;" >
 
 								<!-- name input to write file name -->
-								<h3> Name : </h3><input type="text" name="arquivo_name" placeholder="<%= x.rows[i].arquivo_name %>"><br>
+								<h3> Name : </h3><input type="text" name="name" placeholder="<%= x.rows[i].name %>"><br>
 
 								<!-- fake news id input to write fake news id -->
 								<h3> Fake news id : </h3><input type="text" name="fake_news_id" placeholder="<%= x.rows[i].fake_news_id %>"><br>
@@ -82,14 +82,14 @@
 
 								
 							<!-- Exit button -->
-							<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= x.rows[i].arquivo_id %>');">Exit</a></p>
+							<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= x.rows[i].id %>');">Exit</a></p>
 						</div>
 					</div>
 				</div>
 				
 				<!-- Update button -->
 				<div id="wrapper">
-					<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= x.rows[i].arquivo_id %>');">Edit</a></p>
+					<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= x.rows[i].id %>');">Edit</a></p>
 				</div>
 
 				<br>

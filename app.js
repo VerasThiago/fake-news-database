@@ -2,14 +2,14 @@ var app = require("./config/server");
 
 app.listen(3000, (req, res) =>{
 
-	// get file functions
-	var fileModel = app.app.models.fileModel;
-
 	// file path
-	var path = 'public/uploads/*'
-	
+	var path = __dirname + '/public/uploads/';
+
 	// erase all files before start
-	fileModel.erase_file(path);
+	var file_functions = require('./app/models/file_functions');
+
+	// erase all files before start
+	file_functions.erase_files(path);
 
 	console.log("Server ON");
 });

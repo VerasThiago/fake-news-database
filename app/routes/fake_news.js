@@ -2,26 +2,37 @@ module.exports = (app) => {
 
 	app.get('/fakenews/list', (req,res) => {
 
+		//var file = require('./app/models/fileDAO');
+		var file_functions = require('./../models/file_functions');
+		
+		// file path
+		var path =  __dirname + '/../../public/uploads/'
+
 		// get connection with db
 		var connection = app.config.dbConnection();
 
-		// get file functions
-		var fileModel = app.app.models.fileModel;
-
-		// file path
-		var path =  __dirname + '/../../public/uploads/*'
-		
-
 		// erase all files before upload all
-		//fileModel.erase_file(path);
+		file_functions.erase_files(path);
 
 		// get some data from db
-		fileModel.get_all_files(connection, (err,result) => {
+		file_functions.get_all_files( connection, (err,result) => {
 
-			// donwload all files from db
 			if(!err){
-				fileModel.download_all_files(connection, __dirname + '/../../public/uploads/', result);
+
 			}
+
+			var files = new Array();
+			
+			result.rows.forEach(function(file, chave){
+
+				var file = new app.app.models.FileDAO(connection, file, path);
+
+				file.download_file();
+
+				files.push(files);
+
+			});
+		
 
 			// render files list page with json from db
 			res.render("fake_news/fake_news_list", {x:result})
@@ -42,17 +53,19 @@ module.exports = (app) => {
 		if(!file)
 			res.render('fake_news/fake_news_insert', {err:"Choose your file please!"});
 
-		// file functions
-		var fileModel = app.app.models.fileModel;
+		// connections with db
+		var connection = app.config.dbConnection();
 
 		// file path
 		var path =  __dirname + '/../../public/uploads/'
 
-		// connections with db
-		var connection = app.config.dbConnection();
+		console.log(file);
+
+		// file functions
+		var FileDAO = new app.app.models.FileDAO(connection, file, path);
 
 		// save pc then db
-		fileModel.save_file(file, path, connection, (err, result) => {
+		FileDAO.save_file((err, result) => {
 
 			// debug
 			console.log(err ? err:"Arquivo saved!");
@@ -64,9 +77,6 @@ module.exports = (app) => {
 
 	app.post('/fakenews/edit/file', (req, res) => {
 
-		// file functions
-		var fileModel = app.app.models.fileModel;
-
 		// get file from form
 		var file = req.files.upfile;
 
@@ -76,24 +86,32 @@ module.exports = (app) => {
 		// connections with db
 		var connection = app.config.dbConnection();
 
+
 		// data from form
 		var data = req.body;
 
+
+		// file functions
+		
 		if(data['delete'] == ''){
-			fileModel.delete_file(connection, parseInt(data['arquivo_id']), () => res.redirect('/fakenews/list'));
+			FileDAO.delete_file(() => res.redirect('/fakenews/list'));
 		}
 		else{
+
+
+
 
 			// if have file, upload to pc to later upload on db
 			if(file){
 				file.mv(path + file.name, (err, res) => err ? file.name = null:console.log("File saved on PC!")); 
+				file['id'] =  parseInt(data['id']);
 			}
 
-			// reorganize data to array of name, id and filename;
-			var data = [data['arquivo_name'] == '' ?null:data['arquivo_name'], null, file ? path + file.name:null,  parseInt(data['arquivo_id'])];
+			var FileDAO = new app.app.models.FileDAO(connection, file, path);
 
+			
 			// update file
-			fileModel.update_file(connection, data, () => res.redirect('/fakenews/list'));
+			FileDAO.update_file(() => res.redirect('/fakenews/list'));
 		}
 
 	});
