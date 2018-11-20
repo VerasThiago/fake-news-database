@@ -34,18 +34,20 @@ FileDAO.prototype.download_file = function()  {
     
 }
 
-FileDAO.prototype.update_file = function(data, callback)  {
+FileDAO.prototype.update_file = function(callback)  {
+
         //SQL query
         const query = {
             text:   'SELECT update_file($1, $2, $3, $4)',
-            values: data                                                                         
+            values: [this._file.name, this._fake_news_id, this._path, this._file.id]
+
         };
 
         // callback
         this._connection.query(query, callback);
 }
 
-FileDAO.prototype.delete_file = function(id, callback)  {
+FileDAO.prototype.delete_file = function(callback)  {
     //SQL query
     const query = {
         text: 'DELETE FROM arquivo WHERE arquivo.arquivo_id = $1',

@@ -1,12 +1,12 @@
+// some file functions 
+const  file_functions = require('./../models/file_functions');
+
+// file path
+const path =  __dirname + '/../../public/uploads/'
+
 module.exports = (app) => {
 
 	app.get('/fakenews/list', (req,res) => {
-
-		//var file = require('./app/models/fileDAO');
-		var file_functions = require('./../models/file_functions');
-		
-		// file path
-		var path =  __dirname + '/../../public/uploads/'
 
 		// get connection with db
 		var connection = app.config.dbConnection();
@@ -19,23 +19,20 @@ module.exports = (app) => {
 
 			if(!err){
 
+				// walking through all files
+				result.rows.forEach(function(file, chave){
+
+					// instantiating new file
+					var fileDAO = new app.app.models.FileDAO(connection, file, path);
+
+					// donwload file to server
+					fileDAO.download_file();
+
+				});
 			}
-
-			var files = new Array();
 			
-			result.rows.forEach(function(file, chave){
-
-				var file = new app.app.models.FileDAO(connection, file, path);
-
-				file.download_file();
-
-				files.push(files);
-
-			});
-		
-
 			// render files list page with json from db
-			res.render("fake_news/fake_news_list", {x:result})
+			res.render("fake_news/fake_news_list", {files:result})
 		});
 	});
 
@@ -48,7 +45,6 @@ module.exports = (app) => {
 		// get file from form
 		var file = req.files.upfile;
 
-
 		// if file exist
 		if(!file)
 			res.render('fake_news/fake_news_insert', {err:"Choose your file please!"});
@@ -56,12 +52,9 @@ module.exports = (app) => {
 		// connections with db
 		var connection = app.config.dbConnection();
 
-		// file path
-		var path =  __dirname + '/../../public/uploads/'
-
 		console.log(file);
 
-		// file functions
+		// instantiating new file
 		var FileDAO = new app.app.models.FileDAO(connection, file, path);
 
 		// save pc then db
@@ -79,39 +72,36 @@ module.exports = (app) => {
 
 		// get file from form
 		var file = req.files.upfile;
+		
+		// data from form
+		var data = req.body;
 
-		// file path
-		var path =  __dirname + '/../../public/uploads/'
+		// file object
+		file_aux = {
+			'name':         data['name'] ? data['name']:null,
+			'fake_news_id': data['fake_news_id'] ? data['fake_news_id']:null,
+			'id':           parseInt(data['id'])
+		};
 
 		// connections with db
 		var connection = app.config.dbConnection();
 
+		// instantiating new file
+		var FileDAO = new app.app.models.FileDAO(connection, file_aux, file ? (path + file.name):null);
 
-		// data from form
-		var data = req.body;
-
-
-		// file functions
-		
 		if(data['delete'] == ''){
+
+			// deletes file
 			FileDAO.delete_file(() => res.redirect('/fakenews/list'));
 		}
 		else{
 
-
-
-
 			// if have file, upload to pc to later upload on db
-			if(file){
-				file.mv(path + file.name, (err, res) => err ? file.name = null:console.log("File saved on PC!")); 
-				file['id'] =  parseInt(data['id']);
-			}
-
-			var FileDAO = new app.app.models.FileDAO(connection, file, path);
-
+			if(file)
+				file.mv(path + file.name);
 			
 			// update file
-			FileDAO.update_file(() => res.redirect('/fakenews/list'));
+			FileDAO.update_file((err,resp) => res.redirect('/fakenews/list'));
 		}
 
 	});
