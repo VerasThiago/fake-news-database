@@ -66,6 +66,13 @@ INSERT INTO extensao (extensao_name)
     VALUES ('jpg');
 INSERT INTO extensao (extensao_name)
     VALUES ('mp4');
+-- parties
+INSERT INTO parties(parties_name) VALUES('PSDB');
+INSERT INTO parties(parties_name) VALUES('PTD');
+INSERT INTO parties(parties_name) VALUES('PSOL');
+INSERT INTO parties(parties_name) VALUES('PL');
+INSERT INTO parties(parties_name) VALUES('NOVO');
+INSERT INTO parties(parties_name) VALUES('BEM');    
 -- fake news propagation method
 INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
     VALUES(1,1);
@@ -209,5 +216,37 @@ BEGIN
     elseif (file_path IS NOT NULL)then
         PERFORM update_file_content(file_path, file_id);
     end if;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_company_id(name VARCHAR(50))
+RETURNS INT AS $$
+DECLARE
+    company_id INT;                                    
+BEGIN
+    SELECT company.company_id INTO company_id  FROM company  WHERE company.company_name = name;  
+    RETURN get_company_id;                                                         
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_government_power_id(name VARCHAR(50))
+RETURNS INT AS $$
+DECLARE
+    government_power_id INT;                                    
+BEGIN
+    SELECT government_power.government_power_id INTO government_power_id  FROM government_power  WHERE government_power.government_power_name= name;  
+    RETURN government_power_id;                                                         
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_fake_news_type_id(name VARCHAR(50))
+RETURNS INT AS $$
+DECLARE
+    fake_news_type_id INT;                                    
+BEGIN
+    SELECT fake_news_type.fake_news_type_id INTO fake_news_type_id  FROM fake_news_type  WHERE fake_news_type.fake_news_type_name= name;  
+    RETURN fake_news_type_id;                                                         
 END;
 $$ LANGUAGE plpgsql;

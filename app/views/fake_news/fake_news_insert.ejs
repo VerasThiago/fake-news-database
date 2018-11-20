@@ -1,71 +1,59 @@
 <html>
-
-
-
 	<head>
-		<link rel="stylesheet" type="text/css" href="teste.css" />
 		
 	</head>
 	<body>
 
-		<dl class="dropdown"> 
-		    <dt>
-		    <a href="#">
-		      <span class="hida">Select</span>    
-		      <p class="multiSel"></p>  
-		    </a>
-		    </dt>
-		  
-		    <dd>
-		        <div class="mutliSelect">
-		            <ul>
-		                <li>
-		                    <input type="checkbox" value="Apple" />Apple</li>
-		                <li>
-		                    <input type="checkbox" value="Blackberry" />Blackberry</li>
-		                <li>
-		                    <input type="checkbox" value="HTC" />HTC</li>
-		                <li>
-		                    <input type="checkbox" value="Sony Ericson" />Sony Ericson</li>
-		                <li>
-		                    <input type="checkbox" value="Motorola" />Motorola</li>
-		                <li>
-		                    <input type="checkbox" value="Nokia" />Nokia</li>
-		            </ul>
-		        </div>
-		    </dd>
-		  <button>Filter</button>
-		</dl>
 
-
-		<form class="fileupload" action="upload/file" method="post" enctype="multipart/form-data">
+		<form class="fileupload" action="upload/fake_news" method="post" enctype="multipart/form-data">
 
 			<h1>Fake news</h1>
 
 			<!-- fake news title -->
-			<h3> Title : </h3><input type="text" name="fake_news_title"><br>
+			<h1> Title : </h1><input type="text" name="title"><br>
 
 			<!-- fake news content -->
-			<h3> Content : </h3><input type="text" name="fake_news_content"><br>
+			<h1> Content : </h1><input type="text" name="content"><br>
 			
 			<!-- company that published fake news -->
-			<h3> Company Name : </h3><input type="text" name="company_name"><br><br>
+			<h1> Company Name : </h1><br>
+
+			<% for(var i = 0; i < data['company'].length; i++) {%>
 				
-			<!-- gorvenment power -->
-			<h3> Gorvenment Power : </h3><input type="text" name="gorvenment_power_name" ><br><br>
+				<h3><%=data['company'][i]%></h3><input type="radio" name = "company" value="<%=data['company'][i]%>" ><br><br>
+
+			<%}%>
 
 			<!-- gorvenment power -->
-			<h3> Gorvenment Power : </h3><input type="text" name="gorvenment_power_name" ><br><br>
+			<h1> Gorvenment Power : </h1><br>
+
+			<% for(var i = 0; i < data['government_power'].length; i++) {%>
+				
+				<h3><%=data['government_power'][i]%></h3><input type="radio" name="government_power" value ="<%=data['government_power'][i]%>" ><br><br>
+
+			<%}%>
 			
 			<!-- parties envolved -->
-			<h3> Parties envolved : </h3><input type="text" name="?" ><br><br>
+			<h1> Parties envolved : </h1><br>
+
+			<% for(var i = 0; i < data['parties'].length; i++) {%>
+				
+				<h3><%=data['parties'][i]%></h3><input type="checkbox" name="parties" value = "<%=data['parties'][i]%>" ><br><br>
+
+			<%}%>
+
+			<!-- fake news type -->
+			<h1> Fake news type : </h1><br>
+
+			<% for(var i = 0; i < data['fake_news_type'].length; i++) {%>
+				
+				<h3><%=data['fake_news_type'][i]%></h3><input type="radio" name="fake_news_type" value = "<%=data['fake_news_type'][i]%>" ><br><br>
+
+			<%}%>
 			
 			<!-- gorvenment power -->
-			<h3> Intention : </h3><input type="checkbox" name="fake_news_intention" ><br><br>
+			<h1> Intention : </h1><input type="checkbox" name="fake_news_intention" ><br><br>
 		
-		    <h1>Upload File Here</h1>
-
-			<input type="file" name="upfile"/>
 			
 			<!-- submit button  -->
 			<input type="submit"/>

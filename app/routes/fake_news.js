@@ -11,98 +11,82 @@ module.exports = (app) => {
 		// get connection with db
 		var connection = app.config.dbConnection();
 
-		// erase all files before upload all
-		file_functions.erase_files(path);
-
-		// get some data from db
-		file_functions.get_all_files( connection, (err,result) => {
-
-			if(!err){
-
-				// walking through all files
-				result.rows.forEach(function(file, chave){
-
-					// instantiating new file
-					var fileDAO = new app.app.models.FileDAO(connection, file, path);
-
-					// donwload file to server
-					fileDAO.download_file();
-
-				});
-			}
-			
-			// render files list page with json from db
-			res.render("fake_news/fake_news_list", {files:result})
+		file_functions.get_all_news(connection, (err, result) =>{
+			res.render("fake_news/fake_news_list", {news:result})
 		});
+
+
 	});
 
 	app.get('/fakenews/insert', (req,res) => {
-		// render insert new fake-news page
-		res.render('fake_news/fake_news_insert')
-	});
-
-	app.post('/fakenews/upload/file', (req,res) => {
-		// get file from form
-		var file = req.files.upfile;
-
-		// if file exist
-		if(!file)
-			res.render('fake_news/fake_news_insert', {err:"Choose your file please!"});
 
 		// connections with db
 		var connection = app.config.dbConnection();
 
-		console.log(file);
 
-		// instantiating new file
-		var FileDAO = new app.app.models.FileDAO(connection, file, path);
+		file_functions.get_list_to_insert_fake_news(connection, (err,result) =>{
 
-		// save pc then db
-		FileDAO.save_file((err, result) => {
 
-			// debug
-			console.log(err ? err:"Arquivo saved!");
+			var data = {
+				'company' : [],
+				'parties' : [],
+				'government_power' : [],
+				'fake_news_type' : []
+			};
 
-			// get back to the insert view
-			res.redirect('/fakenews/insert');
+			result.rows.forEach(function(aux, chave){
+
+				if( ! data['company'].includes(aux['company_name']))
+					data['company'].push(aux['company_name']);
+
+				if( ! data['parties'].includes(aux['parties_name']))
+					data['parties'].push(aux['parties_name']);
+
+				if( ! data['government_power'].includes(aux['government_power_name']))
+					data['government_power'].push(aux['government_power_name']);
+
+				if( ! data['fake_news_type'].includes(aux['fake_news_type_name']))
+					data['fake_news_type'].push(aux['fake_news_type_name']);
+
+			});
+
+			// render insert new fake-news page
+			res.render('fake_news/fake_news_insert', {data:data});
 		});
+
 	});
 
-	app.post('/fakenews/edit/file', (req, res) => {
+	app.post('/fakenews/upload/fake_news', (req,res) => {
 
-		// get file from form
-		var file = req.files.upfile;
-		
 		// data from form
 		var data = req.body;
 
-		// file object
-		file_aux = {
-			'name':         data['name'] ? data['name']:null,
-			'fake_news_id': data['fake_news_id'] ? data['fake_news_id']:null,
-			'id':           parseInt(data['id'])
-		};
+		// object of parties
+		var political_parties = data['parties'];
+
+		// lits of parties
+		var parties = [];
+
+		// walktrough parties and inser into list
+		Object.keys(political_parties).forEach(function(key){
+			parties.push(political_parties[key]);
+		});
 
 		// connections with db
 		var connection = app.config.dbConnection();
 
-		// instantiating new file
-		var FileDAO = new app.app.models.FileDAO(connection, file_aux, file ? (path + file.name):null);
+		console.log('TYPE = ' + data['fake_news_type']);
 
-		if(data['delete'] == ''){
+		// instantiating new fake_news
+		var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection,data['title'], data['content'],
+															data['company'], data['government_power'],
+															parties, data['intention'] == "on",
+															data['fake_news_type']);
 
-			// deletes file
-			FileDAO.delete_file(() => res.redirect('/fakenews/list'));
-		}
-		else{
+		// save fake_news in database
+		Fake_newsDAO.save_news_db();
 
-			// if have file, upload to pc to later upload on db
-			if(file)
-				file.mv(path + file.name);
-			
-			// update file
-			FileDAO.update_file((err,resp) => res.redirect('/fakenews/list'));
-		}
+		res.redirect('/fakenews/insert');
 
 	});
 }
