@@ -75,16 +75,28 @@ module.exports = (app) => {
 		// connections with db
 		var connection = app.config.dbConnection();
 
-		console.log('TYPE = ' + data['fake_news_type']);
-
 		// instantiating new fake_news
-		var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection,data['title'], data['content'],
+		var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, null, data['title'], data['content'],
 															data['company'], data['government_power'],
 															parties, data['intention'] == "on",
 															data['fake_news_type']);
 
 		// save fake_news in database
-		Fake_newsDAO.save_news_db();
+		Fake_newsDAO.save_news_db((err,result) =>{
+
+			console.log("ID1 = " + Fake_newsDAO.get_id());
+			
+			// set id created by db
+			Fake_newsDAO.set_id(result.rows[0].fake_news_id);
+
+			console.log("ID2 = " + Fake_newsDAO.get_id());
+				
+			// save political parties involved
+			Fake_newsDAO.save_parties_relation();
+
+			console.log("ID3 = " + Fake_newsDAO.get_id());	
+
+		});
 
 		res.redirect('/fakenews/insert');
 
