@@ -90,7 +90,7 @@ CREATE TABLE fake_news_propagation_method
         PRIMARY KEY (propagation_method_id, fake_news_id)
     );
 -- relacao fake news e partido
-CREATE TABLE parties_fake_news
+CREATE TABLE fake_news_parties
     (
         parties_id INTEGER REFERENCES parties(parties_id),
         fake_news_id INTEGER REFERENCES fake_news(fake_news_id),

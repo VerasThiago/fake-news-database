@@ -28,17 +28,17 @@ module.exports = (app) => {
 						// donwload file to server
 						fileDAO.download_file();
 
-					});
+
+					}),(res.render("file/file_list", {files:result}));
+
 				}
 				
-				// render files list page with json from db
-				res.render("file/file_list", {files:result})
 			});
 		});
 
 		app.get('/file/insert', (req,res) => {
 			// render insert new file page
-			res.render('file/file_insert')
+			res.render('file/file_insert', {err:""});
 	});
 
 	app.post('/file/upload/file', (req,res) => {
@@ -47,9 +47,10 @@ module.exports = (app) => {
 		// get file from form
 		var file = req.files.upfile;
 
-		// if file exist
+		// if file don't exist
 		if(!file)
-			res.render('fake_news/fake_news_insert', {err:"Choose your file please!"});
+			return res.render('file/file_insert', {err:"Choose your file please!"});
+		
 
 		// connections with db
 		var connection = app.config.dbConnection();
@@ -60,11 +61,8 @@ module.exports = (app) => {
 		// save pc then db
 		FileDAO.save_file((err, result) => {
 
-			// debug
-			console.log(err ? err:"Arquivo saved!");
-
 			// get back to the insert view
-			res.redirect('/file/insert');
+			res.render('file/file_insert' , {err: err ? err:"Arquivo saved!"});
 		});
 	});
 

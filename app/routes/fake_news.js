@@ -11,11 +11,33 @@ module.exports = (app) => {
 		// get connection with db
 		var connection = app.config.dbConnection();
 
-		file_functions.get_all_news(connection, (err, result) =>{
-			res.render("fake_news/fake_news_list", {news:result})
+
+		file_functions.get_all_news(connection,(err, result) =>{
+
+			var news = new Array;
+
+			for(var i = 0; i < result.rows.length; i++){
+				
+				// instantiating fake_news object
+				var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, result.rows[i]['id'],
+															result.rows[i]['title'], result.rows[i]['content'],
+															result.rows[i]['company'], result.rows[i]['government_power'],
+															[], result.rows[i]['intention'],
+															result.rows[i]['type'],[]);
+
+				news.push(Fake_newsDAO);;
+			}
+
+
+			return res.render('fake_news/fake_news_list', {news:news});
+
+			for(var fake_news of news){
+
+
+
+			}
+
 		});
-
-
 	});
 
 	app.get('/fakenews/insert', (req,res) => {
@@ -82,23 +104,17 @@ module.exports = (app) => {
 															data['fake_news_type']);
 
 		// save fake_news in database
-		Fake_newsDAO.save_news_db((err,result) =>{
+		Fake_newsDAO.save_news_db(() => {
 
-			console.log("ID1 = " + Fake_newsDAO.get_id());
-			
-			// set id created by db
-			Fake_newsDAO.set_id(result.rows[0].fake_news_id);
+			// save political party relation
+			Fake_newsDAO.save_parties_relation()
 
-			console.log("ID2 = " + Fake_newsDAO.get_id());
-				
-			// save political parties involved
-			Fake_newsDAO.save_parties_relation();
+		}),res.redirect('/fakenews/insert');
 
-			console.log("ID3 = " + Fake_newsDAO.get_id());	
+	});
 
-		});
+	app.post('/fakenews/edit/fake_news', (req,res) => {
 
-		res.redirect('/fakenews/insert');
 
 	});
 }

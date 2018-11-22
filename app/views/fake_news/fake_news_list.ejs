@@ -23,12 +23,12 @@
       </div>
       <div class="w3-bar-block">
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-        <a href="../fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
-        <a href="../fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
-        <a href="../file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
-        <a href="../file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
-        <a href="../user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
-        <a href="../user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+        <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+        <a href="/fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
+        <a href="/file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+        <a href="/file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
+        <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+        <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
       </div>
     </nav>
 
@@ -36,50 +36,55 @@
 
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
       <h1 class="w3-jumbo">ALL NEWS</h1>
-      <%for(var i = 0; i < news.rows.length; i++){%>
+      <%for(var i = 0; i < news.length; i++){%>
         <tr>
           <!-- Display all data-->
-          <td>Código : <%= news.rows[i].id %></td><br>
-          <td>Title : <%= news.rows[i].title %></td><br>
-          <td>Content  : <%= news.rows[i].content %></td><br>
-          <td>Intention  : <%= news.rows[i].intention ? "A favor":"Contra" %></td><br>
-          <td>Company ID  : <%= news.rows[i].company_id %></td><br>
-          <td>Government Power ID  : <%= news.rows[i].government_power_id %></td><br>
-          <td>Fake News type ID  : <%= news.rows[i].fake_news_type_id %></td><br>
+          <td>Código : <%= news[i]._id %></td><br>
+          <td>Title : <%= news[i]._title %></td><br>
+          <td>Content  : <%= news[i]._content %></td><br>
+          <td>Intention  : <%= news[i]._intention ? "A favor":"Contra" %></td><br>
+          <td>Company ID  : <%= news[i]._company %></td><br>
+          <td>Government Power ID  : <%= news[i]._government_power %></td><br>
+          <td>Fake News type ID  : <%= news[i]._type %></td><br>
 
           
 
           <!-- Update buttom-->
-          <div id="update_fake_news_<%= news.rows[i].id %>" class = " popStyle">
+          <div id="update_fake_news_<%= news[i]._id %>" class = " popStyle">
             <div class="popupBoxWrapper">
               <div class="popupBoxContent">
               
+                <!-- Exit button -->
+                  <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= news[i]._id %>');">Exit</a>
+
                 <!-- Update form-->
                 <form class="fileupload" action="edit/file" method="post" enctype="multipart/form-data">
                   <h1>Update here (leave it blank if have some data that you don't want to update)</h1>
 
                   <!-- invisble input with news id -->
-                  <input type="text" name="id" value = "<%= news.rows[i].id %>" style = "display:none;" >
+                  <input type="text" name="id" value = "<%= news[i]._id %>" style = "display:none;" >
 
                   <!-- news title input -->
-                  <h3> Title : </h3><input type="text" name="tile" placeholder="<%= news.rows[i].title %>"><br>
+                  <h3> Title : </h3><input type="text" name="tile" placeholder="<%= news[i]._title %>"><br>
 
                   <!-- news content input -->
-                  <h3> Content : </h3><input type="text" name="content" placeholder="<%= news.rows[i].content %>"><br>
+                  <h3> Content : </h3><input type="text" name="content" placeholder="<%= news[i]._content %>"><br>
                   
                   <!-- news intention input -->
                   <h3> Intention : </h3>
+                  
                   <h4> A favor </h4><input type="radio" name="intention"  value="true" >
+                  
                   <h4> Contra </h4><input type="radio" name="intention"  value="false" >
 
                   <!-- news company id input-->
-                  <h3> Company ID : </h3><input type="text" name="company_id" placeholder="<%= news.rows[i].company_id %>"><br>
+                  <h3> Company ID : </h3><input type="text" name="company_id" placeholder="<%= news[i]._company %>"><br>
                   
                   <!-- news government power id input-->
-                  <h3> Government Power ID : </h3><input type="text" name="government_power_id" placeholder="<%= news.rows[i].government_power_id %>"><br>
+                  <h3> Government Power ID : </h3><input type="text" name="government_power_id" placeholder="<%= news[i]._government_power %>"><br>
 
                   <!-- news fake news type id input-->
-                  <h3> Fake News type ID : </h3><input type="text" name="fake_news_type_id" placeholder="<%= news.rows[i].fake_news_type_id %>"><br>
+                  <h3> Fake News type ID : </h3><input type="text" name="fake_news_type_id" placeholder="<%= news[i]._type %>"><br>
                   
                   <!-- delete button -->
                   <h3> Delete : </h3><input type="checkbox" name="delete"><br><br>
@@ -89,8 +94,6 @@
                 </form>
 
                   
-                <!-- Exit button -->
-                  <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= news.rows[i].id %>');">Exit</a>
                 
               </div>
             </div>
@@ -98,7 +101,7 @@
           
           <!-- Update button -->
           <div id="wrapper">
-            <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= news.rows[i].id %>');" class="w3-button w3-green">Edit</a></p>
+            <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= news[i]._id %>');" class="w3-button w3-green">Edit</a></p>
           </div>
 
           <br>

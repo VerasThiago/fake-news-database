@@ -263,3 +263,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
+CREATE OR REPLACE FUNCTION get_parties_id(name VARCHAR(50))
+RETURNS INT AS $$
+DECLARE
+    parties_id INT;                                    
+BEGIN
+    SELECT parties.parties_id INTO parties_id  FROM parties  WHERE parties.parties_name = name;  
+    RETURN parties_id;                                                         
+END;
+$$ LANGUAGE plpgsql;

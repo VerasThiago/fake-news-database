@@ -18,12 +18,12 @@
       </div>
       <div class="w3-bar-block">
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-        <a href="../fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
-        <a href="../fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
-        <a href="../file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
-        <a href="../file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
-        <a href="../user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
-        <a href="../user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+        <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+        <a href="/fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
+        <a href="/file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+        <a href="/file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
+        <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+        <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
       </div>
     </nav>
     
@@ -34,17 +34,17 @@
           <div class="w3-half">
 
           <!-- fake news title -->
-          <h1> Title : </h1><input type="text" name="title"><br>
+          <h1> Title : </h1><input type="text" name="title" value="teste"><br>
 
           <!-- fake news content -->
-          <h1> Content : </h1><input type="text" name="content"><br>
+          <h1> Content : </h1><input type="text" name="content" value="teste"><br>
           
           <!-- company that published fake news -->
           <h1> Company Name : </h1><br>
 
           <% for(var i = 0; i < data['company'].length; i++) {%>
             
-            <h3><%=data['company'][i]%></h3><input type="radio" name = "company" value="<%=data['company'][i]%>" ><br><br>
+            <h3><%=data['company'][i]%></h3><input type="radio" name = "company" value="<%=data['company'][i]%>"><br><br>
 
           <%}%>
 
@@ -63,7 +63,7 @@
 
           <% for(var i = 0; i < data['parties'].length; i++) {%>
             
-            <h3><%=data['parties'][i]%></h3><input type="checkbox" name="parties" value = "<%=data['parties'][i]%>" ><br><br>
+            <h3><%=data['parties'][i]%></h3><input type="checkbox" name="parties" value = "<%=data['parties'][i]%>" checked><br><br>
 
           <%}%>
           <!-- fake news type -->

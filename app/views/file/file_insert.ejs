@@ -18,20 +18,27 @@
       </div>
       <div class="w3-bar-block">
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-        <a href="../fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
-        <a href="../fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
-        <a href="../file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
-        <a href="../file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
-        <a href="../user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
-        <a href="../user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+        <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+        <a href="/fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
+        <a href="/file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+        <a href="/file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
+        <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+        <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
       </div>
     </nav>
 
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
       <form class="fileupload" action="upload/file" method="post" enctype="multipart/form-data">
-      
+
+
           <h1 class="w3-jumbo">Upload File Here</h1>
+          
+          <%if(err == 'Arquivo saved!'){%>
+            <h3 style="color:green;"> <%=err%> </h3>
+          <%}else{%>
+            <h3 style="color:red;"> <%=err%> </h3>
+          <%}%>
 
         <input type="file" name="upfile"/>
         

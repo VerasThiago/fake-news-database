@@ -8,7 +8,7 @@ function FileDAO(connection, file, path){
 FileDAO.prototype.save_file_db = function(callback)  {
     // SQL query
     const query = {
-        text: "SELECT insert_file_db(get_extension_id($1), $2, 43, $3)",
+        text: "SELECT insert_file_db(get_extension_id($1), $2, 18, $3)",
         values: [this._file.mimetype, this._file.name , this._path + this._file.name]
     };
 
