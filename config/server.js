@@ -8,6 +8,8 @@ app.set('views', './app/views');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use(upload());
+app.use(express.static(__dirname + '/public'));
+
 consign()
     .include('app/routes')
     .then('config/dbConnection.js')
