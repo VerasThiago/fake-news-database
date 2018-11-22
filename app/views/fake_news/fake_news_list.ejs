@@ -51,16 +51,15 @@
           
 
           <!-- Update buttom-->
-          <div id="update_fake_news_<%= news[i]._id %>" class = " popStyle">
-            <div class="popupBoxWrapper">
-              <div class="popupBoxContent">
+          <div id="update_fake_news_<%= news[i]._id %>" class = " popStyle" style = "overflow: auto;" >
+            <div class="popupBoxWrapper" >
+              <div class="popupBoxContent" >
               
                 <!-- Exit button -->
                   <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= news[i]._id %>');">Exit</a>
 
                 <!-- Update form-->
                 <form class="fileupload" action="edit/file" method="post" enctype="multipart/form-data">
-                  <h1>Update here (leave it blank if have some data that you don't want to update)</h1>
 
                   <!-- invisble input with news id -->
                   <input type="text" name="id" value = "<%= news[i]._id %>" style = "display:none;" >
@@ -86,6 +85,12 @@
 
                   <!-- news fake news type id input-->
                   <h3> Fake News type ID : </h3><input type="text" name="fake_news_type_id" placeholder="<%= news[i]._type %>"><br>
+
+                  <h3> Political Parties envolved : </h3>
+                  
+                  <%for(var j = 0; j < news[i]._parties.length; j++) {%>
+                    <h4><%=news[i]._parties[j]%></h4><input type="checkbox" name="parties" value = "<%=news[i]._parties[j]%>" checked>
+                  <%}%>
 
                   <!-- delete button -->
                   <h3> Delete : </h3><input type="checkbox" name="delete"><br><br>
