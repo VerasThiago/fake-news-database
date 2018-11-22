@@ -263,7 +263,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
 CREATE OR REPLACE FUNCTION get_parties_id(name VARCHAR(50))
 RETURNS INT AS $$
 DECLARE
@@ -273,3 +272,10 @@ BEGIN
     RETURN parties_id;                                                         
 END;
 $$ LANGUAGE plpgsql;
+
+
+CREATE VIEW politycal_parties_relation AS
+SELECT fake_news.fake_news_id,  array_agg(fake_news_parties.parties_id) as parties        
+FROM fake_news
+LEFT JOIN fake_news_parties ON fake_news.fake_news_id = fake_news_parties.fake_news_id 
+GROUP BY fake_news.fake_news_id;

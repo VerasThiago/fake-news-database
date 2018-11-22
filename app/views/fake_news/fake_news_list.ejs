@@ -43,6 +43,7 @@
           <td>Title : <%= news[i]._title %></td><br>
           <td>Content  : <%= news[i]._content %></td><br>
           <td>Intention  : <%= news[i]._intention ? "A favor":"Contra" %></td><br>
+          <td>Political parties envolved  : <%= news[i]._parties %></td><br>
           <td>Company ID  : <%= news[i]._company %></td><br>
           <td>Government Power ID  : <%= news[i]._government_power %></td><br>
           <td>Fake News type ID  : <%= news[i]._type %></td><br>
@@ -85,7 +86,7 @@
 
                   <!-- news fake news type id input-->
                   <h3> Fake News type ID : </h3><input type="text" name="fake_news_type_id" placeholder="<%= news[i]._type %>"><br>
-                  
+
                   <!-- delete button -->
                   <h3> Delete : </h3><input type="checkbox" name="delete"><br><br>
 

@@ -22,7 +22,7 @@ module.exports = (app) => {
 				var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, result.rows[i]['id'],
 															result.rows[i]['title'], result.rows[i]['content'],
 															result.rows[i]['company'], result.rows[i]['government_power'],
-															[], result.rows[i]['intention'],
+															result.rows[i]['parties'], result.rows[i]['intention'],
 															result.rows[i]['type'],[]);
 
 				news.push(Fake_newsDAO);;
@@ -31,11 +31,6 @@ module.exports = (app) => {
 
 			return res.render('fake_news/fake_news_list', {news:news});
 
-			for(var fake_news of news){
-
-
-
-			}
 
 		});
 	});

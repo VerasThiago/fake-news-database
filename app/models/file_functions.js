@@ -27,7 +27,7 @@ module.exports = {
 	get_all_news: function(connection, callback){
 		// SQL query
 	    const query = {
-	        text: 'SELECT fake_news_id AS id,fake_news_title AS title, fake_news_content AS content, fake_news_intention AS intention, company_id AS company, government_power_id AS government_power , fake_news_type_id AS type FROM fake_news'
+	        text: 'SELECT fake_news.fake_news_id AS id, fake_news.fake_news_title AS title, fake_news.fake_news_content AS content, fake_news.fake_news_intention AS intention, fake_news.company_id AS company, fake_news.government_power_id AS government_power , fake_news.fake_news_type_id AS type, politycal_parties_relation.parties FROM politycal_parties_relation,fake_news WHERE fake_news.fake_news_id = politycal_parties_relation.fake_news_id;'
 	    };
 
 	    // callback
@@ -35,3 +35,4 @@ module.exports = {
 	}
 
 };
+
