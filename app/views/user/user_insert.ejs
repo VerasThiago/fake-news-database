@@ -1,14 +1,38 @@
 <html>
 	<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
 	</head>
 	<body>
-		<h1>Adicionar Usuário</h1><br>
-		<h1><%= err %></h1>
-		<form action = "upload/user" method="POST">
-			<label>Nome de usuário: </label>
-			<input type="text" name = "name" placeholder="Username"/><br/>	
-			<input type="submit" value="Enviar">
-		</form>
-		<h1><a href="/user/list">Users list</a></h1>
+
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
+      id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close
+        Menu</a>
+      <div class="w3-container">
+        <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
+      </div>
+      <div class="w3-bar-block">
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+        <a href="../fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+        <a href="../fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
+        <a href="../file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+        <a href="../file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
+        <a href="../user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+        <a href="../user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+      </div>
+    </nav>
+
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">  
+      <h1 class="w3-jumbo">Adicionar Usuário</h1><br>
+      <h1><%= err %></h1>
+      <form action = "upload/user" method="POST">
+        <label>Nome de usuário: </label>
+        <input type="text" name = "name" placeholder="Username"/><br/>	
+        <input type="submit" value="Enviar">
+      </form>
+      <h1><a href="/user/list">Users list</a></h1>
+    </div>
 	</body>
 </html>

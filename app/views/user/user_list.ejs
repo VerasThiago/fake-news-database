@@ -1,74 +1,77 @@
 <html>
 	<head>
-		<script type="text/javascript">
-			<!--
-			    function toggle_visibility(id) {
-			       var e = document.getElementById(id);
-			       	if(e.style.display == 'block')
-			        	e.style.display = 'none';
-			       	else
-			        	e.style.display = 'block';
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <!-- JS -->
+    <script type="text/javascript" src="/js/style.js"></script>
 
-			    }
-			//-->
-		</script>
-		<style type="text/css">
-			.popStyle{
-				top: 0; left: 0; position: fixed; width: 100%; height: 120%;
-				background-color: rgba(0,0,0,0.7); display: none;"
-			}
-			.popupBoxWrapper{
-				width: 550px; margin: 50px auto; text-align: left;
-			}
-			.popupBoxContent{
-				background-color: #FFF; padding: 15px;
-			}
-		</style>
 	</head>
 	<body>
-		<h1>Lista de Usuários</h1><br>
-		<%for(var i = 0; i < users.rows.length; i++){%>
-			<tr>
-				<td>Código : <%= users.rows[i].id %></td><br>
-				<td>Nome  : <%= users.rows[i].name %></td><br>
-				
-				<!-- Update buttom-->
-				<div id="update_fake_news_<%= users.rows[i].id %>" class = "popStyle">
-					<div class="popupBoxWrapper">
-						<div class="popupBoxContent">
-						
-							<!-- Update form-->
-							<form class="fileupload" action="edit/user" method="post" enctype="multipart/form-data">
-								<h1>Update here</h1>
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
+      id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close
+        Menu</a>
+      <div class="w3-container">
+        <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
+      </div>
+      <div class="w3-bar-block">
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+        <a href="../fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+        <a href="../fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
+        <a href="../file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+        <a href="../file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
+        <a href="../user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+        <a href="../user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+      </div>
+    </nav>
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
-								<!-- invisble input with file id -->
-								<input type="number" name="id" value = "<%= users.rows[i].id %>" style = "display:none;" >
+      <h1 class="w3-jumbo">Lista de Usuários</h1><br>
+      <%for(var i = 0; i < users.rows.length; i++){%>
+        <tr>
+          <td>Código : <%= users.rows[i].id %></td><br>
+          <td>Nome  : <%= users.rows[i].name %></td><br>
+          
+          <!-- Update buttom-->
+          <div id="update_fake_news_<%= users.rows[i].id %>" class = "popStyle">
+            <div class="popupBoxWrapper">
+              <div class="popupBoxContent">
+              
+                <!-- Update form-->
+                <form class="fileupload" action="edit/user" method="post" enctype="multipart/form-data">
+                  <h1>Update here</h1>
 
-								<!-- name input to write file name -->
-								<h3> Name : </h3><input type="text" name="name" placeholder="<%= users.rows[i].name %>"><br>
-								
-								<!-- Delete button -->
-								<h3> Delete : </h3><input type="checkbox" name="delete" value="" placeholder=""><br><br>
+                  <!-- invisble input with file id -->
+                  <input type="number" name="id" value = "<%= users.rows[i].id %>" style = "display:none;" >
 
-								<!-- submit button  -->
-								<input type="submit"/>
-							</form>
+                  <!-- name input to write file name -->
+                  <h3> Name : </h3><input type="text" name="name" placeholder="<%= users.rows[i].name %>"><br>
+                  
+                  <!-- Delete button -->
+                  <h3> Delete : </h3><input type="checkbox" name="delete" value="" placeholder=""><br><br>
 
-								
-							<!-- Exit button -->
-							<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= users.rows[i].id %>');">Exit</a></p>
-						</div>
-					</div>
-				</div>
-				
-				<!-- Update button -->
-				<div id="wrapper">
-					<p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= users.rows[i].id %>');">Edit</a></p>
-				</div>
+                  <!-- submit button  -->
+                  <input type="submit"/>
+                </form>
 
-				<br>
-				<br>
-			</tr>
-		<%}%>
+                  
+                <!-- Exit button -->
+                <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= users.rows[i].id %>');">Exit</a></p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Update button -->
+          <div id="wrapper">
+            <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= users.rows[i].id %>');" class="w3-button w3-green">Edit</a></p>
+          </div>
+
+          <br>
+          <br>
+        </tr>
+      <%}%>
+    </div>
 	</body>
 </html>
