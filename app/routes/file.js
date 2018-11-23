@@ -8,37 +8,55 @@ module.exports = (app) => {
 
 	app.get('/file/list', (req,res) => {
 
-			// get connection with db
-			var connection = app.config.dbConnection();
+		// get connection with db
+		var connection = app.config.dbConnection();
 
-			// erase all files before upload all
-			file_functions.erase_files(path);
+		// erase all files before upload all
+		file_functions.erase_files(path);
 
-			// get some data from db
-			file_functions.get_all_files( connection, (err,result) => {
-
-				if(!err){
-
-					// walking through all files
-					result.rows.forEach(function(file, chave){
-
-						// instantiating new file
-						var fileDAO = new app.app.models.FileDAO(connection, file, path);
-
-						// donwload file to server
-						fileDAO.download_file();
+		// get some data from db
+		file_functions.get_all_files( connection, (err,result) => {
 
 
-					}),(res.render("file/file_list", {files:result}));
+			if(!err){
 
-				}
-				
-			});
+				// walking through all files
+				result.rows.forEach(function(file, chave){
+
+					// instantiating new file
+					var fileDAO = new app.app.models.FileDAO(connection, file.id, file.name, null, file.extension, file.fake_news_id, path);
+
+					// donwload file to server
+					fileDAO.download_file();
+
+
+				}),(res.render("file/file_list", {files:result}));
+
+			}
+			else{
+				return res.send(err);
+			}
+			
+		});
+	});
+
+	app.get('/file/insert', (req,res) => {
+
+		// get connection with db
+		var connection = app.config.dbConnection();
+
+		file_functions.get_news_to_insert_file(connection, (err, result) =>{
+
+
+			if(err)
+				return res.send(err);
+
+			// render insert new file page with all data 
+			res.render('file/file_insert', {data:result});
+			
+
 		});
 
-		app.get('/file/insert', (req,res) => {
-			// render insert new file page
-			res.render('file/file_insert', {err:""});
 	});
 
 	app.post('/file/upload/file', (req,res) => {
@@ -49,20 +67,22 @@ module.exports = (app) => {
 
 		// if file don't exist
 		if(!file)
-			return res.render('file/file_insert', {err:"Choose your file please!"});
+			return res.redirect('../insert/?error=1');
 		
-
 		// connections with db
 		var connection = app.config.dbConnection();
 
 		// instantiating new file
-		var FileDAO = new app.app.models.FileDAO(connection, file, path);
+		var fileDAO = new app.app.models.FileDAO(connection, null, file.name, null, file.mimetype, req.body.fake_news_id, path);
 
 		// save pc then db
-		FileDAO.save_file((err, result) => {
+		fileDAO.save_file(file, (err,result) =>{
 
-			// get back to the insert view
-			res.render('file/file_insert' , {err: err ? err:"Arquivo saved!"});
+			if(!err)
+				res.redirect('/file/insert');
+			else
+				res.send(err);
+
 		});
 	});
 
@@ -74,23 +94,16 @@ module.exports = (app) => {
 		// data from form
 		var data = req.body;
 
-		// file object
-		file_aux = {
-			'name':         data['name'] ? data['name']:null,
-			'fake_news_id': data['fake_news_id'] ? data['fake_news_id']:null,
-			'id':           parseInt(data['id'])
-		};
-
 		// connections with db
 		var connection = app.config.dbConnection();
 
 		// instantiating new file
-		var FileDAO = new app.app.models.FileDAO(connection, file_aux, file ? (path + file.name):null);
+		var fileDAO = new app.app.models.FileDAO(connection, data.id, data.name?data.name:null, null, file?file.mimetype:null, data.fake_news_id ? data.fake_news_id:null, file ? (path + file.name):null);
 
 		if(data['delete'] == ''){
 
 			// deletes file
-			FileDAO.delete_file(() => res.redirect('/file/list'));
+			fileDAO.delete_file(() => res.redirect('/file/list'));
 		}
 		else{
 
@@ -99,7 +112,7 @@ module.exports = (app) => {
 				file.mv(path + file.name);
 			
 			// update file
-			FileDAO.update_file((err,resp) => res.redirect('/file/list'));
+			fileDAO.update_file((err,result) => res.redirect('/file/list'));
 		}
 
 	});

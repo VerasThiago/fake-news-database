@@ -32,6 +32,16 @@ module.exports = {
 
 	    // callback
 	    connection.query(query, callback);
+	},
+	get_news_to_insert_file: function(connection, callback){
+		// SQL query
+	    const query = {
+	        text: 'SELECT fake_news_id, fake_news_title FROM fake_news;'
+	    };
+
+	    // callback
+	    connection.query(query, callback);
+
 	}
 
 };

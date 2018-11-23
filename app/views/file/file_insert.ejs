@@ -31,14 +31,16 @@
 
       <form class="fileupload" action="upload/file" method="post" enctype="multipart/form-data">
 
-
-          <h1 class="w3-jumbo">Upload File Here</h1>
+           <h2 class="w3-jumbo">Choose fake news</h2>
           
-          <%if(err == 'Arquivo saved!'){%>
-            <h3 style="color:green;"> <%=err%> </h3>
-          <%}else{%>
-            <h3 style="color:red;"> <%=err%> </h3>
+           <% for(var i = 0; i < data.rows.length; i++) {%>
+            
+            <h3><%=data.rows[i].fake_news_title%></h3><input type="radio" name = "fake_news_id" value="<%=data.rows[i].fake_news_id%>"><br><br>
+
           <%}%>
+
+
+          <h2 class="w3-jumbo">Upload File Here</h2>
 
         <input type="file" name="upfile"/>
         
