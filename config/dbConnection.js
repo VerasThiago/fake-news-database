@@ -8,7 +8,7 @@ var dbConn = function(){
         user: 'postgres',
         host: 'localhost',
         database: 'fake_news',
-        password: 'thiago',
+        password: 'dullens123',
         port: 5432,
     }); 
     
