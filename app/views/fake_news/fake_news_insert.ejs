@@ -1,154 +1,91 @@
 <html>
+	<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
+	</head>
+	<body>
 
-<head>
-  <!-- CSS -->
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/style.css" />
-  <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
-  <!-- JS -->
-  <script type="text/javascript" src="/js/style.js"></script>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
-  <script src="semantic/dist/semantic.min.js"></script>
+    <!-- Sidebar/menu -->
+    
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
+      id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close
+        Menu</a>
+      <div class="w3-container">
+        <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
+      </div>
+      <div class="w3-bar-block">
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+        <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+        <a href="/fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
+        <a href="/file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+        <a href="/file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
+        <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+        <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+      </div>
+    </nav>
+    
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+      <div class="w3-row-padding">
+        <form class="fileupload" action="upload/fake_news" method="post" enctype="multipart/form-data">
+          <h1 class="w3-jumbo">Fake news</h1>
+          <div class="w3-half">
 
-</head>
+          <!-- fake news title -->
+          <h1> Title : </h1><input type="text" name="title"><br>
 
-<body>
+          <!-- fake news content -->
+          <h1> Content : </h1><input type="text" name="content"><br>
+          
+          <!-- company that published fake news -->
+          <h1> Company Name : </h1><br>
 
-  <!-- Sidebar/menu -->
+          <% for(var i = 0; i < data['company'].length; i++) {%>
+            
+            <h3><%=data['company'][i]%></h3><input type="radio" name = "company" value="<%=data['company'][i]%>"><br><br>
 
-  <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
-    id="mySidebar"><br>
-    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close
-      Menu</a>
-    <div class="w3-container">
-      <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
+          <%}%>
+
+          <!-- gorvenment power -->
+          <h1> Gorvenment Power : </h1><br>
+
+          <% for(var i = 0; i < data['government_power'].length; i++) {%>
+            
+            <h3><%=data['government_power'][i]%></h3><input type="radio" name="government_power" value ="<%=data['government_power'][i]%>" ><br><br>
+
+          <%}%>
+          </div> <!-- Ending half -->
+          
+          <!-- parties envolved -->
+          <h1> Parties envolved : </h1><br>
+
+          <% for(var i = 0; i < data['parties'].length; i++) {%>
+            
+            <h3><%=data['parties'][i]%></h3><input type="checkbox" name="parties" value = "<%=data['parties'][i]%>"><br><br>
+
+          <%}%>
+          <!-- fake news type -->
+          <h1> Fake news type : </h1><br>
+
+          <% for(var i = 0; i < data['fake_news_type'].length; i++) {%>
+            
+            <h3><%=data['fake_news_type'][i]%></h3><input type="radio" name="fake_news_type" value = "<%=data['fake_news_type'][i]%>" ><br><br>
+
+          <%}%>
+          
+          <!-- gorvenment power -->
+          <h1> Intention : </h1><input type="checkbox" name="fake_news_intention" ><br><br>
+        
+          
+          <!-- submit button  -->
+          <input type="submit"/>
+        
+        </form>
+
+        <h1><a href="/fakenews/list">News List</a></h1>
+    
+      </div>
     </div>
-    <div class="w3-bar-block">
-      <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-      <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
-      <a href="/fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
-      <a href="/file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
-      <a href="/file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
-      <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
-      <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
-    </div>
-  </nav>
-
-  <div class="w3-main w3-center" style="margin-left:340px;margin-right:40px">
-    <div class="w3-row-padding">
-      <form class="ui form fileupload" action="upload/fake_news" method="post" enctype="multipart/form-data">
-        <h1 class="w3-jumbo">Fake news</h1>
-
-        <!-- fake news title -->
-        <div class="field">
-          <h1><label>Title :</label></h1>
-          <input type="text" name="title"><br>
-        </div>
-
-        <!-- fake news content -->
-        <div class="field">
-          <h1><label>Content :</label></h1>
-          <input type="text" name="content"><br>
-        </div>
-        <!-- <h1> Content : </h1><input type="text" name="content"><br> -->
-
-        <!-- company that published fake news -->
-        <div class="field">
-          <h1> <label>Company Name :</label> </h1>
-          <!-- <select class="ui search dropdown" name="company_name">
-                        <option value="">Select Company</option>
-                        <% for(var i = 0; i < data['company'].length; i++){%>
-                          <option value="<%=data['company'][i]%>"><%=data['company'][i]%></option>
-                        <%}%>
-            </select> -->
-        </div>
-
-        <% for(var i = 0; i < data['company'].length; i++) {%>
-        <h3>
-          <%=data['company'][i]%>
-        </h3><input type="radio" name="company" value="<%=data['company'][i]%>"><br><br>
-
-        <%}%>
-        <!-- government power -->
-        <div class="field">
-          <h1> <label>Gorvenment Power :</label> </h1>
-          <!-- <select class="ui search dropdown" name="government_power">
-                       <option value="">Select power</option>
-                       <% for(var i = 0; i < data['government_power'].length; i++){%>
-                          <option value="<%=data['government_power'][i]%>"><%=data['government_power'][i]%></option>
-                       <%}%>
-            </select> -->
-        </div>
-
-        <% for(var i = 0; i < data['government_power'].length; i++) {%>
-
-        <h3>
-          <%=data['government_power'][i]%>
-        </h3><input type="radio" name="government_power" value="<%=data['government_power'][i]%>"><br><br>
-
-        <%}%>
-
-        <!-- parties envolved -->
-        <div class="field">
-          <h1> <label>Parties envolved :</label> </h1>
-          <!-- <select class="ui search dropdown" name="parties_envolved">
-              <option value="">Select Party</option>
-              <% for(var i = 0; i < data['parties'].length; i++){%>
-                          <option value="<%=data['parties'][i]%>"><%=data['parties'][i]%></option>
-              <%}%>
-            </select> -->
-        </div>
-
-        <% for(var i = 0; i < data['parties'].length; i++) {%>
-
-        <h3>
-          <%=data['parties'][i]%>
-        </h3><input type="checkbox" name="parties" value="<%=data['parties'][i]%>"><br><br>
-
-        <%}%>
-
-        <!-- fake news type -->
-        <div class="field">
-          <h1> <label>Fake news type :</label> </h1>
-          <!-- <select class="ui search dropdown" name="fake_news_type">
-            <option value="">Select type</option>
-              <% for(var i = 0; i < data['fake_news_type'].length; i++){%>
-                <option value="<%=data['fake_news_type'][i]%>"><%=data['fake_news_type'][i]%></option>
-              <%}%>
-          </select> -->
-
-        </div>
-
-
-
-
-
-        <% for(var i = 0; i < data['fake_news_type'].length; i++) {%>
-
-        <h3>
-          <%=data['fake_news_type'][i]%>
-        </h3><input type="radio" name="fake_news_type" value="<%=data['fake_news_type'][i]%>"><br><br>
-
-        <%}%>
-
-        <!-- gorvenment power -->
-
-        <h1> Intention : </h1><input type="checkbox" name="fake_news_intention"><br><br>
-
-
-        <!-- submit button  -->
-
-        <button class="ui button" type="submit">Submit</button>
-
-      </form>
-
-      <h1><a href="/fakenews/list">News List</a></h1>
-
-    </div>
-  </div>
-
-
 </html>
