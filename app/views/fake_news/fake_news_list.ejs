@@ -59,13 +59,15 @@
                   <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= news[i]._id %>');">Exit</a>
 
                 <!-- Update form-->
-                <form class="fileupload" action="edit/file" method="post" enctype="multipart/form-data">
+                <form class="fileupload" action="edit/fake_news" method="post" enctype="multipart/form-data">
+                  <!-- submit button  -->
+                  <input type="submit"/>
 
                   <!-- invisble input with news id -->
                   <input type="text" name="id" value = "<%= news[i]._id %>" style = "display:none;" >
 
                   <!-- news title input -->
-                  <h3> Title : </h3><input type="text" name="tile" placeholder="<%= news[i]._title %>"><br>
+                  <h3> Title : </h3><input type="text" name="title" placeholder="<%= news[i]._title %>"><br>
 
                   <!-- news content input -->
                   <h3> Content : </h3><input type="text" name="content" placeholder="<%= news[i]._content %>"><br>
@@ -95,8 +97,6 @@
                   <!-- delete button -->
                   <h3> Delete : </h3><input type="checkbox" name="delete"><br><br>
 
-                  <!-- submit button  -->
-                  <input type="submit"/>
                 </form>
 
                   

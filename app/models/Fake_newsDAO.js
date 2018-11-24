@@ -79,8 +79,10 @@ Fake_newsDAO.prototype.get_parties_db = function(callback){
         return callback();
 
     });
+}
+Fake_newsDAO.prototype.update_fake_news = function(callback){
 
-
+    console.log(this._parties);
 
 }
 
