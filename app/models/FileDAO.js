@@ -16,6 +16,8 @@ FileDAO.prototype.save_file_db = function(callback)  {
         text: "SELECT insert_file_db(get_extension_id('" + this._extension_name + "'),'" + this._file_name + "'," + this._fake_news_id + ",'" + this._path + this._file_name + "')"
     };
 
+    console.log('QUERY = ' + query.text);
+
     // callback
     this._connection.query(query, callback);
     

@@ -17,14 +17,13 @@ module.exports = (app) => {
 		// get some data from db
 		file_functions.get_all_files( connection, (err,result) => {
 
-
 			if(!err){
 
 				// walking through all files
 				result.rows.forEach(function(file, chave){
 
 					// instantiating new file
-					var fileDAO = new app.app.models.FileDAO(connection, file.id, file.name, null, file.extension, file.fake_news_id, path);
+					var fileDAO = new app.app.models.FileDAO(connection, file.file_id, file.name, null, file.extension, file.fake_news_id, path);
 
 					// donwload file to server
 					fileDAO.download_file();
@@ -74,6 +73,8 @@ module.exports = (app) => {
 
 		// instantiating new file
 		var fileDAO = new app.app.models.FileDAO(connection, null, file.name, null, file.mimetype, req.body.fake_news_id, path);
+
+		console.log("ID = " + fileDAO._fake_news_id);
 
 		// save pc then db
 		fileDAO.save_file(file, (err,result) =>{

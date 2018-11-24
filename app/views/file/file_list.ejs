@@ -49,7 +49,7 @@
           <td>Código : <%= files.rows[i].id %></td><br>
           <td>Name : <%= files.rows[i].name %></td><br>
           <td>Extensão  : <%= files.rows[i].extension %></td><br>
-          <td>Fake_news_id  : <%= files.rows[i].fake_news_id %></td><br>
+          <td>Fake_news_title  : <%= files.rows[i].fake_news_title %></td><br>
           
           <!-- Check if extension is audio and display audio tag -->
           <%if(files.rows[i].extension == 'audio/mpeg'){%>
@@ -84,7 +84,7 @@
                   <h3> Name : </h3><input type="text" name="name" placeholder="<%= files.rows[i].name %>"><br>
 
                   <!-- fake news id input to write fake news id -->
-                  <h3> Fake news id : </h3><input type="text" name="fake_news_id" placeholder="<%= files.rows[i].fake_news_id %>"><br>
+                  <h3> Fake news id : </h3><input type="text" name="fake_news_id" placeholder="<%= files.rows[i].fake_news_title %>"><br>
                   
                   <!-- file input to upload file -->
                   <h3> File : </h3><input type="file" name="upfile" value="" placeholder=""><br><br>

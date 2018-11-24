@@ -9,7 +9,7 @@ module.exports = {
     get_all_files: function(connection, callback)  {
 	    // SQL query
 	    const query = {
-	        text: 'SELECT arquivo.arquivo_id AS id, arquivo.arquivo_name AS name, extensao.extensao_name AS extension, arquivo.fake_news_id FROM arquivo, extensao WHERE (arquivo.extensao_id = extensao.extensao_id)'
+	        text: 'SELECT arquivo.arquivo_id AS file_id, arquivo.arquivo_name AS name, extensao.extensao_name AS extension, fake_news.fake_news_title, fake_news.fake_news_id FROM arquivo, extensao, fake_news WHERE (arquivo.extensao_id = extensao.extensao_id AND fake_news.fake_news_id = arquivo.fake_news_id)'
 	    };
 
 	    // callback

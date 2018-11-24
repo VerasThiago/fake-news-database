@@ -152,3 +152,35 @@ BEGIN
     RETURN parties_name;                                                         
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_fake_news_title(id INT)
+RETURNS VARCHAR(50) AS $$
+DECLARE
+    news_title VARCHAR(50);                                    
+BEGIN
+    SELECT fake_news.fake_news_title INTO news_title  FROM fake_news  WHERE fake_news.fake_news_id = id;  
+    RETURN news_title;                                                         
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION update_fake_news(news_id INT, title VARCHAR(50), content VARCHAR(50), intention BOOLEAN, political_parties_id INT[], company INT, government_power INT, fake_news_type INT)
+RETURNS void AS $$
+BEGIN
+    if(title IS NOT NULL)then
+        UPDATE  fake_news  SET fake_news.fake_news_tile = tile WHERE fake_news.fake_news_id = news_id;
+    elseif (content IS NOT NULL)then
+        UPDATE  fake_news  SET fake_news.fake_news_content = content WHERE fake_news.fake_news_id = news_id;
+    elseif (intention IS NOT NULL) then
+        UPDATE  fake_news  SET fake_news.fake_news_intention = intention WHERE fake_news.fake_news_id = news_id;
+    elseif (political_parties_id IS NOT NULL) then
+        SELECT * FROM fake_news;
+    elseif (company IS NOT NULL) then
+        UPDATE  fake_news  SET fake_news.company_id = company WHERE fake_news.fake_news_id = news_id;
+    elseif (government_power IS NOT NULL) then
+        UPDATE  fake_news  SET fake_news.government_power_id = government_power WHERE fake_news.fake_news_id = news_id;
+    elseif (fake_news_type IS NOT NULL) then
+        UPDATE  fake_news  SET fake_news.fake_news_type_id = fake_news_type WHERE fake_news.fake_news_id = news_id;
+    end if;
+END;
+$$ LANGUAGE plpgsql;
