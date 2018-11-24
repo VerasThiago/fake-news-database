@@ -1,5 +1,4 @@
 -- procedure
-$$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION get_extension_id(name VARCHAR(50))
 RETURNS INT AS $$
 DECLARE
@@ -41,6 +40,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION update_file_fake_news_id(news_id INT, file_id INT)
+RETURNS void AS $$
+BEGIN
+    UPDATE arquivo SET fake_news_id  = news_id WHERE arquivo.arquivo_id = file_id;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION update_file(file_name VARCHAR(50), fake_news_id INT, file_path VARCHAR(50), file_id INT)
 RETURNS void AS $$
 BEGIN
@@ -48,6 +54,8 @@ BEGIN
         PERFORM update_file_name(file_name, file_id);
     elseif (file_path IS NOT NULL)then
         PERFORM update_file_content(file_path, file_id);
+    elseif (fake_news_id IS NOT NULL) then
+        PERFORM  update_file_fake_news_id(fake_news_id, file_id);
     end if;
 END;
 $$ LANGUAGE plpgsql;
@@ -83,17 +91,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-
-CREATE OR REPLACE FUNCTION get_government_power_name(id INT)
-RETURNS VARCHAR(50) AS $$
-DECLARE
-    government_power_name VARCHAR(50);                                    
-BEGIN
-    SELECT government_power.government_power_name INTO government_power_name  FROM government_power  WHERE government_power.government_power_id = id;  
-    RETURN government_power_name;                                                         
-END;
-$$ LANGUAGE plpgsql;
-
 CREATE OR REPLACE FUNCTION get_fake_news_type_id(name VARCHAR(50))
 RETURNS INT AS $$
 DECLARE
@@ -101,16 +98,6 @@ DECLARE
 BEGIN
     SELECT fake_news_type.fake_news_type_id INTO fake_news_type_id  FROM fake_news_type  WHERE fake_news_type.fake_news_type_name= name;  
     RETURN fake_news_type_id;                                                         
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION get_fake_news_type_name(id INT)
-RETURNS VARCHAR(50) AS $$
-DECLARE
-    fake_news_type_name VARCHAR(50);                                    
-BEGIN
-    SELECT fake_news_type.fake_news_type_name INTO fake_news_type_name  FROM fake_news_type  WHERE fake_news_type.fake_news_type_id = id;  
-    RETURN fake_news_type_name;                                                         
 END;
 $$ LANGUAGE plpgsql;
 
@@ -135,6 +122,27 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
+CREATE OR REPLACE FUNCTION get_government_power_name(id INT)
+RETURNS VARCHAR(50) AS $$
+DECLARE
+    government_power_name VARCHAR(50);                                    
+BEGIN
+    SELECT government_power.government_power_name INTO government_power_name  FROM government_power  WHERE government_power.government_power_id = id;  
+    RETURN government_power_name;                                                         
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_fake_news_type_name(id INT)
+RETURNS VARCHAR(50) AS $$
+DECLARE
+    fake_news_type_name VARCHAR(50);                                    
+BEGIN
+    SELECT fake_news_type.fake_news_type_name INTO fake_news_type_name  FROM fake_news_type  WHERE fake_news_type.fake_news_type_id = id;  
+    RETURN fake_news_type_name;                                                         
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION get_parties_name(id INT)
 RETURNS VARCHAR(50) AS $$
 DECLARE
@@ -144,9 +152,3 @@ BEGIN
     RETURN parties_name;                                                         
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE VIEW politycal_parties_relation AS
-SELECT fake_news.fake_news_id,  array_agg(get_parties_name(fake_news_parties.parties_id)) as parties        
-FROM fake_news
-LEFT JOIN fake_news_parties ON fake_news.fake_news_id = fake_news_parties.fake_news_id 
-GROUP BY fake_news.fake_news_id;
