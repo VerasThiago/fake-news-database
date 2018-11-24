@@ -110,10 +110,16 @@ module.exports = (app) => {
 
 			// if have file, upload to pc to later upload on db
 			if(file)
-				file.mv(path + file.name);
-			
+				file.mv(path + file.name); 
+
 			// update file
-			fileDAO.update_file((err,result) => res.redirect('/file/list'));
+			fileDAO.update_file((err,result) => {
+				if(err){
+					return res.send(err);
+				}
+				else
+					res.redirect('/file/list')
+			});
 		}
 
 	});

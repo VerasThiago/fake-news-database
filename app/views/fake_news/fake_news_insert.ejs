@@ -41,42 +41,44 @@
           
           <!-- company that published fake news -->
           <h1> Company Name : </h1><br>
-
-          <% for(var i = 0; i < data['company'].length; i++) {%>
-            
-            <h3><%=data['company'][i]%></h3><input type="radio" name = "company" value="<%=data['company'][i]%>"><br><br>
-
-          <%}%>
+          
+          <select name = "company" >
+            <% for(var i = 0; i < data['company'].length; i++) {%>
+                <option value="<%=data['company'][i]%>"><%=data['company'][i]%></option>
+            <%}%>
+          </select>
 
           <!-- gorvenment power -->
-          <h1> Gorvenment Power : </h1><br>
+          <h1> Government Power : </h1><br>
 
+          <select name = "government_power" >
           <% for(var i = 0; i < data['government_power'].length; i++) {%>
-            
-            <h3><%=data['government_power'][i]%></h3><input type="radio" name="government_power" value ="<%=data['government_power'][i]%>" ><br><br>
-
+            <option value="<%=data['government_power'][i]%>"><%=data['government_power'][i]%></option>
           <%}%>
+          </select>
+
           </div> <!-- Ending half -->
           
           <!-- parties envolved -->
           <h1> Parties envolved : </h1><br>
 
+          <select name = "parties" multiple >
           <% for(var i = 0; i < data['parties'].length; i++) {%>
-            
-            <h3><%=data['parties'][i]%></h3><input type="checkbox" name="parties" value = "<%=data['parties'][i]%>"><br><br>
-
+            <option value="<%=data['parties'][i]%>"><%=data['parties'][i]%></option>
           <%}%>
+          </select>
+
           <!-- fake news type -->
           <h1> Fake news type : </h1><br>
 
+          <select name = "fake_news_type" >
           <% for(var i = 0; i < data['fake_news_type'].length; i++) {%>
-            
-            <h3><%=data['fake_news_type'][i]%></h3><input type="radio" name="fake_news_type" value = "<%=data['fake_news_type'][i]%>" ><br><br>
-
+            <option value="<%=data['fake_news_type'][i]%>"><%=data['fake_news_type'][i]%></option>
           <%}%>
-          
+          </select>
+
           <!-- gorvenment power -->
-          <h1> Intention : </h1><input type="checkbox" name="fake_news_intention" ><br><br>
+          <h1> Intention : </h1><input type="checkbox" name="fake_news_intention" value = "true"><br><br>
         
           
           <!-- submit button  -->

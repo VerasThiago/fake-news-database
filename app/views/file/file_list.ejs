@@ -46,7 +46,7 @@
       <%for(var i = 0; i < files.rows.length; i++){%>
         <tr>
           <!-- Display all data-->
-          <td>Código : <%= files.rows[i].id %></td><br>
+          <td>Código : <%= files.rows[i].file_id %></td><br>
           <td>Name : <%= files.rows[i].name %></td><br>
           <td>Extensão  : <%= files.rows[i].extension %></td><br>
           <td>Fake_news_title  : <%= files.rows[i].fake_news_title %></td><br>
@@ -69,26 +69,25 @@
           <% } %>
 
           <!-- Update buttom-->
-          <div id="update_fake_news_<%= files.rows[i].id %>" class = "popStyle">
+          <div id="update_fake_news_<%= files.rows[i].file_id %>" class = "popStyle">
             <div class="popupBoxWrapper">
               <div class="popupBoxContent">
               
                 <!-- Update form-->
                 <form class="fileupload" action="edit/file" method="post" enctype="multipart/form-data">
+                  
                   <h1>Update here (leave it blank if have some data that you don't want to update)</h1>
 
                   <!-- invisble input with file id -->
-                  <input type="text" name="id" value = "<%= files.rows[i].id %>" style = "display:none;" >
+                  <input type="text" name="id" value = "<%= files.rows[i].file_id %>" style = "display:none;" >
 
                   <!-- name input to write file name -->
                   <h3> Name : </h3><input type="text" name="name" placeholder="<%= files.rows[i].name %>"><br>
 
-                  <!-- fake news id input to write fake news id -->
-                  <h3> Fake news id : </h3><input type="text" name="fake_news_id" placeholder="<%= files.rows[i].fake_news_title %>"><br>
-                  
                   <!-- file input to upload file -->
                   <h3> File : </h3><input type="file" name="upfile" value="" placeholder=""><br><br>
 
+                  <!-- delete button -->
                   <h3> Delete : </h3><input type="checkbox" name="delete" value="" placeholder=""><br><br>
 
                   <!-- submit button  -->
@@ -97,14 +96,14 @@
 
                   
                 <!-- Exit button -->
-                <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= files.rows[i].id %>');">Exit</a></p>
+                <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= files.rows[i].file_id %>');">Exit</a></p>
               </div>
             </div>
           </div>
           
           <!-- Update button -->
           <div id="wrapper">
-            <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= files.rows[i].id %>');">Edit</a></p>
+            <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= files.rows[i].file_id %>');">Edit</a></p>
           </div>
 
           <br>

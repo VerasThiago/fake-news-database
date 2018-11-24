@@ -16,20 +16,58 @@ module.exports = (app) => {
 
 			var news = new Array;
 
-			for(var i = 0; i < result.rows.length; i++){
+			var data = result.rows;
+
+			for(var i = 0; i < data.length; i++){
 				
 				// instantiating fake_news object
-				var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, result.rows[i]['id'],
-															result.rows[i]['title'], result.rows[i]['content'],
-															result.rows[i]['company'], result.rows[i]['government_power'],
-															result.rows[i]['parties'], result.rows[i]['intention'],
-															result.rows[i]['type'],[]);
+				var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, data[i].id,
+															data[i].title, data[i].content,
+															data[i].company, data[i].government_power,
+															data[i].parties, data[i].intention,
+															data[i].type);
 
 				news.push(Fake_newsDAO);;
 			}
 
+			file_functions.get_fake_news_data(connection, (err,result) =>{
 
-			return res.render('fake_news/fake_news_list', {news:news});
+				var all_company = new Array;
+
+				var all_government_power = new Array;
+
+				var all_parties = new Array;
+
+				var all_fake_news_type = new Array;
+
+				result.rows[0].data.forEach(function(company, chave){
+					all_company.push(company.split('(').join('').split(')').join('').split(','));
+				});
+
+				result.rows[1].data.forEach(function(government_power, chave){
+					all_government_power.push(government_power.split('(').join('').split(')').join('').split(','));
+				});
+
+				result.rows[2].data.forEach(function(parties, chave){
+					all_parties.push(parties.split('(').join('').split(')').join('').split(','));
+				});
+
+				result.rows[3].data.forEach(function(type, chave){
+					all_fake_news_type.push(type.split('(').join('').split(')').join('').split(','));
+				});
+
+				var data_list = {
+					'news' : news,
+					'all_company' : all_company,
+					'all_government_power' : all_government_power,
+					'all_parties' : all_parties,
+					'all_fake_news_type' : all_fake_news_type
+				}
+
+				res.render('fake_news/fake_news_list', {data:data_list});
+			});
+
+
 
 
 		});
@@ -95,16 +133,17 @@ module.exports = (app) => {
 		// instantiating new fake_news
 		var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, null, data.title, data.content,
 															data.company, data.government_power,
-															parties, data.intention == "on",
+															parties, data.fake_news_intention ? true:false,
 															data.fake_news_type);
+
 
 		// save fake_news in database
 		Fake_newsDAO.save_news_db(() => {
 
 			// save political party relation
-			Fake_newsDAO.save_parties_relation(() => res.redirect('/fakenews/insert'));
+			Fake_newsDAO.save_parties_relation();
 
-		});
+		}),res.redirect('/fakenews/insert');
 
 	});
 
@@ -113,8 +152,6 @@ module.exports = (app) => {
 
 		// form data
 		var data = req.body;
-
-		return res.send(data);
 
 		// object of parties
 		var political_parties = data.parties;
@@ -132,11 +169,16 @@ module.exports = (app) => {
 
 		// instantiating new fake_news
 		var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, data.id,
-															data.tile, data.content,
+															data.title, data.content,
 															data.company_id, data.government_power_id, 
 															parties,data.intention, data.fake_news_type_id);
 
-		Fake_newsDAO.update_fake_news((err,result) => res.redirect('/fakenews/list'))
+		if(data.delete){
+			Fake_newsDAO.delete_fake_news((err,result) => res.redirect('/fakenews/list'));
+		}
+		else{
+			Fake_newsDAO.update_fake_news((err,result) => res.redirect('/fakenews/list'));
+		}
 
 	});
 }

@@ -36,70 +36,146 @@
 
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
       <h1 class="w3-jumbo">ALL NEWS</h1>
-      <%for(var i = 0; i < news.length; i++){%>
+      <%for(var i = 0; i < data.news.length; i++){%>
         <tr>
           <!-- Display all data-->
-          <td>Código : <%= news[i]._id %></td><br>
-          <td>Title : <%= news[i]._title %></td><br>
-          <td>Content  : <%= news[i]._content %></td><br>
-          <td>Intention  : <%= news[i]._intention ? "A favor":"Contra" %></td><br>
-          <td>Political parties envolved  : <%= news[i]._parties %></td><br>
-          <td>Company ID  : <%= news[i]._company %></td><br>
-          <td>Government Power ID  : <%= news[i]._government_power %></td><br>
-          <td>Fake News type ID  : <%= news[i]._type %></td><br>
+          <td>Código : <%= data.news[i]._id %></td><br>
+          <td>Title : <%= data.news[i]._title %></td><br>
+          <td>Content  : <%= data.news[i]._content %></td><br>
+          <td>Intention  : <%= data.news[i]._intention ? "A favor":"Contra" %></td><br>
+          <td>Political parties envolved  : <%= data.news[i]._parties %></td><br>
+          <td>Company  : <%= data.news[i]._company %></td><br>
+          <td>Government Power  : <%= data.news[i]._government_power %></td><br>
+          <td>Fake News type  : <%= data.news[i]._type %></td><br>
 
           
 
           <!-- Update buttom-->
-          <div id="update_fake_news_<%= news[i]._id %>" class = " popStyle" style = "overflow: auto;" >
+          <div id="update_fake_news_<%= data.news[i]._id %>" class = " popStyle" style = "overflow: auto;" >
             <div class="popupBoxWrapper" >
               <div class="popupBoxContent" >
               
-                <!-- Exit button -->
-                  <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= news[i]._id %>');">Exit</a>
+               
 
                 <!-- Update form-->
                 <form class="fileupload" action="edit/fake_news" method="post" enctype="multipart/form-data">
-                  <!-- submit button  -->
-                  <input type="submit"/>
+                 
 
-                  <!-- invisble input with news id -->
-                  <input type="text" name="id" value = "<%= news[i]._id %>" style = "display:none;" >
+                  <!-- invisble input with news -->
+                  <input type="text" name="id" value = "<%= data.news[i]._id %>" style = "display:none;" >
 
                   <!-- news title input -->
-                  <h3> Title : </h3><input type="text" name="title" placeholder="<%= news[i]._title %>"><br>
+                  <h3> Title : </h3><input type="text" name="title" placeholder="<%= data.news[i]._title %>"><br>
 
                   <!-- news content input -->
-                  <h3> Content : </h3><input type="text" name="content" placeholder="<%= news[i]._content %>"><br>
+                  <h3> Content : </h3><input type="text" name="content" placeholder="<%= data.news[i]._content %>"><br>
                   
                   <!-- news intention input -->
                   <h3> Intention : </h3>
-                  
-                  <h4> A favor </h4><input type="radio" name="intention"  value="true" >
-                  
-                  <h4> Contra </h4><input type="radio" name="intention"  value="false" >
 
-                  <!-- news company id input-->
-                  <h3> Company ID : </h3><input type="text" name="company_id" placeholder="<%= news[i]._company %>"><br>
-                  
-                  <!-- news government power id input-->
-                  <h3> Government Power ID : </h3><input type="text" name="government_power_id" placeholder="<%= news[i]._government_power %>"><br>
+                  <select name = "intention">
 
-                  <!-- news fake news type id input-->
-                  <h3> Fake News type ID : </h3><input type="text" name="fake_news_type_id" placeholder="<%= news[i]._type %>"><br>
+                    <%if(data.news[i]._intention){%>
+
+                      <option value="true" selected>A favor</option>
+                      <option value="false">Contra</option>
+
+                    <%} else{%>
+
+                      <option value="true" >A favor</option>
+                      <option value="false" selected>Contra</option>
+
+                    <%}%>
+                    
+                  </select>
+                  
+                  <!-- news company input-->
+                  <h3> Company : </h3>
+
+                  <select name = "company_id"  >
+
+                    <% for(var j = 0; j < data.all_company.length; j++) {%>
+
+                      <%if(data.all_company[j][1] == data.news[i]._company){%>
+
+                        <option value="<%=data.all_company[j][0]%>" selected><%=data.all_company[j][1]%>%> 
+
+                      <%} else{%>
+
+                        <option value="<%=data.all_company[j][0]%>" ><%=data.all_company[j][1]%>%> 
+
+                      <%}%>
+
+                    <%}%>
+                  </select>
+                  
+                  <!-- news government power input-->
+                  <h3> Government Power : </h3>
+
+                  <select name = "government_power_id"  >
+
+                    <% for(var j = 0; j < data.all_government_power.length; j++) {%>
+
+                      <%if(data.all_government_power[j][1] == data.news[i]._government_power){%>
+
+                        <option value="<%=data.all_government_power[j][0]%>" selected><%=data.all_government_power[j][1]%>%> 
+
+                      <%} else{%>
+
+                        <option value="<%=data.all_government_power[j][0]%>" ><%=data.all_government_power[j][1]%>%> 
+
+                      <%}%>
+
+                    <%}%>
+                  </select>
+
+                  <!-- news fake news type input-->
+                  <h3> Fake News type : </h3>
+                  
+                  <select name = "fake_news_type_id"  >
+
+                    <% for(var j = 0; j < data.all_fake_news_type.length; j++) {%>
+
+                      <%if(data.all_fake_news_type[j][1] == data.news[i]._type){%>
+
+                        <option value="<%=data.all_fake_news_type[j][0]%>" selected><%=data.all_fake_news_type[j][1]%>%> 
+
+                      <%} else{%>
+
+                        <option value="<%=data.all_fake_news_type[j][0]%>" ><%=data.all_fake_news_type[j][1]%>%> 
+
+                      <%}%>
+
+                    <%}%>
+                  </select>
 
                   <h3> Political Parties envolved : </h3>
-                  
-                  <%for(var j = 0; j < news[i]._parties.length; j++) {%>
-                    <h4><%=news[i]._parties[j]%></h4><input type="checkbox" name="parties" value = "<%=news[i]._parties[j]%>" checked>
-                  <%}%>
 
+                  <select name = "parties" multiple >
+                    <% for(var j = 0; j < data.all_parties.length; j++) {%>
+
+                      <%if(data.news[i]._parties.includes(data.all_parties[j][1])){%>
+
+                        <option value="<%=data.all_parties[j][0]%>" selected><%=data.all_parties[j][1]%>%> 
+                      <%} else{%>
+
+                        <option value="<%=data.all_parties[j][0]%>" ><%=data.all_parties[j][1]%>%> 
+
+                      <%}%>
+
+                    <%}%>
+                  </select>
+                  
                   <!-- delete button -->
                   <h3> Delete : </h3><input type="checkbox" name="delete"><br><br>
 
+                  <!-- submit button  -->
+                  <input type="submit"/>
+
                 </form>
 
-                  
+                  <!-- Exit button -->
+                  <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');">Exit</a>
                 
               </div>
             </div>
@@ -107,7 +183,7 @@
           
           <!-- Update button -->
           <div id="wrapper">
-            <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= news[i]._id %>');" class="w3-button w3-green">Edit</a></p>
+            <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" class="w3-button w3-green">Edit</a></p>
           </div>
 
           <br>

@@ -16,8 +16,6 @@ FileDAO.prototype.save_file_db = function(callback)  {
         text: "SELECT insert_file_db(get_extension_id('" + this._extension_name + "'),'" + this._file_name + "'," + this._fake_news_id + ",'" + this._path + this._file_name + "')"
     };
 
-    console.log('QUERY = ' + query.text);
-
     // callback
     this._connection.query(query, callback);
     
@@ -45,11 +43,9 @@ FileDAO.prototype.update_file = function(callback)  {
 
         //SQL query
         const query = {
-            text:   'SELECT update_file($1, $2, $3, $4)',
-            values: [this._file_name, this._fake_news_id, this._path, this._file_id]
+            text:   'SELECT update_file($1, $2, $3, $4, $5)',
+            values: [this._file_name, this._fake_news_id, this._path, this._file_id, this._extension_name]
         };
-
-        console.log('VAUES = ' + query.values);
 
         // callback
         this._connection.query(query, callback);
