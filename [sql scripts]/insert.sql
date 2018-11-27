@@ -162,3 +162,8 @@ INSERT INTO fake_news_usuario(usuario_id, fake_news_id)
     VALUES(9, 9);    
 -- arquivo
 INSERT INTO arquivo (extensao_id,arquivo_name,fake_news_id,arquivo_content )VALUES(1,7,lo_import('C:\Users\tvmma\Desktop\eu.png'))
+-- penalty
+INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id)
+	VALUES (3000, 1, 1, 1);
+INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id)
+	VALUES (5000, 2, 2, 2);

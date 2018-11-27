@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <!-- JS -->
+    <script type="text/javascript" src="/js/style.js"></script>
+
+</head>
+
+<body>
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
+        id="mySidebar"><br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close
+            Menu</a>
+        <div class="w3-container">
+            <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
+        </div>
+        <div class="w3-bar-block">
+            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+            <a href="../fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake
+                news</a>
+            <a href="../fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
+            <a href="../file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+            <a href="../file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
+            <a href="../user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+            <a href="../user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+            <a href="../penalty/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show penaltys</a>
+        </div>
+    </nav>
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+        <h1 class="w3-jumbo">Lista de Penalidades Sofridas</h1><br>
+        <%for(var i = 0; i < penaltys.rows.length; i++){%>
+        <tr>
+            <td><b> Fake News penalizada:</b><br>
+                <%= penaltys.rows[i].fake_news %>
+            </td><br>
+            <td><b>Tipo de penalidade : </b><br>
+                <%= penaltys.rows[i].type %>
+            </td><br>
+            <td><b>Compania penalizada :</b><br>
+                <%= penaltys.rows[i].company %>
+            </td><br>
+            <td><b>Valor a ser pago :</b><br>
+                R$ <%= penaltys.rows[i].amount %>
+            </td><br>
+
+            <br>
+            <br>
+        </tr>
+        <%}%>
+    </div>
+</body>
+
+</html>
