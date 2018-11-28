@@ -1,4 +1,7 @@
 module.exports = (app) => {
+  app.get('/penalty/insert', (req, res) => {
+    res.render("penalty/penalty_insert", { err: "" });
+  });
 
     app.get('/penalty/list', (req, res) => {
         // get connection with db
