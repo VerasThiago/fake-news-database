@@ -7,8 +7,8 @@ var dbConn = function () {
   const client = new Client({
     user: 'postgres',
     host: 'localhost',
-    database: 'BD_Master',
-    password: 'sapo464',
+    database: '',
+    password: '',
     port: 5432,
   });
 
