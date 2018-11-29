@@ -1,30 +1,36 @@
 body,h1,h2,h3,h4,h5 {
-  font-family: "Poppins", sans-serif
+  font-family: "Poppins", sans-serif !important;
 }
 
 body {
-  font-size:16px;
+  font-size:16px !important;
 }
 
 .w3-half img{
   margin-bottom:-6px;
   margin-top:16px;
   opacity:0.8;
-  cursor:pointer
+  cursor:pointer; 
 }
 
 .w3-half img:hover{
-  opacity:1
+  opacity:1;
 }
 
 .popStyle{
   top: 0; left: 0; position: fixed; width: 100%; height: 100vh;
-  background-color: rgba(0,0,0,0.7); display: none;"
+  background-color: rgba(0,0,0,0.7); display: none;
 }
 .popupBoxWrapper{
-  width: 550px; margin: 50px auto; text-align: left;
+  width: 550px;
+  margin: 50px auto; 
+  text-align: left; 
 }
 .popupBoxContent{
   background-color: #FFF;
   padding: 15px;
+}
+
+a {
+  text-decoration: none !important;
 }

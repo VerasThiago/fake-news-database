@@ -1,12 +1,18 @@
 <html>
 	<head>
     <!-- CSS -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="/js/style.js"></script>
 
+    
     <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
 	</head>
 	<body>
@@ -34,8 +40,13 @@
       </div>
     </nav>
     
-    <div class="w3-main" style="margin-left:340px;margin-right:40px">
-      <div class="w3-row-padding">
+      <p>
+      </p>
+      
+      <div class="w3-main" style="margin-left:340px;margin-right:40px">
+          <div class="w3-row-padding">
+
+
         <form class="fileupload" action="upload/fake_news" method="post" enctype="multipart/form-data">
           <h1 class="w3-jumbo">Fake news</h1>
           <div class="w3-half">
@@ -44,49 +55,49 @@
           <h1> Title : </h1><input type="text" name="title"><br>
 
           <!-- fake news content -->
-          <h1> Content : </h1><input type="text" name="content"><br>
+          <h1> Content : </h1><input type="text" name="content">
           
           <!-- company that published fake news -->
-          <h1> Company Name : </h1><br>
+          <h1> Company Name : </h1>
           
-          <select name = "company" >
+          <select class="selectpicker" name = "company" >
             <% for(var i = 0; i < data['company'].length; i++) {%>
                 <option value="<%=data['company'][i]%>"><%=data['company'][i]%></option>
             <%}%>
-          </select>
+          </select><br><br>
 
           <!-- gorvenment power -->
-          <h1> Government Power : </h1><br>
+          <h1> Government Power : </h1>
 
-          <select name = "government_power" >
+          <select class="selectpicker" name = "government_power" >
           <% for(var i = 0; i < data['government_power'].length; i++) {%>
             <option value="<%=data['government_power'][i]%>"><%=data['government_power'][i]%></option>
           <%}%>
-          </select>
+          </select><br><br>
 
           </div> <!-- Ending half -->
           
           <!-- parties envolved -->
-          <h1> Parties envolved : </h1><br>
+          <h1> Parties envolved : </h1>
 
-          <select name = "parties" multiple >
+          <select class="selectpicker" multiple data-live-search="true" name = "parties" multiple >
           <% for(var i = 0; i < data['parties'].length; i++) {%>
             <option value="<%=data['parties'][i]%>"><%=data['parties'][i]%></option>
           <%}%>
-          </select>
+          </select><br><br>
 
           <!-- fake news type -->
-          <h1> Fake news type : </h1><br>
+          <h1> Fake news type : </h1>
 
-          <select name = "fake_news_type" >
+          <select class="selectpicker" name = "fake_news_type" >
           <% for(var i = 0; i < data['fake_news_type'].length; i++) {%>
             <option value="<%=data['fake_news_type'][i]%>"><%=data['fake_news_type'][i]%></option>
           <%}%>
-          </select>
+          </select><br><br>
 
           <!-- gorvenment power -->
-          <h1> Intention : </h1><input type="checkbox" name="fake_news_intention" value = "true"><br><br>
-        
+          <h1> Intention : </h1><input type="checkbox" name="fake_news_intention" value = "true">
+          <br>
           
           <!-- submit button  -->
           <input type="submit"/>
