@@ -58,7 +58,7 @@ module.exports = (app) => {
 
 	});
 
-	app.post('/file/upload/file', (req,res) => {
+	app.post('/file/upload', (req,res) => {
 
 
 		// get file from form
@@ -87,7 +87,7 @@ module.exports = (app) => {
 		});
 	});
 
-	app.post('/file/edit/file', (req, res) => {
+	app.post('/file/edit', (req, res) => {
 
 		// get file from form
 		var file = req.files.upfile;

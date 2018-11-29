@@ -5,64 +5,65 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
     <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <!-- JS -->
-    
-    <script type="text/javascript" src="/js/style.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
   </head>
 	<body>
+    <!-- Sidebar/menu -->
     
-<!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
+      id="mySidebar"><br>
+      <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close
+        Menu</a>
+      <div class="w3-container">
+        <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
+      </div>
+      <div class="w3-bar-block">
+        
+        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>        
+        <a href="fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+        <a href="fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
+        <a href="file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+        <a href="file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
+        <a href="user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+        <a href="user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+        <a href="penalty/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show penalties</a>
+        <a href="/penalty/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert penalties</a>
 
-<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
-  id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close
-    Menu</a>
-  <div class="w3-container">
-    <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
-  </div>
-  <div class="w3-bar-block">
+      </div>
+    </nav>
 
-    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
-    <a href="fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
-    <a href="file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
-    <a href="file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
-    <a href="user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
-    <a href="user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
-    <a href="penalty/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show penalties</a>
-    <a href="/penalty/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert penalties</a>
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+    
+      <!-- Header -->
+      <div class="w3-container" style="margin-top:80px" id="showcase">
+        <h1 class="w3-jumbo"><b>Contribuidores:</b></h1>
+        <hr style="width:50px;border:5px solid red" class="w3-round">
+      </div>
 
-  </div>
-</nav>
-
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
-
-  <!-- Header -->
-  <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Contribuidores:</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
-  </div>
-
-  <!-- grid -->
-  <div class="w3-row-padding">
-    <div class="w3-half">
-      <p>Gabriel Bessa - 16/0120811</p>
-      <p>Thiago Veras - 16/0146682</p>
+      <!-- grid -->
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <p>Gabriel Bessa - 16/0120811</p>
+          <p>Thiago Veras - 16/0146682</p>
+        </div>
+      
+        <div class="w3-half">
+          <p>Vitor Dullens - 16/0148260</p>
+          <p>Heitor Belém - 16/xxxxxxx</p>
+        </div>
+      </div>
+      
+      <p>Depois a gente mexe na home page</p>
     </div>
 
-    <div class="w3-half">
-      <p>Vitor Dullens - 16/0148260</p>
-      <p>Heitor Belém - 16/xxxxxxx</p>
-    </div>
 
-    <p>Depois a gente mexe na home page</p>
-  </div>
+
+
+
     
 	</body>
 </html>
-
-
-<!-- 
-
-

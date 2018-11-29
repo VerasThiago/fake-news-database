@@ -16,7 +16,7 @@ module.exports = (app) => {
 
 	});
 
-	app.post('/user/upload/user', (req,res)  => {
+	app.post('/user/upload', (req,res)  => {
 
 		// get data from form
 		var data = req.body;
@@ -38,7 +38,7 @@ module.exports = (app) => {
 
 	});
 
-	app.post('/user/edit/user', (req,res)  => {
+	app.post('/user/edit', (req,res)  => {
 
 		// get data from form
 		var data = req.body;

@@ -5,9 +5,13 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 
     <!-- JS -->
     <script type="text/javascript" src="/js/style.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
 
 </head>
 
@@ -36,20 +40,126 @@
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
         <h1 class="w3-jumbo">Lista de Penalidades Sofridas</h1><br>
-        <%for(var i = 0; i < penaltys.rows.length; i++){%>
+        <%for(var i = 0; i < data.penalties.length; i++){%>
         <tr>
             <td><b> Fake News penalizada:</b><br>
-                <%= penaltys.rows[i].fake_news %>
+                <%= data.penalties[i]._fake_news_title %>
             </td><br>
             <td><b>Tipo de penalidade : </b><br>
-                <%= penaltys.rows[i].type %>
+                <%= data.penalties[i]._penalty_type_name %>
             </td><br>
             <td><b>Compania penalizada :</b><br>
-                <%= penaltys.rows[i].company %>
+                <%= data.penalties[i]._company_name %>
             </td><br>
             <td><b>Valor a ser pago :</b><br>
-                R$ <%= penaltys.rows[i].amount %>
+                R$ <%= data.penalties[i]._amount %>,00
             </td><br>
+
+            <!-- Update buttom-->
+            <div id="update_penalty<%= data.penalties[i]._fake_news_id %><%= data.penalties[i]._penalty_type_id %><%= data.penalties[i]._company_id %>" class=" popStyle" style="overflow: auto;">
+            
+                <div class="popupBoxWrapper">
+            
+                    <div class="popupBoxContent">
+            
+                        <!-- Update form-->
+                        <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
+            
+                            <!-- invisble input with penalty -->
+                            <input type="text" name="id" value="<%= data.penalties[i]._fake_news_id %>" style="display:none;">
+                            <input type="text" name="id" value="<%= data.penalties[i]._penalty_type_id %>" style="display:none;">
+                            <input type="text" name="id" value="<%= data.penalties[i]._company_id %>" style="display:none;">
+            
+                            <!-- penalty amount -->
+                            <h3> Amount : </h3><input type="number" name="amount" placeholder="<%= data.penalties[i]._amount %>"><br>
+            
+                            <h3> Fake News : </h3>
+                            
+                            <select name="fake_news_id">
+                            
+                                <% for(var j = 0; j < data.all_fake_news.length; j++) {%>
+                            
+                                    <%if(data.all_fake_news[j][1] == data.penalties[i]._fake_news_title){%>
+                            
+                                        <option value="<%=data.all_fake_news[j][0]%>" selected>
+                                        <%=data.all_fake_news[j][1]%>%>
+                            
+                                    <%} else{%>
+                            
+                                        <option value="<%=data.all_fake_news[j][0]%>">
+                                        <%=data.all_fake_news[j][1]%>%>
+                            
+                                    <%}%>
+                            
+                                <%}%>
+                            </select>
+
+                            <h3> Penalty Type: </h3>
+                            
+
+                            <select name="penalty_type_id">
+                            
+                                <% for(var j = 0; j < data.all_penalty_type.length; j++) {%>
+                            
+                                    <%if(data.all_penalty_type[j][1] == data.penalties[i]._penalty_type_name){%>
+                                
+                                        <option value="<%=data.all_penalty_type[j][0]%>" selected>
+                                        <%=data.all_penalty_type[j][1]%>%>
+                                
+                                    <%} else{%>
+                                
+                                        <option value="<%=data.all_penalty_type[j][0]%>">
+                                        <%=data.all_penalty_type[j][1]%>%>
+                                
+                                    <%}%>
+                            
+                                <%}%>
+                            </select>
+            
+                            <h3> Company : </h3>
+            
+                            <select name="company_id">
+            
+                                <% for(var j = 0; j < data.all_company.length; j++) {%>
+            
+                                    <%if(data.all_company[j][1] == data.penalties[i]._company_nam){%>
+            
+                                    <option value="<%=data.all_company[j][0]%>" selected>
+                                    <%=data.all_company[j][1]%>%>
+            
+                                <%} else{%>
+            
+                                    <option value="<%=data.all_company[j][0]%>">
+                                    <%=data.all_company[j][1]%>%>
+            
+                                <%}%>
+            
+                                <%}%>
+                            </select>
+                               
+                       
+            
+                      
+            
+                            <!-- delete button -->
+                            <h3> Delete : </h3><input type="checkbox" name="delete"><br><br>
+            
+                            <!-- submit button  -->
+                            <input type="submit" />
+            
+                        </form>
+            
+                        <!-- Exit button -->
+                        <a href="javascript:void(0)" onclick="toggle_visibility('update_penalty<%= data.penalties[i]._fake_news_id %><%= data.penalties[i]._penalty_type_id %><%= data.penalties[i]._company_id %>');">Exit</a>
+            
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Update button -->
+            <div id="wrapper">
+                <p><a href="javascript:void(0)" onclick="toggle_visibility('update_penalty<%= data.penalties[i]._fake_news_id %><%= data.penalties[i]._penalty_type_id %><%= data.penalties[i]._company_id %>');" class="w3-button w3-green">Edit</a></p>
+            </div>
 
             <br>
             <br>

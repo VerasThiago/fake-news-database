@@ -5,8 +5,14 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
   <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
+  <link rel=¨stylesheet¨ type=¨text/css¨ href=¨../../../public/assets/css/dropdown.css¨> <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
   <script type="text/javascript" src="/js/style.js"></script>
+  <link rel=¨stylesheet¨ type=¨text/css¨ href=¨../../../public/assets/js/dropdown.js¨> </head> <body>
 
   <!-- Sidebar/menu -->
   <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
@@ -35,7 +41,52 @@
     <h1 class="w3-jumbo">Insert a penalty</h1>
     
 
+        <form class="fileupload" action="upload" method="post" enctype="multipart/form-data">
+          <div class="w3-half">
+        
+        
+            <!-- fake news content -->
+            <h1> Amount : </h1><input type="number" name="amount"><br>
+        
+            <!-- company that published fake news -->
+            <h1> Company Name : </h1><br>
+        
+            <select name="company">
+              <% for(var i = 0; i < data.all_company.length; i++) {%>
+              <option value="<%=data.all_company[i][0]%>">
+                <%=data.all_company[i][1]%>
+              </option>
+              <%}%>
+            </select>
 
+            <!-- penalty type of the fake news -->
+            <h1> Penalty Type Name : </h1><br>
+
+            <select name="penalty_type">
+              <% for(var i = 0; i < data.all_penalty_type.length; i++) {%>
+              <option value="<%=data.all_penalty_type[i][0]%>">
+                <%=data.all_penalty_type[i][1]%>
+              </option>
+              <%}%>
+            </select>
+
+            
+            <!-- fake news -->
+            <h1> Fake News Title: </h1><br>
+
+            <select name="fake_news">
+              <% for(var i = 0; i < data.all_fake_news.length; i++) {%>
+              <option value="<%=data.all_fake_news[i][0]%>">
+                <%=data.all_fake_news[i][1]%>
+              </option>
+              <%}%>
+            </select><br><br>
+        
+          
+          <!-- submit button  -->
+          <input type="submit" />
+        
+        </form>
 
 
 

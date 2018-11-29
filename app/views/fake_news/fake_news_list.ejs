@@ -4,11 +4,16 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
-
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
+		<link rel=¨stylesheet¨ type=¨text/css¨ href=¨../../../public/assets/css/dropdown.css¨>
     
     <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
     <script type="text/javascript" src="/js/style.js"></script>
+    <link rel=¨stylesheet¨ type=¨text/css¨ href=¨../../../public/assets/js/dropdown.js¨>
 	</head>
 	<body>
 
@@ -54,14 +59,13 @@
 
           <!-- Update buttom-->
           <div id="update_fake_news_<%= data.news[i]._id %>" class = " popStyle" style = "overflow: auto;" >
+
             <div class="popupBoxWrapper" >
-              <div class="popupBoxContent" >
               
-               
+              <div class="popupBoxContent" >
 
                 <!-- Update form-->
-                <form class="fileupload" action="edit/fake_news" method="post" enctype="multipart/form-data">
-                 
+                <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
 
                   <!-- invisble input with news -->
                   <input type="text" name="id" value = "<%= data.news[i]._id %>" style = "display:none;" >

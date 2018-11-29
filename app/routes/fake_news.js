@@ -32,29 +32,17 @@ module.exports = (app) => {
 
 			file_functions.get_fake_news_data(connection, (err,result) =>{
 
-				var all_company = new Array;
+				var all_company = new Array;				
+				all_company = file_functions.string_to_list(result.rows[0].data);
 
 				var all_government_power = new Array;
+				all_government_power = file_functions.string_to_list(result.rows[1].data);
 
 				var all_parties = new Array;
+				all_parties = file_functions.string_to_list(result.rows[2].data);
 
 				var all_fake_news_type = new Array;
-
-				result.rows[0].data.forEach(function(company, chave){
-					all_company.push(company.split('(').join('').split(')').join('').split(','));
-				});
-
-				result.rows[1].data.forEach(function(government_power, chave){
-					all_government_power.push(government_power.split('(').join('').split(')').join('').split(','));
-				});
-
-				result.rows[2].data.forEach(function(parties, chave){
-					all_parties.push(parties.split('(').join('').split(')').join('').split(','));
-				});
-
-				result.rows[3].data.forEach(function(type, chave){
-					all_fake_news_type.push(type.split('(').join('').split(')').join('').split(','));
-				});
+				all_fake_news_type = file_functions.string_to_list(result.rows[3].data); 
 
 				var data_list = {
 					'news' : news,
@@ -111,7 +99,7 @@ module.exports = (app) => {
 
 	});
 
-	app.post('/fakenews/upload/fake_news', (req,res) => {
+	app.post('/fakenews/upload', (req,res) => {
 
 		// data from form
 		var data = req.body;
@@ -147,7 +135,7 @@ module.exports = (app) => {
 
 	});
 
-	app.post('/fakenews/edit/fake_news', (req,res) => {
+	app.post('/fakenews/edit', (req,res) => {
 
 
 		// form data

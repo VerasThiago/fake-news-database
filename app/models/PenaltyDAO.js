@@ -1,17 +1,26 @@
-function PenaltyDAO(connection, fake_news, company, type, amount) {
+function PenaltyDAO(connection, fake_news_id, fake_news_title, company_id, company_name, penalty_type_id, penalty_type_name, amount) {
     this._connection = connection;
-    this._fake_news = fake_news;
-    this._company = company;
-    this._type = type;
+    this._fake_news_id = fake_news_id;
+    this._fake_news_title = fake_news_title;
+    this._company_id = company_id;
+    this._company_name = company_name;
+    this._penalty_type_id = penalty_type_id;
+    this._penalty_type_name = penalty_type_name;
     this._amount = amount;
 }
 
-PenaltyDAO.prototype.get_all = function (callback) {
+PenaltyDAO.prototype.insert_db = function (callback) {
+
+    // SQL query
     const query = {
-        text: 'SELECT fake_news.fake_news_title AS fake_news, company.company_name AS company, penalty_type.penalty_type_name AS type, penalty.penalty_amount AS amount FROM fake_news, company, penalty_type, penalty WHERE fake_news.fake_news_id = penalty.fake_news_id AND company.company_id = penalty.company_id AND penalty_type.penalty_type_id = penalty.penalty_type_id'
+        text: 'INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id) VALUES($1, $2, $3, $4);',
+        values: [this._amount, this._penalty_type_id, this._fake_news_id, this._company_id]
     };
+
     this._connection.query(query, callback);
 }
+
+
 
 module.exports = function (app) {
     return PenaltyDAO;
