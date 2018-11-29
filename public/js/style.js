@@ -6,5 +6,4 @@ function toggle_visibility(id) {
     e.style.display = 'block';
 }
 
-$('selectpicker').selectpicker(); 
-
+$('select').selectpicker(); 
