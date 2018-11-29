@@ -4,16 +4,10 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-
 
     <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
     
     <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="/js/style.js"></script>
 	</head>
 	<body>
@@ -28,14 +22,14 @@
       </div>
       <div class="w3-bar-block">
         <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-        <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert fake news</a>
+        <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
         <a href="/fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
         <a href="/file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
         <a href="/file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
-        <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert user</a>
+        <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
         <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
-        <a href="/penalty/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert penalties</a>
         <a href="/penalty/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show penalties</a>
+        <a href="/penalty/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert penalties</a>
 
       </div>
     </nav>
@@ -59,13 +53,17 @@
           
 
           <!-- Update buttom-->
-          <div id="update_fake_news_<%= data.news[i]._id %>" class = "popStyle" style = "overflow: auto;" >
+          <div id="update_fake_news_<%= data.news[i]._id %>" class = " popStyle" style = "overflow: auto;" >
             <div class="popupBoxWrapper" >
               <div class="popupBoxContent" >
+              
+               
 
                 <!-- Update form-->
                 <form class="fileupload" action="edit/fake_news" method="post" enctype="multipart/form-data">
-                <!-- invisble input with news -->
+                 
+
+                  <!-- invisble input with news -->
                   <input type="text" name="id" value = "<%= data.news[i]._id %>" style = "display:none;" >
 
                   <!-- news title input -->
@@ -77,7 +75,7 @@
                   <!-- news intention input -->
                   <h3> Intention : </h3>
 
-                  <select class="selectpicker" name = "intention">
+                  <select name = "intention">
 
                     <%if(data.news[i]._intention){%>
 
@@ -91,12 +89,12 @@
 
                     <%}%>
                     
-                  </select><br><br>
+                  </select>
                   
                   <!-- news company input-->
                   <h3> Company : </h3>
 
-                  <select class="selectpicker" name = "company_id"  >
+                  <select name = "company_id"  >
 
                     <% for(var j = 0; j < data.all_company.length; j++) {%>
 
@@ -111,12 +109,12 @@
                       <%}%>
 
                     <%}%>
-                  </select><br><br>
+                  </select>
                   
                   <!-- news government power input-->
                   <h3> Government Power : </h3>
 
-                  <select class="selectpicker" name = "government_power_id"  >
+                  <select name = "government_power_id"  >
 
                     <% for(var j = 0; j < data.all_government_power.length; j++) {%>
 
@@ -131,12 +129,12 @@
                       <%}%>
 
                     <%}%>
-                  </select><br><br>
+                  </select>
 
                   <!-- news fake news type input-->
                   <h3> Fake News type : </h3>
                   
-                  <select class="selectpicker" name = "fake_news_type_id"  >
+                  <select name = "fake_news_type_id"  >
 
                     <% for(var j = 0; j < data.all_fake_news_type.length; j++) {%>
 
@@ -151,11 +149,11 @@
                       <%}%>
 
                     <%}%>
-                  </select><br><br>
+                  </select>
 
                   <h3> Political Parties envolved : </h3>
 
-                  <select class="selectpicker" name = "parties" multiple >
+                  <select name = "parties" multiple >
                     <% for(var j = 0; j < data.all_parties.length; j++) {%>
 
                       <%if(data.news[i]._parties.includes(data.all_parties[j][1])){%>
@@ -168,7 +166,7 @@
                       <%}%>
 
                     <%}%>
-                  </select><br><br>
+                  </select>
                   
                   <!-- delete button -->
                   <h3> Delete : </h3><input type="checkbox" name="delete"><br><br>
@@ -179,8 +177,8 @@
                 </form>
 
                   <!-- Exit button -->
-                  <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');">&times;</a>
-
+                  <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');">Exit</a>
+                
               </div>
             </div>
           </div>
