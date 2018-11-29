@@ -5,3 +5,4 @@ function toggle_visibility(id) {
   else
     e.style.display = 'block';
 }
+
