@@ -110,7 +110,7 @@ RETURNS INT AS $$
 DECLARE
     fake_news_id INT;                                    
 BEGIN
-    INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id, government_power_id, fake_news_type_id) VALUES (title, content, intention, get_company_id(company), get_government_power_id(government_power), get_fake_news_type_id(fake_news_type));
+    INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id, government_power_id, fake_news_type_id) VALUES (title, content, intention, company, government_power, fake_news_type);
     SELECT fake_news.fake_news_id INTO fake_news_id  FROM fake_news  WHERE fake_news.fake_news_title = title AND fake_news.fake_news_content = content;  
     RETURN fake_news_id;                                                         
 END;

@@ -20,11 +20,14 @@ module.exports = {
 	},
 	get_list_to_insert_fake_news: function(connection,  callback)  {
 	    // SQL query
-	    const query = {
-	        text: 'SELECT DISTINCT company_name,parties_name,government_power_name,fake_news_type_name ' +
-	              'FROM company, parties, government_power, fake_news_type'
-	    };
 
+	    const query = {
+			text: 'SELECT array_agg((company_id,company_name))::text[]  AS data FROM company UNION ALL ' +
+				  'SELECT array_agg((parties_id,parties_name))::text[]  FROM parties UNION ALL ' +
+				  'SELECT array_agg((government_power_id,government_power_name))::text[]  FROM government_power UNION ALL ' +
+				  'SELECT array_agg((fake_news_type_id,fake_news_type_name))::text[]  FROM fake_news_type'
+		};
+	   
 	    // callback
 	    connection.query(query, callback);
 	},
@@ -43,7 +46,7 @@ module.exports = {
 	get_news_to_insert_file: function(connection, callback){
 		// SQL query
 	    const query = {
-	        text: 'SELECT fake_news_id, fake_news_title FROM fake_news;'
+	        text: 'SELECT array_agg((fake_news_id,fake_news_title, company_id))::text[] AS data FROM fake_news'
 	    };
 
 	    // callback
@@ -65,7 +68,7 @@ module.exports = {
 		const query = {
 			text: 'SELECT array_agg((company_id,company_name))::text[]  AS data FROM company UNION ALL ' +
 				  'SELECT array_agg((penalty_type_id,penalty_type_name))::text[]  FROM penalty_type	UNION ALL ' +
-				  'SELECT array_agg((fake_news_id,fake_news_title))::text[]  FROM fake_news'	
+				  'SELECT array_agg((fake_news_id,fake_news_title, company_id))::text[]  FROM fake_news'	
 		};
 		connection.query(query, callback);
 	},
@@ -73,10 +76,11 @@ module.exports = {
 
 		var data_list = new Array;
 
-		data.forEach(function (value, key) {
-			data_list.push(value.split('(').join('').split(')').join('').split('"').join('').split(','));
-		});
-
+		if(data != null){
+			data.forEach(function (value, key) {
+				data_list.push(value.split('(').join('').split(')').join('').split('"').join('').split(','));
+			});
+		}
 		return data_list;
 
 	},

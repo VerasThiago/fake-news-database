@@ -9,8 +9,6 @@ module.exports.list = (app, req, res) =>{
 
 	file_functions.get_all_penalties(connection, (err, result) => {
 
-		console.log('err = ' + err);
-
 		var penalties = new Array;
 
 		var data = result.rows;
@@ -33,23 +31,13 @@ module.exports.list = (app, req, res) =>{
 				return res.send(err);
 			else {
 
-				var all_company = new Array;
-				all_company = file_functions.string_to_list(result.rows[0].data);
-
-				var all_penalty_type = new Array;
-				all_penalty_type = file_functions.string_to_list(result.rows[1].data);
-
-				var all_fake_news = new Array;
-				all_fake_news = file_functions.string_to_list(result.rows[2].data);
-
 				var data_list = {
 					'penalties' : penalties,
-					'all_company': all_company,
-					'all_penalty_type': all_penalty_type,
-					'all_fake_news': all_fake_news
+					'all_company': file_functions.string_to_list(result.rows[0].data),
+					'all_penalty_type': file_functions.string_to_list(result.rows[1].data),
+					'all_fake_news': file_functions.string_to_list(result.rows[2].data)
 				}
 				
-
 				res.render("penalty/penalty_list", { data: data_list });
 			}
 		});
@@ -68,19 +56,10 @@ module.exports.insert_form = (app, req, res) =>{
 			return res.send(err);
 		else{	
 
-			var all_company = new Array;
-			all_company = file_functions.string_to_list(result.rows[0].data);
-
-			var all_penalty_type = new Array;
-			all_penalty_type = file_functions.string_to_list(result.rows[1].data); 
-
-			var all_fake_news = new Array;
-			all_fake_news = file_functions.string_to_list(result.rows[2].data); 
-
 			var data_list = {
-				'all_company': all_company,
-				'all_penalty_type': all_penalty_type,
-				'all_fake_news': all_fake_news
+				'all_company': file_functions.string_to_list(result.rows[0].data),
+				'all_penalty_type': file_functions.string_to_list(result.rows[1].data),
+				'all_fake_news': file_functions.string_to_list(result.rows[2].data)
 			}
 
 			res.render("penalty/penalty_insert_form", { data: data_list });

@@ -46,13 +46,18 @@ module.exports.insert_form = (app, req, res) =>{
 	file_functions.get_news_to_insert_file(connection, (err, result) =>{
 
 
-		if(err)
-			return res.send(err);
+		if(err){
+			res.send(err);
+		}
+		else{
 
-		// render insert new file page with all data 
-		res.render('file/file_insert_form', {data:result});
-		
-
+			var data_list = {
+				'all_fake_news': file_functions.string_to_list(result.rows[0].data)
+			}
+			
+			// render insert new file page with all data 
+			res.render("file/file_insert_form", { data: data_list });
+		}
 	});
 
 }
@@ -62,6 +67,9 @@ module.exports.upload = (app, req, res) =>{
 	// get file from form
 	var file = req.files.upfile;
 
+	// data from form
+	var data = req.body;
+
 	// if file don't exist
 	if(!file)
 		return res.redirect('../insert_form/?error=1');
@@ -70,9 +78,7 @@ module.exports.upload = (app, req, res) =>{
 	var connection = app.config.dbConnection();
 
 	// instantiating new file
-	var fileDAO = new app.app.models.FileDAO(connection, null, file.name, null, file.mimetype, req.body.fake_news_id, path);
-
-	console.log("ID = " + fileDAO._fake_news_id);
+	var fileDAO = new app.app.models.FileDAO(connection, null, file.name, null, file.mimetype, data.fake_news, path);
 
 	// save pc then db
 	fileDAO.save_file(file, (err,result) =>{

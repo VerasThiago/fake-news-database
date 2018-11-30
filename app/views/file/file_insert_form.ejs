@@ -39,13 +39,14 @@
       <form class="fileupload" action="upload" method="post" enctype="multipart/form-data">
 
            <h2 class="w3-jumbo">Choose fake news</h2>
-          
-           <% for(var i = 0; i < data.rows.length; i++) {%>
-            
-            <h3><%=data.rows[i].fake_news_title%></h3><input type="radio" name = "fake_news_id" value="<%=data.rows[i].fake_news_id%>"><br><br>
-
-          <%}%>
-
+           
+           <select name="fake_news" id = "fake_news">
+             <% for(var i = 0; i < data.all_fake_news.length; i++) {%>
+             <option value="<%=data.all_fake_news[i][0]%>" id = "<%=data.all_fake_news[i][2]%>">
+               <%=data.all_fake_news[i][1]%>
+             </option>
+             <%}%>
+           </select><br><br>
 
           <h2 class="w3-jumbo">Upload File Here</h2>
 

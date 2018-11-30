@@ -58,31 +58,21 @@ module.exports.insert_form = (app, req, res) => {
 
 	file_functions.get_list_to_insert_fake_news(connection, (err,result) =>{
 
-		var data = {
-			'company' : [],
-			'parties' : [],
-			'government_power' : [],
-			'fake_news_type' : []
-		};
+		if(err){
+			return res.send(err);
+		}
+		else{	
 
-		result.rows.forEach(function(aux, chave){
-
-			if( ! data['company'].includes(aux['company_name']))
-				data['company'].push(aux['company_name']);
-
-			if( ! data['parties'].includes(aux['parties_name']))
-				data['parties'].push(aux['parties_name']);
-
-			if( ! data['government_power'].includes(aux['government_power_name']))
-				data['government_power'].push(aux['government_power_name']);
-
-			if( ! data['fake_news_type'].includes(aux['fake_news_type_name']))
-				data['fake_news_type'].push(aux['fake_news_type_name']);
-
-		});
-
-		// render insert new fake-news page
-		res.render('fake_news/fake_news_insert_form', {data:data});
+			var data_list = {
+				'all_company': file_functions.string_to_list(result.rows[0].data),
+				'all_parties': file_functions.string_to_list(result.rows[1].data),
+				'all_government_power': file_functions.string_to_list(result.rows[2].data),
+				'all_fake_news_type': file_functions.string_to_list(result.rows[3].data)
+			}
+			
+			res.render("fake_news/fake_news_insert_form", { data: data_list });
+		}
+		
 	});
 }
 
@@ -90,6 +80,7 @@ module.exports.upload = (app, req, res) => {
 
 	// data from form
 	var data = req.body;
+
 
 	// lits of parties
 	var parties = [];
@@ -109,8 +100,8 @@ module.exports.upload = (app, req, res) => {
 	// instantiating new fake_news
 	var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, null, data.title, data.content,
 														data.company, data.government_power,
-														parties, data.fake_news_intention,
-														data.fake_news_type);
+														data.parties, data.fake_news_intention,
+														data.fake_news_type, null);
 
 	// save fake_news in database
 	Fake_newsDAO.save_news_db(() => {
