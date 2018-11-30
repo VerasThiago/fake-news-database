@@ -84,7 +84,7 @@ Fake_newsDAO.prototype.update_fake_news = function(callback){
 
     // SQL query
     const query = {
-        text: 'SELECT update_fake_news($1, $2, $3 , $4, ARRAY[' +  [this._parties] + '], $5, $6, $7)',
+        text: 'SELECT update_fake_news($1, $2, $3 , $4, ARRAY[' +  [this._parties] + ']::bigint[], $5, $6, $7)',
         values: [this._id, this._title, this._content, this._intention, this._company, this._government_power, this._type]
     };
 
