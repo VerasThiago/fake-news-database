@@ -210,3 +210,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION update_penalty(new_penalty_amount INT, _penalty_type_id INT, new_penalty_type_id INT, _fake_news_id INT, new_fake_news_id INT, _company_id INT, new_company_id INT)
+RETURNS VOID AS $$
+BEGIN
+    UPDATE  penalty  SET penalty_amount = new_penalty_amount WHERE penalty_type_id = _penalty_type_id AND fake_news_id = _fake_news_id AND company_id = _company_id;
+
+    if(_penalty_type_id != new_penalty_type_id) then
+        UPDATE  penalty  SET penalty_type_id = new_penalty_type_id WHERE penalty_type_id = _penalty_type_id AND fake_news_id = _fake_news_id AND company_id = _company_id;    
+        _penalty_type_id = new_penalty_type_id;
+    end if;
+
+    if(_fake_news_id != new_fake_news_id) then
+        UPDATE  penalty  SET fake_news_id = new_fake_news_id WHERE penalty_type_id = _penalty_type_id AND fake_news_id = _fake_news_id AND company_id = _company_id;
+        _fake_news_id = new_penalty_type_id;
+    end if;
+
+     if(_company_id != new_company_id) then
+        UPDATE  penalty  SET company_id = new_company_id WHERE penalty_type_id = _penalty_type_id AND fake_news_id = _fake_news_id AND company_id = _company_id;
+        _company_id = new_company_id;
+    end if;
+
+END;
+$$ LANGUAGE plpgsql;

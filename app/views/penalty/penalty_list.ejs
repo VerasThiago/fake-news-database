@@ -66,12 +66,12 @@
                         <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
             
                             <!-- invisble input with penalty -->
-                            <input type="text" name="id" value="<%= data.penalties[i]._fake_news_id %>" style="display:none;">
-                            <input type="text" name="id" value="<%= data.penalties[i]._penalty_type_id %>" style="display:none;">
-                            <input type="text" name="id" value="<%= data.penalties[i]._company_id %>" style="display:none;">
+                            <input type="text" name="_fake_news_id" value="<%= data.penalties[i]._fake_news_id %>" style="display:none;">
+                            <input type="text" name="_penalty_type_id" value="<%= data.penalties[i]._penalty_type_id %>" style="display:none;">
+                            <input type="text" name="_company_id" value="<%= data.penalties[i]._company_id %>" style="display:none;">
             
                             <!-- penalty amount -->
-                            <h3> Amount : </h3><input type="number" name="amount" placeholder="<%= data.penalties[i]._amount %>"><br>
+                            <h3> Amount : </h3><input type="number" name="amount" value="<%= data.penalties[i]._amount %>"><br>
             
                             <h3> Fake News : </h3>
                             
@@ -122,10 +122,10 @@
             
                                 <% for(var j = 0; j < data.all_company.length; j++) {%>
             
-                                    <%if(data.all_company[j][1] == data.penalties[i]._company_nam){%>
+                                    <%if(data.all_company[j][1] == data.penalties[i]._company_name){%>
             
-                                    <option value="<%=data.all_company[j][0]%>" selected>
-                                    <%=data.all_company[j][1]%>%>
+                                        <option value="<%=data.all_company[j][0]%>" selected>
+                                        <%=data.all_company[j][1]%>%>
             
                                 <%} else{%>
             

@@ -53,12 +53,12 @@ module.exports = (app) => {
 
 				// instantiating penalty object
 				var PenaltyDAO = new app.app.models.PenaltyDAO(connection, 
-					data[i].fake_news_id, data[i].fake_news_title,
-					data[i].company_id,	data[i].company_name,
-					data[i].penalty_type_id, data[i].penalty_type_name,
-					data[i].amount);
+																data[i].fake_news_id, data[i].fake_news_title,
+																data[i].company_id,	data[i].company_name,
+																data[i].penalty_type_id, data[i].penalty_type_name,
+																data[i].amount);
 
-				penalties.push(PenaltyDAO);;
+				penalties.push(PenaltyDAO);
 			}
 
 
@@ -119,7 +119,29 @@ module.exports = (app) => {
 	// TODO
 	app.post('/penalty/edit', (req, res) => {
 
-		res.send(req.body);
+
+		// form data
+		var data = req.body;
+
+		// connections with db
+		var connection = app.config.dbConnection();
+
+
+		// instantiating new penalty
+		var PenaltyDAO = new app.app.models.PenaltyDAO(connection, [data._fake_news_id, data.fake_news_id], null,
+													  [data._company_id, data.company_id], null,
+													  [data._penalty_type_id, data.penalty_type_id],
+													  null, data.amount);
+
+
+		if(data.delete){
+			PenaltyDAO.delete_penalty((err, result) => res.redirect('/penalty/list'));
+		}
+		else{
+			PenaltyDAO.update_penalty((err, result) => res.redirect('/penalty/list'));
+		}
+
+//		res.send(req.body);
 	});
 
 };

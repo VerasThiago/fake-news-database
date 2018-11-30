@@ -104,26 +104,26 @@ module.exports = (app) => {
 		// data from form
 		var data = req.body;
 
-		// object of parties
-		var political_parties = data.parties;
-
 		// lits of parties
 		var parties = [];
 
-		// walktrough parties and inser into list
-		Object.keys(political_parties).forEach(function(key){
-			parties.push(political_parties[key]);
-		});
+		if(data.parties){
+			// object of parties
+			var political_parties = data.parties;
 
+			// walktrough parties and inser into list
+			Object.keys(political_parties).forEach(function(key){
+				parties.push(political_parties[key]);
+			});
+		}
 		// connections with db
 		var connection = app.config.dbConnection();
 
 		// instantiating new fake_news
 		var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, null, data.title, data.content,
 															data.company, data.government_power,
-															parties, data.fake_news_intention ? true:false,
+															parties, data.fake_news_intention,
 															data.fake_news_type);
-
 
 		// save fake_news in database
 		Fake_newsDAO.save_news_db(() => {
@@ -141,16 +141,18 @@ module.exports = (app) => {
 		// form data
 		var data = req.body;
 
-		// object of parties
-		var political_parties = data.parties;
-
 		// lits of parties
 		var parties = [];
 
-		// walktrough parties and inser into list
-		Object.keys(political_parties).forEach(function(key){
-			parties.push(political_parties[key]);
-		});
+		if(data.parties){
+			// object of parties
+			var political_parties = data.parties;
+
+			// walktrough parties and inser into list
+			Object.keys(political_parties).forEach(function(key){
+				parties.push(political_parties[key]);
+			});
+		}
 
 		// connections with db
 		var connection = app.config.dbConnection();
