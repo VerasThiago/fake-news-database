@@ -22,16 +22,15 @@
         <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
       </div>
       <div class="w3-bar-block">
-        <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-        <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+        <a href="/" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+        <a href="/fakenews/insert_form" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert fake news</a>
         <a href="/fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
-        <a href="/file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+        <a href="/file/insert_form" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
         <a href="/file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
-        <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
-        <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+        <!--<a href="/user/insert_form" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+        <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a> -->
+        <a href="/penalty/insert_form" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert penalties</a>
         <a href="/penalty/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show penalties</a>
-        <a href="/penalty/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert penalties</a>
-
       </div>
     </nav>
 
@@ -40,13 +39,14 @@
       <form class="fileupload" action="upload" method="post" enctype="multipart/form-data">
 
            <h2 class="w3-jumbo">Choose fake news</h2>
-          
-           <% for(var i = 0; i < data.rows.length; i++) {%>
-            
-            <h3><%=data.rows[i].fake_news_title%></h3><input type="radio" name = "fake_news_id" value="<%=data.rows[i].fake_news_id%>"><br><br>
-
-          <%}%>
-
+           
+           <select name="fake_news" id = "fake_news">
+             <% for(var i = 0; i < data.all_fake_news.length; i++) {%>
+             <option value="<%=data.all_fake_news[i][0]%>" id = "<%=data.all_fake_news[i][2]%>">
+               <%=data.all_fake_news[i][1]%>
+             </option>
+             <%}%>
+           </select><br><br>
 
           <h2 class="w3-jumbo">Upload File Here</h2>
 

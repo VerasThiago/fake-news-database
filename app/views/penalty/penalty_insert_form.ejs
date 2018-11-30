@@ -12,7 +12,10 @@
     crossorigin="anonymous"></script>
   <script src="semantic/dist/semantic.min.js"></script>
   <script type="text/javascript" src="/js/style.js"></script>
-  <link rel=¨stylesheet¨ type=¨text/css¨ href=¨../../../public/assets/js/dropdown.js¨> </head> <body>
+  <link rel=¨stylesheet¨ type=¨text/css¨ href=¨../../../public/assets/js/dropdown.js¨> 
+</head> 
+
+<body onload="filter_news();">
 
   <!-- Sidebar/menu -->
   <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;"
@@ -23,15 +26,15 @@
       <h3 class="w3-padding-64"><b>Fake News<br>Database</b></h3>
     </div>
     <div class="w3-bar-block">
-      <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-      <a href="/fakenews/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create fake news</a>
+      <a href="/" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+      <a href="/fakenews/insert_form" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert fake news</a>
       <a href="/fakenews/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show fake news</a>
-      <a href="/file/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
+      <a href="/file/insert_form" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert file</a>
       <a href="/file/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show files</a>
-      <a href="/user/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
-      <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a>
+      <!--<a href="/user/insert_form" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create user</a>
+      <a href="/user/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show users</a> -->
+      <a href="/penalty/insert_form" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert penalties</a>
       <a href="/penalty/list" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Show penalties</a>
-      <a href="/penalty/insert" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Insert penalties</a>
     </div>
   </nav>
 
@@ -51,7 +54,7 @@
             <!-- company that published fake news -->
             <h1> Company Name : </h1><br>
         
-            <select name="company">
+            <select name="company" id = "company" onchange="filter_news();">
               <% for(var i = 0; i < data.all_company.length; i++) {%>
               <option value="<%=data.all_company[i][0]%>">
                 <%=data.all_company[i][1]%>
@@ -66,6 +69,7 @@
               <% for(var i = 0; i < data.all_penalty_type.length; i++) {%>
               <option value="<%=data.all_penalty_type[i][0]%>">
                 <%=data.all_penalty_type[i][1]%>
+
               </option>
               <%}%>
             </select>
@@ -74,13 +78,14 @@
             <!-- fake news -->
             <h1> Fake News Title: </h1><br>
 
-            <select name="fake_news">
+            <select name="fake_news" id = "fake_news">
               <% for(var i = 0; i < data.all_fake_news.length; i++) {%>
-              <option value="<%=data.all_fake_news[i][0]%>">
+              <option value="<%=data.all_fake_news[i][0]%>" id = "<%=data.all_fake_news[i][2]%>">
                 <%=data.all_fake_news[i][1]%>
               </option>
               <%}%>
             </select><br><br>
+
         
           
           <!-- submit button  -->
@@ -88,9 +93,28 @@
         
         </form>
 
-
-
   </div>
+  
+
+  <script type="text/javascript">
+    function filter_news(){
+        var id = document.getElementById('company').value;
+        var news = document.getElementById('fake_news');
+        var ok = false;
+        for(var i = 0; i < news.length; i++){
+          if(id == news[i].id){
+            news[i].style.display = "block";
+            if(!ok){
+              news.selectedIndex = i;
+              ok = true;
+            }
+          }
+          else
+            news[i].style.display = "none"; 
+        }
+    }
+  </script>
+
   </body>
 
 </html>

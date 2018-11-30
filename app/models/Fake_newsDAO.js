@@ -23,13 +23,11 @@ Fake_newsDAO.prototype.save_news_db = function(callback){
     // Insert fake_news and return id
 	this._connection.query(query, (err,result) =>{
 
+        console.log('RESULT = ' + result);
+
         // if don't have error set fake_news id
-        if(!err){
+        if(!err)
             this.set_id(result.rows[0].fake_news_id);
-        }
-        else{
-            console.log('err = ' + err);
-        }
 
         // return callback
         return callback(); 
@@ -40,7 +38,7 @@ Fake_newsDAO.prototype.save_political_party = function(value){
 
     // SQL query
     const query = {
-        text: 'INSERT INTO fake_news_parties VALUES(get_parties_id($1),$2)',
+        text: 'INSERT INTO fake_news_parties VALUES($1,$2)',
         values: [value, this._id]
     };
 
@@ -50,12 +48,14 @@ Fake_newsDAO.prototype.save_political_party = function(value){
 
 Fake_newsDAO.prototype.save_parties_relation = function(){
     
+    if(this._parties != null){
 
-    // interate on parties array
-    for (var political_party of this._parties) {
+        // interate on parties array
+        for (var political_party of this._parties) {
 
-        // save political party
-        this.save_political_party(political_party);
+            // save political party
+            this.save_political_party(political_party);
+        }
     }
 }
 
@@ -84,7 +84,7 @@ Fake_newsDAO.prototype.update_fake_news = function(callback){
 
     // SQL query
     const query = {
-        text: 'SELECT update_fake_news($1, $2, $3 , $4, ARRAY[' +  [this._parties] + '], $5, $6, $7)',
+        text: 'SELECT update_fake_news($1, $2, $3 , $4, ARRAY[' +  [this._parties] + ']::bigint[], $5, $6, $7)',
         values: [this._id, this._title, this._content, this._intention, this._company, this._government_power, this._type]
     };
 

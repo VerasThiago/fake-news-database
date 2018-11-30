@@ -110,7 +110,7 @@ RETURNS INT AS $$
 DECLARE
     fake_news_id INT;                                    
 BEGIN
-    INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id, government_power_id, fake_news_type_id) VALUES (title, content, intention, get_company_id(company), get_government_power_id(government_power), get_fake_news_type_id(fake_news_type));
+    INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id, government_power_id, fake_news_type_id) VALUES (title, content, intention, company, government_power, fake_news_type);
     SELECT fake_news.fake_news_id INTO fake_news_id  FROM fake_news  WHERE fake_news.fake_news_title = title AND fake_news.fake_news_content = content;  
     RETURN fake_news_id;                                                         
 END;
@@ -168,7 +168,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION update_fake_news(news_id INT, title VARCHAR(50), content VARCHAR(50), intention BOOLEAN, political_parties_id INT[], company INT, government_power INT, fake_news_type INT)
+CREATE OR REPLACE FUNCTION update_fake_news(news_id INT, title VARCHAR(50), content VARCHAR(50), intention BOOLEAN, political_parties_id INT[]::bigint[], company INT, government_power INT, fake_news_type INT)
 RETURNS VOID AS $$
 DECLARE
     i INT;
@@ -182,13 +182,6 @@ BEGIN
     if (intention IS NOT NULL) then
         UPDATE  fake_news  SET fake_news_intention = intention WHERE fake_news_id = news_id;
     end if;
-    if (political_parties_id IS NOT NULL) then
-        DELETE FROM fake_news_parties WHERE fake_news_id = news_id;
-        FOR i IN 1 .. array_upper(political_parties_id, 1)
-        LOOP 
-           INSERT INTO fake_news_parties VALUES(political_parties_id[i],news_id);
-        END LOOP;
-    end if;
     if (company IS NOT NULL) then
         UPDATE  fake_news  SET company_id = company WHERE fake_news_id = news_id;
     end if;
@@ -197,6 +190,15 @@ BEGIN
     end if;
     if (fake_news_type IS NOT NULL) then
         UPDATE  fake_news  SET fake_news_type_id = fake_news_type WHERE fake_news_id = news_id;
+    end if;
+
+    DELETE FROM fake_news_parties WHERE fake_news_id = news_id;
+
+    if ( ARRAY_LENGTH( political_parties_id, 1) IS NOT NULL ) then
+        FOR i IN 1 .. array_upper(political_parties_id, 1)
+        LOOP 
+           INSERT INTO fake_news_parties VALUES(political_parties_id[i],news_id);
+        END LOOP;
     end if;
 END;
 $$ LANGUAGE plpgsql;
