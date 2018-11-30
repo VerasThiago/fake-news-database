@@ -32,10 +32,10 @@ module.exports.list = (app, req, res) =>{
 			else {
 
 				var data_list = {
-					'penalties' : penalties,
-					'all_company': file_functions.string_to_list(result.rows[0].data),
-					'all_penalty_type': file_functions.string_to_list(result.rows[1].data),
-					'all_fake_news': file_functions.string_to_list(result.rows[2].data)
+					'penalties' 		: penalties,
+					'all_company'		: file_functions.string_to_list(result.rows[0].data),
+					'all_penalty_type'	: file_functions.string_to_list(result.rows[1].data),
+					'all_fake_news'		: file_functions.string_to_list(result.rows[2].data)
 				}
 				
 				res.render("penalty/penalty_list", { data: data_list });

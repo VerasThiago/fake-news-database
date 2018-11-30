@@ -64,16 +64,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_company_id(name VARCHAR(50))
-RETURNS INT AS $$
-DECLARE
-    company_id INT;                                    
-BEGIN
-    SELECT company.company_id INTO company_id  FROM company  WHERE company.company_name = name;  
-    RETURN get_company_id;                                                         
-END;
-$$ LANGUAGE plpgsql;
-
 CREATE OR REPLACE FUNCTION get_company_name(id INT)
 RETURNS VARCHAR(50) AS $$
 DECLARE
@@ -84,28 +74,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_government_power_id(name VARCHAR(50))
-RETURNS INT AS $$
-DECLARE
-    government_power_id INT;                                    
-BEGIN
-    SELECT government_power.government_power_id INTO government_power_id  FROM government_power  WHERE government_power.government_power_name= name;  
-    RETURN government_power_id;                                                         
-END;
-$$ LANGUAGE plpgsql;
-
-
-CREATE OR REPLACE FUNCTION get_fake_news_type_id(name VARCHAR(50))
-RETURNS INT AS $$
-DECLARE
-    fake_news_type_id INT;                                    
-BEGIN
-    SELECT fake_news_type.fake_news_type_id INTO fake_news_type_id  FROM fake_news_type  WHERE fake_news_type.fake_news_type_name= name;  
-    RETURN fake_news_type_id;                                                         
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION insert_news_db(title VARCHAR(50), content TEXT, intention BOOLEAN, company VARCHAR(50) , government_power VARCHAR(50), fake_news_type VARCHAR(50))
+CREATE OR REPLACE FUNCTION insert_news_db(title VARCHAR(50), content TEXT, intention BOOLEAN, company INT) , government_power INT), fake_news_type INT))
 RETURNS INT AS $$
 DECLARE
     fake_news_id INT;                                    
@@ -168,7 +137,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION update_fake_news(news_id INT, title VARCHAR(50), content VARCHAR(50), intention BOOLEAN, political_parties_id INT[]::bigint[], company INT, government_power INT, fake_news_type INT)
+CREATE OR REPLACE FUNCTION update_fake_news(news_id INT, title VARCHAR(50), content VARCHAR(50), intention BOOLEAN, political_parties_id bigint[], company INT, government_power INT, fake_news_type INT, propagations_id bigint[])
 RETURNS VOID AS $$
 DECLARE
     i INT;
@@ -193,11 +162,20 @@ BEGIN
     end if;
 
     DELETE FROM fake_news_parties WHERE fake_news_id = news_id;
+    
+    DELETE FROM fake_news_propagation_method WHERE fake_news_id = news_id;
+
+    if ( ARRAY_LENGTH( propagations_id, 1) IS NOT NULL ) then
+        FOR i IN 1 .. array_upper(propagations_id, 1)
+        LOOP 
+           INSERT INTO fake_news_propagation_method VALUES(propagations_id[i], news_id);
+        END LOOP;
+    end if;
 
     if ( ARRAY_LENGTH( political_parties_id, 1) IS NOT NULL ) then
         FOR i IN 1 .. array_upper(political_parties_id, 1)
         LOOP 
-           INSERT INTO fake_news_parties VALUES(political_parties_id[i],news_id);
+           INSERT INTO fake_news_parties VALUES(political_parties_id[i], news_id);
         END LOOP;
     end if;
 END;
@@ -207,6 +185,7 @@ CREATE OR REPLACE FUNCTION delete_fake_news(id INT)
 RETURNS VOID AS $$
 BEGIN
     DELETE FROM fake_news_parties WHERE fake_news_id = id;
+    DELETE FROM fake_news_propagation_method WHERE fake_news_id = id;
     DELETE FROM arquivo WHERE fake_news_id = id;
     DELETE FROM fake_news WHERE fake_news_id = id;                                                       
 END;
@@ -232,5 +211,16 @@ BEGIN
         _company_id = new_company_id;
     end if;
 
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_propagation_method_name(id INT)
+RETURNS VARCHAR(50) AS $$
+DECLARE
+    propagation_name VARCHAR(50);                                    
+BEGIN
+    SELECT propagation_method.propagation_method_name INTO propagation_name  FROM propagation_method  WHERE propagation_method.propagation_method_id = id;  
+    RETURN propagation_name;                                                         
 END;
 $$ LANGUAGE plpgsql;

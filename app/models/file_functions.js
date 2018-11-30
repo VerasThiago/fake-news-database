@@ -25,7 +25,8 @@ module.exports = {
 			text: 'SELECT array_agg((company_id,company_name))::text[]  AS data FROM company UNION ALL ' +
 				  'SELECT array_agg((parties_id,parties_name))::text[]  FROM parties UNION ALL ' +
 				  'SELECT array_agg((government_power_id,government_power_name))::text[]  FROM government_power UNION ALL ' +
-				  'SELECT array_agg((fake_news_type_id,fake_news_type_name))::text[]  FROM fake_news_type'
+				  'SELECT array_agg((fake_news_type_id,fake_news_type_name))::text[]  FROM fake_news_type UNION ALL ' +
+				  'SELECT array_agg((propagation_method_id,propagation_method_name))::text[]  FROM propagation_method'
 		};
 	   
 	    // callback
@@ -34,8 +35,11 @@ module.exports = {
 	get_all_news: function(connection, callback){
 		// SQL query
 	    const query = {
-	        text: 'SELECT fake_news.fake_news_id AS id, fake_news.fake_news_title AS title, fake_news.fake_news_content AS content, fake_news.fake_news_intention AS intention, get_company_name(fake_news.company_id) AS company, get_government_power_name(fake_news.government_power_id) AS government_power , get_fake_news_type_name(fake_news.fake_news_type_id) AS type, politycal_parties_relation.parties ' +
-	              'FROM politycal_parties_relation,fake_news ' +
+	        text: 'SELECT fake_news.fake_news_id AS id, fake_news.fake_news_title AS title, fake_news.fake_news_content AS content, ' + 
+	        			' fake_news.fake_news_intention AS intention, get_company_name(fake_news.company_id) AS company, ' + 
+	        			' get_government_power_name(fake_news.government_power_id) AS government_power , get_fake_news_type_name(fake_news.fake_news_type_id) AS type, ' +
+	        			' politycal_parties_relation.parties, propagation_method_relation.propagations ' +
+	              'FROM politycal_parties_relation,fake_news, propagation_method_relation  ' +
 	              'WHERE fake_news.fake_news_id = politycal_parties_relation.fake_news_id ' +
 	              'ORDER BY fake_news.fake_news_id DESC'
 	    };
@@ -55,11 +59,12 @@ module.exports = {
 	get_fake_news_data: function(connection, callback){
 		// SQL query
 	    const query = {
-			text: 'SELECT array_agg((company_id,company_name))::text[] AS data FROM company UNION ALL ' +
-			      'SELECT array_agg((government_power_id,government_power_name))::text[]  FROM government_power	UNION ALL ' +
-			      'SELECT array_agg((parties_id,parties_name))::text[]  FROM parties UNION ALL ' + 
-			      'SELECT array_agg((fake_news_type_id,fake_news_type_name))::text[]  FROM fake_news_type'	
-	    };
+			text: 'SELECT array_agg((company_id,company_name))::text[]  AS data FROM company UNION ALL ' +
+				  'SELECT array_agg((parties_id,parties_name))::text[]  FROM parties UNION ALL ' +
+				  'SELECT array_agg((government_power_id,government_power_name))::text[]  FROM government_power UNION ALL ' +
+				  'SELECT array_agg((fake_news_type_id,fake_news_type_name))::text[]  FROM fake_news_type UNION ALL ' +
+				  'SELECT array_agg((propagation_method_id,propagation_method_name))::text[]  FROM propagation_method'
+		};
 
 	    // callback
 	    connection.query(query, callback);

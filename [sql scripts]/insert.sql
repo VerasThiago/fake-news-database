@@ -48,14 +48,18 @@ INSERT INTO government_power (government_power_name)
 INSERT INTO government_power (government_power_name)
     VALUES ('Legislativo');
 -- metodo de propagação
-INSERT INTO propagation_method (propagation_method_name)
-    VALUES ('Whatsapp');
-INSERT INTO propagation_method (propagation_method_name)
-    VALUES ('Telegram');
-INSERT INTO propagation_method (propagation_method_name)
-    VALUES ('Facebook');
-INSERT INTO propagation_method (propagation_method_name)
-    VALUES ('Twitter');
+INSERT INTO propagation_method(propagation_method_name) 
+    VALUES('Televison');
+INSERT INTO propagation_method(propagation_method_name) 
+    VALUES('Social Medias');
+INSERT INTO propagation_method(propagation_method_name) 
+    VALUES('Jornal');
+INSERT INTO propagation_method(propagation_method_name) 
+    VALUES('Telegram');
+INSERT INTO propagation_method(propagation_method_name) 
+    VALUES('Post Offce');
+INSERT INTO propagation_method(propagation_method_name) 
+    VALUES('Carrier Pigeon');
 -- tipo de penalidade
 INSERT INTO penalty_type (penalty_type_name)
     VALUES ('Difamacao de Imagem');

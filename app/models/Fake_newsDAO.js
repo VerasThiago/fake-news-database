@@ -1,5 +1,5 @@
 
-function Fake_newsDAO(connection, id ,title, content, company, government_power, parties, intention, type, files){
+function Fake_newsDAO(connection, id ,title, content, company, government_power, parties, intention, type, propagations,files){
     this._connection = connection;
     this._id = id;
     this._title = title ? title:null;
@@ -9,6 +9,7 @@ function Fake_newsDAO(connection, id ,title, content, company, government_power,
     this._parties = parties ? parties:null;
     this._intention = intention ? intention:null;
     this._type = type ? type:null;
+    this._propagations = propagations  ? propagations:null; 
     this._files = files ? files:null;
 }
 
@@ -23,8 +24,6 @@ Fake_newsDAO.prototype.save_news_db = function(callback){
     // Insert fake_news and return id
 	this._connection.query(query, (err,result) =>{
 
-        console.log('RESULT = ' + result);
-
         // if don't have error set fake_news id
         if(!err)
             this.set_id(result.rows[0].fake_news_id);
@@ -34,11 +33,11 @@ Fake_newsDAO.prototype.save_news_db = function(callback){
     });
 }
 
-Fake_newsDAO.prototype.save_political_party = function(value){
+Fake_newsDAO.prototype.save_relation = function(table, value){
 
     // SQL query
     const query = {
-        text: 'INSERT INTO fake_news_parties VALUES($1,$2)',
+        text: 'INSERT INTO ' + table + ' VALUES($1,$2)',
         values: [value, this._id]
     };
 
@@ -54,10 +53,26 @@ Fake_newsDAO.prototype.save_parties_relation = function(){
         for (var political_party of this._parties) {
 
             // save political party
-            this.save_political_party(political_party);
+            this.save_relation('fake_news_parties', political_party);
         }
     }
 }
+
+Fake_newsDAO.prototype.save_propagation_method_relation = function(){
+
+
+    if(this._propagations != null){
+
+        // interate on propagations array
+        for (var propagation of this._propagations) {
+
+            // save propagation method
+            this.save_relation('fake_news_propagation_method', propagation);
+        }
+    }
+}
+
+
 
 Fake_newsDAO.prototype.get_parties_db = function(callback){
 
@@ -84,9 +99,12 @@ Fake_newsDAO.prototype.update_fake_news = function(callback){
 
     // SQL query
     const query = {
-        text: 'SELECT update_fake_news($1, $2, $3 , $4, ARRAY[' +  [this._parties] + ']::bigint[], $5, $6, $7)',
+        text: 'SELECT update_fake_news($1, $2, $3 , $4, ARRAY[' +  [this._parties] + ']::bigint[], $5, $6, $7, ARRAY[' +  [this._propagations] + ']::bigint[])',
         values: [this._id, this._title, this._content, this._intention, this._company, this._government_power, this._type]
     };
+
+    console.log('text = ' + query.text);
+    console.log('values = ' + query.values);
 
     this._connection.query(query, callback);
 }
