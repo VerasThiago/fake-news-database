@@ -43,7 +43,7 @@ module.exports.insert_form = (app, req, res) =>{
 	// get connection with db
 	var connection = app.config.dbConnection();
 
-	file_functions.get_news_to_insert_file(connection, (err, result) =>{
+	file_functions.get_file_data(connection, (err, result) =>{
 
 
 		if(err){

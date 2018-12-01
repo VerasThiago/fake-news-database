@@ -103,9 +103,6 @@ Fake_newsDAO.prototype.update_fake_news = function(callback){
         values: [this._id, this._title, this._content, this._intention, this._company, this._government_power, this._type]
     };
 
-    console.log('text = ' + query.text);
-    console.log('values = ' + query.values);
-
     this._connection.query(query, callback);
 }
 
