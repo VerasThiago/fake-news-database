@@ -1,5 +1,6 @@
 // some file functions 
-const  file_functions = require('./../models/file_functions');
+const Functions = require('./../models/Functions');
+
 
 // file path
 const path = __dirname + '/../../public/uploads/';
@@ -57,7 +58,7 @@ module.exports.list = (app, req, res) =>{
 
 			var data_list = {
 				'files' : files,
-				'all_fake_news': file_functions.string_to_list(result.rows[0].data)
+				'all_fake_news': Functions.string_to_list(result.rows[0].data)
 			}
 			
 			// render file list page with all data 
@@ -85,7 +86,7 @@ module.exports.insert_form = (app, req, res) =>{
 		 */
 
 		var data_list = {
-			'all_fake_news': file_functions.string_to_list(result.rows[0].data)
+			'all_fake_news': Functions.string_to_list(result.rows[0].data)
 		}
 		
 		// render insert new file page with all data 

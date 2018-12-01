@@ -146,30 +146,6 @@ Fake_newsDAO.prototype.save_propagation_method_relation = function(){
     }
 }
 
-
-/*
-Fake_newsDAO.prototype.get_parties_db = function(callback){
-
-    // SQL query
-    const query = {
-        text: 'SELECT ARRAY (SELECT (fake_news_parties.parties_id, parties.parties_name) FROM fake_news_parties, parties WHERE fake_news_parties.fake_news_id = $1 AND parties.parties_id = fake_news_parties.parties_id)',
-        values: [this._id]
-    };
-
-    // Execute query
-    this._connection.query(query, (err,result) =>{
-
-        var all = result.rows[0].array.split('"').join('').split('(').join('').split(')').join('').replace('{', '').replace('}','').split(',');
-
-        for(var i = 0; i < all.length - 1; i += 2){
-            this._parties.push([all[i],all[i+1]]);
-        }
-        
-        return callback();
-
-    });
-}*/
-
 Fake_newsDAO.prototype.update_fake_news = function(callback){
 
     /**

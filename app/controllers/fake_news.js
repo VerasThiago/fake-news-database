@@ -1,5 +1,5 @@
 // some file functions 
-const  file_functions = require('./../models/file_functions');
+const  Functions = require('./../models/Functions');
 
 module.exports.list = (app, req, res) =>{
 	
@@ -48,11 +48,11 @@ module.exports.list = (app, req, res) =>{
 			
 			var data_list = {
 				'news' : news,
-				'all_company' 				: file_functions.string_to_list(result.rows[0].data),
-				'all_parties' 				: file_functions.string_to_list(result.rows[1].data),
-				'all_government_power' 		: file_functions.string_to_list(result.rows[2].data),
-				'all_fake_news_type' 		: file_functions.string_to_list(result.rows[3].data),
-				'all_propagation_method' 	: file_functions.string_to_list(result.rows[4].data)
+				'all_company' 				: Functions.string_to_list(result.rows[0].data),
+				'all_parties' 				: Functions.string_to_list(result.rows[1].data),
+				'all_government_power' 		: Functions.string_to_list(result.rows[2].data),
+				'all_fake_news_type' 		: Functions.string_to_list(result.rows[3].data),
+				'all_propagation_method' 	: Functions.string_to_list(result.rows[4].data)
 			}
 
 			res.render('fake_news/fake_news_list', {data:data_list});
@@ -80,11 +80,11 @@ module.exports.insert_form = (app, req, res) => {
 		 */
 
 		var data_list = {
-			'all_company' 				: file_functions.string_to_list(result.rows[0].data),
-			'all_parties' 				: file_functions.string_to_list(result.rows[1].data),
-			'all_government_power' 		: file_functions.string_to_list(result.rows[2].data),
-			'all_fake_news_type' 		: file_functions.string_to_list(result.rows[3].data),
-			'all_propagation_method' 	: file_functions.string_to_list(result.rows[4].data)
+			'all_company' 				: Functions.string_to_list(result.rows[0].data),
+			'all_parties' 				: Functions.string_to_list(result.rows[1].data),
+			'all_government_power' 		: Functions.string_to_list(result.rows[2].data),
+			'all_fake_news_type' 		: Functions.string_to_list(result.rows[3].data),
+			'all_propagation_method' 	: Functions.string_to_list(result.rows[4].data)
 		}
 
 		res.render("fake_news/fake_news_insert_form", { data: data_list });

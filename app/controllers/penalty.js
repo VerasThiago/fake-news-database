@@ -1,5 +1,6 @@
 // some file functions 
-const file_functions = require('./../models/file_functions');
+const Functions = require('./../models/Functions');
+
 
 
 module.exports.list = (app, req, res) =>{
@@ -50,9 +51,9 @@ module.exports.list = (app, req, res) =>{
 
 			var data_list = {
 				'penalties' 		: penalties,
-				'all_company'		: file_functions.string_to_list(result.rows[0].data),
-				'all_penalty_type'	: file_functions.string_to_list(result.rows[1].data),
-				'all_fake_news'		: file_functions.string_to_list(result.rows[2].data)
+				'all_company'		: Functions.string_to_list(result.rows[0].data),
+				'all_penalty_type'	: Functions.string_to_list(result.rows[1].data),
+				'all_fake_news'		: Functions.string_to_list(result.rows[2].data)
 			}
 			
 			res.render("penalty/penalty_list", { data: data_list });
@@ -82,9 +83,9 @@ module.exports.insert_form = (app, req, res) =>{
 		 */
 
 		var data_list = {
-			'all_company': file_functions.string_to_list(result.rows[0].data),
-			'all_penalty_type': file_functions.string_to_list(result.rows[1].data),
-			'all_fake_news': file_functions.string_to_list(result.rows[2].data)
+			'all_company': Functions.string_to_list(result.rows[0].data),
+			'all_penalty_type': Functions.string_to_list(result.rows[1].data),
+			'all_fake_news': Functions.string_to_list(result.rows[2].data)
 		}
 
 		res.render("penalty/penalty_insert_form", { data: data_list });
