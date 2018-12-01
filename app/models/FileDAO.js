@@ -1,13 +1,14 @@
 // Module that removes files
 var rimraf = require('rimraf');
 
-function FileDAO(connection, file_id, file_name, extension_id, extension_name,  fake_news_id, path){
+function FileDAO(connection, file_id, file_name, extension_id, extension_name,  fake_news_id, fake_news_title, path){
     this._connection = connection;
     this._file_id = file_id;
     this._file_name = file_name;
     this._extension_id  = extension_id;
     this._extension_name = extension_name;
     this._fake_news_id  = fake_news_id;
+    this._fake_news_title  = fake_news_title;
     this._path = path;
 
 }

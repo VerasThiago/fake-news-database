@@ -14,7 +14,7 @@ PenaltyDAO.prototype.save_penalty_db = function (callback) {
     /**
      * Returns callback from inserting penalty data in database
      *  
-     * This query just make a normal insert to penalty table
+     * This query calls insert_penalty_db procedure that checks if amout is not null and > 0 to insert in database
      *
      */
 
@@ -34,7 +34,7 @@ PenaltyDAO.prototype.save_penalty_db = function (callback) {
         *
         */
 
-        text: 'INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id) VALUES($1, $2, $3, $4);',
+        text: 'SELECT insert_penalty_db($1, $2, $3, $4)',
         values: [this._amount, this._penalty_type_id, this._fake_news_id, this._company_id]
     };
 
@@ -105,7 +105,7 @@ PenaltyDAO.prototype.delete_penalty = function (callback) {
         text: 'DELETE FROM penalty WHERE penalty_type_id = $1 AND fake_news_id = $2 AND company_id = $3;',
         values: [this._penalty_type_id[0], this._fake_news_id[0], this._company_id[0]]
     };
-    
+
     this._connection.query(query, callback);
 }
 

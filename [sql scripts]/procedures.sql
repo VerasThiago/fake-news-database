@@ -33,7 +33,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION update_file(file_name VARCHAR(50), fake_news_id INT, file_path VARCHAR(50), file_id INT, extension_name VARCHAR(50))
+CREATE OR REPLACE FUNCTION update_file(file_name VARCHAR(50), news_id INT, file_path VARCHAR(50), file_id INT, extension_name VARCHAR(50))
 RETURNS void AS $$
 BEGIN
     if(file_name IS NOT NULL)then
@@ -58,8 +58,8 @@ BEGIN
                   )
               );
     end if;                                                                                                                                       
-    if (fake_news_id IS NOT NULL) then
-        UPDATE arquivo SET fake_news_id  = news_id WHERE arquivo.arquivo_id = file_id;
+    if (news_id IS NOT NULL) then
+        UPDATE arquivo SET fake_news_id = news_id WHERE arquivo.arquivo_id = file_id;
     end if;
 END;
 $$ LANGUAGE plpgsql;
@@ -82,6 +82,15 @@ BEGIN
     INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id, government_power_id, fake_news_type_id) VALUES (title, content, intention, company, government_power, fake_news_type);
     SELECT fake_news.fake_news_id INTO fake_news_id  FROM fake_news  WHERE fake_news.fake_news_title = title AND fake_news.fake_news_content = content;  
     RETURN fake_news_id;                                                         
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION insert_penalty_db(amount INT, penalty_type INT, fake_news INT, company INT )
+RETURNS VOID AS $$
+BEGIN
+    if(amount IS NOT NULL and amount > 0 )then
+         INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id) VALUES(amount, penalty_type, fake_news, company)
+    end if;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -194,7 +203,8 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION update_penalty(new_penalty_amount INT, _penalty_type_id INT, new_penalty_type_id INT, _fake_news_id INT, new_fake_news_id INT, _company_id INT, new_company_id INT)
 RETURNS VOID AS $$
 BEGIN
-    UPDATE  penalty  SET penalty_amount = new_penalty_amount WHERE penalty_type_id = _penalty_type_id AND fake_news_id = _fake_news_id AND company_id = _company_id;
+
+    UPDATE  penalty  SET penalty_amount = new_penalty_amount WHERE penalty_type_id = _penalty_type_id AND fake_news_id = _fake_news_id AND company_id = _company_id AND new_penalty_amount IS NOT NULL AND new_penalty_amount > 0;
 
     if(_penalty_type_id != new_penalty_type_id) then
         UPDATE  penalty  SET penalty_type_id = new_penalty_type_id WHERE penalty_type_id = _penalty_type_id AND fake_news_id = _fake_news_id AND company_id = _company_id;    

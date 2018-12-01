@@ -2,18 +2,33 @@
 const  file_functions = require('./../models/file_functions');
 
 module.exports.list = (app, req, res) =>{
-	// get connection with db
+	
+	/**
+	 *
+	 *  This method render a view passing object with all news in database and all data related with fake news to user update it if necessary
+	 *
+	 */
+
 	var connection = app.config.dbConnection();
 
 	app.app.models.Fake_newsDAO.get_all_news(connection,(err, result) =>{
 
+
+		/**
+		 *
+		 *  get_all_news method returns all news and inside this callback is converted to object of fake news class and pushed to a list of objects
+		 *
+		 */
+
+
+		// list of news object
 		var news = new Array;
 
+		// news returned from database
 		var data = result.rows;
 
 		for(var i = 0; i < data.length; i++){
 			
-			// instantiating fake_news object
 			var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, data[i].id,
 														data[i].title, data[i].content,
 														data[i].company, data[i].government_power,
@@ -25,6 +40,11 @@ module.exports.list = (app, req, res) =>{
 
 		app.app.models.Fake_newsDAO.get_fake_news_data(connection, (err,result) =>{
 
+			/**
+			 *
+			 *  get_fake_news_data returns list of all companies, political parties ... so user can update his fake news based on this data
+			 *
+			 */
 			
 			var data_list = {
 				'news' : news,
@@ -43,31 +63,46 @@ module.exports.list = (app, req, res) =>{
 
 module.exports.insert_form = (app, req, res) => {
 
-	// connections with db
+	/**
+	 *
+	 *  This method render a view passing object with all data related with fake news to user create his own fake news
+	 *	
+	 */
+
 	var connection = app.config.dbConnection();
 
 	app.app.models.Fake_newsDAO.get_fake_news_data(connection, (err,result) =>{
 
-		if(err){
-			return res.send(err);
-		}
-		else{	
+		/**
+		 *
+		 *  get_fake_news_data returns list of all companies, political parties ... so user can choose relation with this data with his own fake news
+		 *
+		 */
 
-			var data_list = {
-				'all_company' 				: file_functions.string_to_list(result.rows[0].data),
-				'all_parties' 				: file_functions.string_to_list(result.rows[1].data),
-				'all_government_power' 		: file_functions.string_to_list(result.rows[2].data),
-				'all_fake_news_type' 		: file_functions.string_to_list(result.rows[3].data),
-				'all_propagation_method' 	: file_functions.string_to_list(result.rows[4].data)
-			}
-
-			res.render("fake_news/fake_news_insert_form", { data: data_list });
+		var data_list = {
+			'all_company' 				: file_functions.string_to_list(result.rows[0].data),
+			'all_parties' 				: file_functions.string_to_list(result.rows[1].data),
+			'all_government_power' 		: file_functions.string_to_list(result.rows[2].data),
+			'all_fake_news_type' 		: file_functions.string_to_list(result.rows[3].data),
+			'all_propagation_method' 	: file_functions.string_to_list(result.rows[4].data)
 		}
+
+		res.render("fake_news/fake_news_insert_form", { data: data_list });
 		
 	});
 }
 
 module.exports.upload = (app, req, res) => {
+
+	/**
+	 *
+	 *  This method upload data recieved from user form, insert in database and redirecting to the same page
+	 *
+	 *	Checks if have list of political parties and propagation method, then transform in 2 lists, with the rest of data instantiate a object from
+	 *	fake news class and calls method save_news_db	
+     *
+     *
+	 */
 
 	// data from form
 	var data = req.body;
@@ -106,13 +141,16 @@ module.exports.upload = (app, req, res) => {
 														data.parties, data.fake_news_intention,
 														data.fake_news_type, propagations, null);
 
-	// save fake_news in database
 	Fake_newsDAO.save_news_db(() => {
 
-		// save political party relation
+		/**
+         *
+         * This method insert object in db then set his own id attribute to id created by database, then insert his relation with political party and propagation method
+         * 
+		 */
+
 		Fake_newsDAO.save_parties_relation();
 
-		// save propagation method relation
 		Fake_newsDAO.save_propagation_method_relation();
 
 	}),res.redirect('/fakenews/insert_form');
@@ -120,6 +158,17 @@ module.exports.upload = (app, req, res) => {
 }
 
 module.exports.edit = (app, req, res) => {
+
+	/**
+	 *
+	 *  This method upload data recieved from user form, insert in database and redirecting to the same page, but this time the form is a edit form and insert in an existing fake news in database
+	 *
+	 *	Checks if have list of political parties and propagation method, then transform in 2 lists, with the rest of data instantiate a object from
+	 *	fake news class and then checks if delete button was pressed to delete or update	
+     *
+	 */
+
+
 	// data from form
 	var data = req.body;
 

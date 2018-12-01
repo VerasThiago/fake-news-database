@@ -3,11 +3,25 @@ const file_functions = require('./../models/file_functions');
 
 
 module.exports.list = (app, req, res) =>{
+
+	/**
+	 *
+	 *  This method render a view passing object with all penalties in database and all data related with penalty to user update it if necessary
+	 *
+	 */
+
 	// get connection with db
 	var connection = app.config.dbConnection();
 
 
 	app.app.models.PenaltyDAO.get_all_penalties(connection, (err, result) => {
+
+		/**
+		 *
+		 *  get_all_penalties method returns all penalties and inside this callback is converted to object of penalty class and pushed to a list of objects
+		 *
+		 */
+
 
 		var penalties = new Array;
 
@@ -27,19 +41,21 @@ module.exports.list = (app, req, res) =>{
 
 
 		app.app.models.PenaltyDAO.get_penalty_data(connection, (err, result) => {
-			if (err)
-				return res.send(err);
-			else {
 
-				var data_list = {
-					'penalties' 		: penalties,
-					'all_company'		: file_functions.string_to_list(result.rows[0].data),
-					'all_penalty_type'	: file_functions.string_to_list(result.rows[1].data),
-					'all_fake_news'		: file_functions.string_to_list(result.rows[2].data)
-				}
-				
-				res.render("penalty/penalty_list", { data: data_list });
+			/**
+			 *
+			 *  get_penalty_data returns list of all companies, penalty types and fake news so user can update his penalty based on this data
+			 *
+			 */ 
+
+			var data_list = {
+				'penalties' 		: penalties,
+				'all_company'		: file_functions.string_to_list(result.rows[0].data),
+				'all_penalty_type'	: file_functions.string_to_list(result.rows[1].data),
+				'all_fake_news'		: file_functions.string_to_list(result.rows[2].data)
 			}
+			
+			res.render("penalty/penalty_list", { data: data_list });
 		});
 
 	});
@@ -47,43 +63,61 @@ module.exports.list = (app, req, res) =>{
 }
 
 module.exports.insert_form = (app, req, res) =>{
-	// get connection with db
+
+	/**
+	 *
+	 *  This method render a view passing object with all data related with penalty to user create his own penalty
+	 *	
+	 */
+
+	
 	var connection = app.config.dbConnection();
 
-
 	app.app.models.PenaltyDAO.get_penalty_data(connection, (err,result) =>{
-		if(err)
-			return res.send(err);
-		else{	
 
-			var data_list = {
-				'all_company': file_functions.string_to_list(result.rows[0].data),
-				'all_penalty_type': file_functions.string_to_list(result.rows[1].data),
-				'all_fake_news': file_functions.string_to_list(result.rows[2].data)
-			}
+		/**
+		 *
+	     *  get_penalty_data returns list of all companies, penalty types and fake news so user can create his own penalty
+		 *
+		 */
 
-			res.render("penalty/penalty_insert_form", { data: data_list });
+		var data_list = {
+			'all_company': file_functions.string_to_list(result.rows[0].data),
+			'all_penalty_type': file_functions.string_to_list(result.rows[1].data),
+			'all_fake_news': file_functions.string_to_list(result.rows[2].data)
 		}
+
+		res.render("penalty/penalty_insert_form", { data: data_list });
 	});
 	
 }
 
 module.exports.upload = (app, req, res) =>{
 
+	/**
+	 *
+	 *  This method upload data recieved from user form, insert in database and redirecting to the same page
+	 *
+	 */
+
+
 	// data from form
 	var data = req.body;
 
-	// connections with db
 	var connection = app.config.dbConnection();
 
-	// instantiating new penalty
 	var PenaltyDAO = new app.app.models.PenaltyDAO(connection, data.fake_news, null, data.company, null, data.penalty_type, null,  data.amount);
 
-
-	PenaltyDAO.save_penalty_db((err, result) => res.redirect("/penalty/insert_form"));
+	PenaltyDAO.save_penalty_db((err, result) => {res.redirect("/penalty/insert_form")});
 }
 
 module.exports.edit = (app, req, res) =>{
+
+	/**
+	 *
+	 *  This method upload data recieved from user form, insert in database and redirecting to the same page, but this time the form is a edit form and insert in an existing penalty in database
+	 *
+	 */
 	
 	// form data
 	var data = req.body;
