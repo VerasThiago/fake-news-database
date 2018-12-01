@@ -1,6 +1,3 @@
-// some file functions 
-const file_functions = require('./../models/file_functions');
-
 module.exports = (app) => {
 
 	app.get('/penalty/list', (req,res) => {
