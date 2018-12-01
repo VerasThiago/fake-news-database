@@ -2,7 +2,7 @@
 const  file_functions = require('./../models/file_functions');
 
 // file path
-const path =  __dirname + '/../../public/uploads/'
+const path = __dirname + '/../../public/uploads/';
 
 module.exports.list = (app, req, res) =>{
 
@@ -85,8 +85,11 @@ module.exports.upload = (app, req, res) =>{
 
 		if(!err)
 			res.redirect('/file/insert_form');
-		else
+		else{
+			console.log('type = ' + file.mimetype);
+			console.log('error = ' + err);
 			res.send(err);
+		}
 
 	});
 

@@ -74,7 +74,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insert_news_db(title VARCHAR(50), content TEXT, intention BOOLEAN, company INT) , government_power INT), fake_news_type INT))
+CREATE OR REPLACE FUNCTION insert_news_db(title VARCHAR(50), content TEXT, intention BOOLEAN, company INT , government_power INT, fake_news_type INT)
 RETURNS INT AS $$
 DECLARE
     fake_news_id INT;                                    

@@ -67,9 +67,11 @@ INSERT INTO penalty_type (penalty_type_name)
     VALUES ('Danos Morais');
 -- tipo de extensao
 INSERT INTO extensao (extensao_name)
-    VALUES ('jpg');
+    VALUES ('image/jpeg');
 INSERT INTO extensao (extensao_name)
-    VALUES ('mp4');
+    VALUES ('image/png');
+INSERT INTO extensao (extensao_name)
+    VALUES ('video/mpeg');
 -- parties
 INSERT INTO parties(parties_name) VALUES('PSDB');
 INSERT INTO parties(parties_name) VALUES('PTD');
@@ -79,17 +81,17 @@ INSERT INTO parties(parties_name) VALUES('NOVO');
 INSERT INTO parties(parties_name) VALUES('BEM');    
 -- fake news type
 INSERT INTO fake_news_type (fake_news_type_name)
-    VALUES ('Conteudo_enganoso');
+    VALUES ('Conteudo enganoso');
 INSERT INTO fake_news_type (fake_news_type_name)
-    VALUES ('Falso_contexto');
+    VALUES ('Falso contexto');
 INSERT INTO fake_news_type (fake_news_type_name)
-    VALUES ('Conteudo_impostor'); 
+    VALUES ('Conteudo impostor'); 
 INSERT INTO fake_news_type (fake_news_type_name)
-    VALUES ('Falsa_conexao'); 
+    VALUES ('Falsa conexao'); 
 INSERT INTO fake_news_type (fake_news_type_name)
-    VALUES ('Conteudo_manipulado'); 
+    VALUES ('Conteudo manipulado'); 
 INSERT INTO fake_news_type (fake_news_type_name)
-    VALUES ('Conteudo_fabricado'); 
+    VALUES ('Conteudo fabricado'); 
 -- fake news
 INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, company_id, 
                         government_power_id, fake_news_type_id)

@@ -11,8 +11,6 @@ module.exports.list = (app, req, res) =>{
 
 		var data = result.rows;
 
-
-
 		for(var i = 0; i < data.length; i++){
 			
 			// instantiating fake_news object
@@ -24,8 +22,6 @@ module.exports.list = (app, req, res) =>{
 
 			news.push(Fake_newsDAO);
 		}
-
-
 
 		file_functions.get_fake_news_data(connection, (err,result) =>{
 
@@ -163,17 +159,11 @@ module.exports.edit = (app, req, res) => {
 														data.parties, data.fake_news_intention,
 														data.fake_news_type, data.propagations, null);
 
-
-	console.log('COMP = ' + Fake_newsDAO._propagations);
-
 	if(data.delete){
 		Fake_newsDAO.delete_fake_news((err,result) => res.redirect('/fakenews/list'));
 	}
 	else{
-		Fake_newsDAO.update_fake_news((err,result) => {
-			console.log('ERROR = ' + err);
-			res.redirect('/fakenews/list')
-		});
+		Fake_newsDAO.update_fake_news((err,result) =>res.redirect('/fakenews/list'));
 	}
 
 }

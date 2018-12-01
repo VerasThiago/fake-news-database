@@ -40,7 +40,7 @@ module.exports = {
 	        			' get_government_power_name(fake_news.government_power_id) AS government_power , get_fake_news_type_name(fake_news.fake_news_type_id) AS type, ' +
 	        			' politycal_parties_relation.parties, propagation_method_relation.propagations ' +
 	              'FROM politycal_parties_relation,fake_news, propagation_method_relation  ' +
-	              'WHERE fake_news.fake_news_id = politycal_parties_relation.fake_news_id ' +
+	              'WHERE fake_news.fake_news_id = politycal_parties_relation.fake_news_id AND fake_news.fake_news_id = propagation_method_relation.fake_news_id ' +
 	              'ORDER BY fake_news.fake_news_id DESC'
 	    };
 
