@@ -7,7 +7,7 @@ module.exports.list = (app, req, res) =>{
 	var connection = app.config.dbConnection();
 
 
-	file_functions.get_all_penalties(connection, (err, result) => {
+	app.app.models.PenaltyDAO.get_all_penalties(connection, (err, result) => {
 
 		var penalties = new Array;
 
@@ -26,7 +26,7 @@ module.exports.list = (app, req, res) =>{
 		}
 
 
-		file_functions.get_penalty_data(connection, (err, result) => {
+		app.app.models.PenaltyDAO.get_penalty_data(connection, (err, result) => {
 			if (err)
 				return res.send(err);
 			else {
@@ -51,7 +51,7 @@ module.exports.insert_form = (app, req, res) =>{
 	var connection = app.config.dbConnection();
 
 
-	file_functions.get_penalty_data(connection, (err,result) =>{
+	app.app.models.PenaltyDAO.get_penalty_data(connection, (err,result) =>{
 		if(err)
 			return res.send(err);
 		else{	
@@ -80,7 +80,7 @@ module.exports.upload = (app, req, res) =>{
 	var PenaltyDAO = new app.app.models.PenaltyDAO(connection, data.fake_news, null, data.company, null, data.penalty_type, null,  data.amount);
 
 
-	PenaltyDAO.insert_db((err, result) => res.redirect("/penalty/insert_form"));
+	PenaltyDAO.save_penalty_db((err, result) => res.redirect("/penalty/insert_form"));
 }
 
 module.exports.edit = (app, req, res) =>{

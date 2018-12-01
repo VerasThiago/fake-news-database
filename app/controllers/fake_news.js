@@ -5,7 +5,7 @@ module.exports.list = (app, req, res) =>{
 	// get connection with db
 	var connection = app.config.dbConnection();
 
-	file_functions.get_all_news(connection,(err, result) =>{
+	app.app.models.Fake_newsDAO.get_all_news(connection,(err, result) =>{
 
 		var news = new Array;
 
@@ -23,7 +23,7 @@ module.exports.list = (app, req, res) =>{
 			news.push(Fake_newsDAO);
 		}
 
-		file_functions.get_fake_news_data(connection, (err,result) =>{
+		app.app.models.Fake_newsDAO.get_fake_news_data(connection, (err,result) =>{
 
 			
 			var data_list = {
@@ -46,7 +46,7 @@ module.exports.insert_form = (app, req, res) => {
 	// connections with db
 	var connection = app.config.dbConnection();
 
-	file_functions.get_fake_news_data(connection, (err,result) =>{
+	app.app.models.Fake_newsDAO.get_fake_news_data(connection, (err,result) =>{
 
 		if(err){
 			return res.send(err);

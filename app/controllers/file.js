@@ -10,10 +10,10 @@ module.exports.list = (app, req, res) =>{
 	var connection = app.config.dbConnection();
 
 	// erase all files before upload all
-	file_functions.erase_files(path);
+	app.app.models.FileDAO.erase_files(path);
 
 	// get some data from db
-	file_functions.get_all_files( connection, (err,result) => {
+	app.app.models.FileDAO.get_all_files( connection, (err,result) => {
 
 		if(!err){
 
@@ -43,7 +43,7 @@ module.exports.insert_form = (app, req, res) =>{
 	// get connection with db
 	var connection = app.config.dbConnection();
 
-	file_functions.get_file_data(connection, (err, result) =>{
+	app.app.models.FileDAO.get_file_data(connection, (err, result) =>{
 
 
 		if(err){
@@ -86,8 +86,6 @@ module.exports.upload = (app, req, res) =>{
 		if(!err)
 			res.redirect('/file/insert_form');
 		else{
-			console.log('type = ' + file.mimetype);
-			console.log('error = ' + err);
 			res.send(err);
 		}
 
