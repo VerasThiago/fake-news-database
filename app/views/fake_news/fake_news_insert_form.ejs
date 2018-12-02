@@ -4,11 +4,13 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> -->
     <!-- JS -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-      crossorigin="anonymous"></script>
-    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="/js/style.js"></script>
     <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
 	</head>
 	<body>
@@ -48,30 +50,30 @@
             <h1> Content : </h1><input type="text" name="content"><br>
             
             <!-- company that published fake news -->
-            <h1> Company Name : </h1><br>
+            <h1> Company Name : </h1>
             
-            <select name = "company" >
+            <select class="selectpicker" name = "company" >
               <% for(var i = 0; i < data.all_company.length; i++) {%>
                   <option value="<%=data.all_company[i][0]%>"><%=data.all_company[i][1]%></option>
               <%}%>
-            </select>
+            </select><br><br>
 
             <!-- gorvenment power -->
-            <h1> Government Power : </h1><br>
+            <h1> Government Power : </h1>
 
-            <select name = "government_power" >
+            <select class="selectpicker" name = "government_power" >
             <% for(var i = 0; i < data.all_government_power.length; i++) {%>
               <option value="<%=data.all_government_power[i][0]%>"><%=data.all_government_power[i][1]%></option>
             <%}%>
-            </select>
+            </select><br><br>
 
-               <h1> Propagation method : </h1><br>
+               <h1> Propagation method : </h1>
 
-              <select name = "propagation_method" multiple >
+              <select class="selectpicker" name = "propagation_method" multiple >
               <% for(var i = 0; i < data.all_propagation_method.length; i++) {%>
                 <option value="<%=data.all_propagation_method[i][0]%>"><%=data.all_propagation_method[i][1]%></option>
               <%}%>
-              </select>
+              </select><br><br>
 
           </div> <!-- Ending half -->
 
@@ -79,26 +81,26 @@
 
           
             <!-- parties envolved -->
-            <h1> Parties envolved : </h1><br>
+            <h1> Parties envolved : </h1>
 
-            <select name = "parties" multiple >
+            <select class="selectpicker" name = "parties" multiple >
             <% for(var i = 0; i < data.all_parties.length; i++) {%>
               <option value="<%=data.all_parties[i][0]%>"><%=data.all_parties[i][1]%></option>
             <%}%>
-            </select>
+            </select><br><br>
 
             <!-- fake news type -->
-            <h1> Fake news type : </h1><br>
+            <h1> Fake news type : </h1>
 
-            <select name = "fake_news_type" >
+            <select class="selectpicker" name = "fake_news_type" >
             <% for(var i = 0; i < data.all_fake_news_type.length; i++) {%>
               <option value="<%=data.all_fake_news_type[i][0]%>"><%=data.all_fake_news_type[i][1]%></option>
             <%}%>
-            </select>
+            </select><br><br>
 
             <!-- gorvenment power -->
             <h1> Intention : </h1>
-            <select name = "fake_news_intention" >
+            <select class="selectpicker" name = "fake_news_intention" >
               <option value = "true">A favor</option>
               <option value = "false">Contra</option>
             </select><br><br>
