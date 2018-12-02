@@ -34,3 +34,16 @@ body {
 a {
   text-decoration: none !important;
 }
+
+#override_select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: inherit;
+    padding-right: inherit;
+    padding-bottom: inherit;
+    padding-left: inherit;
+    height: 100%;
+    width: 100%;
+    text-align: left;
+}
