@@ -75,5 +75,5 @@ typings/
 # FuseBox cache
 .fusebox/
 
-# Essa porra aqui que todo mundo ta editando, ta virando bagunça carai
+# data-base connection
 config/dbConnection.js

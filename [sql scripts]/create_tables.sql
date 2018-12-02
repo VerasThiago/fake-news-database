@@ -16,12 +16,6 @@ CREATE TABLE government_power
         government_power_id SERIAL PRIMARY KEY,
         government_power_name VARCHAR(50) NOT NULL
     );
--- usuario table 
-CREATE TABLE usuario 
-    (
-        usuario_id SERIAL PRIMARY KEY,
-        usuario_name VARCHAR(50) NOT NULL
-    );
 -- tabela partidos
 CREATE TABLE parties 
     (
@@ -56,13 +50,6 @@ CREATE TABLE fake_news
         company_id INTEGER REFERENCES company(company_id) ON DELETE CASCADE,
         government_power_id INTEGER REFERENCES government_power(government_power_id) ON DELETE CASCADE,
         fake_news_type_id INTEGER REFERENCES fake_news_type(fake_news_type_id) ON DELETE CASCADE
-    );
--- tabela relacionamento fake news e usuario
-CREATE TABLE fake_news_usuario
-    (
-        usuario_id INTEGER REFERENCES usuario(usuario_id),
-        fake_news_id INTEGER REFERENCES fake_news(fake_news_id),
-        PRIMARY KEY (usuario_id, fake_news_id)
     );
 -- tabela dos arquivos das fake news
 CREATE TABLE arquivo
