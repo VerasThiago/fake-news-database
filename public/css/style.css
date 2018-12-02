@@ -41,6 +41,12 @@ body {
   margin-left: 10px;
 }
 
+.close_button {
+  margin-left: 500px;
+}
+
+
+
 a {
   text-decoration: none !important;
 }
