@@ -23,6 +23,7 @@ body {
   background-color: rgba(0,0,0,0.7); display: none;
 }
 .popupBoxWrapper{
+  display: flex;
   width: 550px;
   margin: 50px auto; 
   text-align: left; 
@@ -41,11 +42,10 @@ body {
   margin-left: 10px;
 }
 
-.close_button {
-  margin-left: 500px;
+.news_box_margin {
+  margin-left: 10px;
+  margin-top: 10px;
 }
-
-
 
 a {
   text-decoration: none !important;
@@ -53,6 +53,8 @@ a {
 
 #news_box{
   border-style: outset;
+  border-width: thin;
+  border-color: #EEEEEE;
   /* background-color: #EEEEEE; */
 }
 
@@ -66,14 +68,44 @@ a {
   color: orange;
 }
 
+#paragraph_font {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#close_button_fakenews {
+  margin-left: 500px;
+}
+
+#close_button_penalties {
+  margin-left: 700px;
+}
+
+/*
+ * Font awesome stuff
+*/
+
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.fa-github {
+  background: white;
+  color: black;
+}
 
 
+/*--------------------------------------------*/
 /*!
- * Bootstrap-select v1.13.1 (https://developer.snapappointments.com/bootstrap-select)
- *
- * Copyright 2012-2018 SnapAppointments, LLC
- * Licensed under MIT (https://github.com/snapappointments/bootstrap-select/blob/master/LICENSE)
- */
+* Bootstrap-select v1.13.1 (https://developer.snapappointments.com/bootstrap-select)
+*
+* Copyright 2012-2018 SnapAppointments, LLC
+* Licensed under MIT (https://github.com/snapappointments/bootstrap-select/blob/master/LICENSE)
+*/
 
 select.bs-select-hidden,
 .bootstrap-select > select.bs-select-hidden,

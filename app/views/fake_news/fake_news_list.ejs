@@ -40,7 +40,9 @@
       <h1 align="center" class="w3-jumbo">ALL NEWS</h1>
         <%for(var i = 0; i < data.news.length; i++){%>
           <div id="news_box">
-            <tr>
+            <div class="news_box_margin">
+
+              <tr>
                 <!-- Display all data-->
                 <td><h6 id="company_font"> <%= data.news[i]._company %></h6></td>
                 <td><h6 id="title_font"> <%= data.news[i]._title %></h6></td>
@@ -50,19 +52,21 @@
                 <td>Fake News type  : <%= data.news[i]._type %></td><br>
                 <td>Political parties envolved  : <%= data.news[i]._parties %></td><br>
                 <td>Propagation methods : <%= data.news[i]._propagations %></td><br>
-
-            <!-- Update button -->
-            <br>
-            <div class="options_align">
-              <div id="wrapper">
-                <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" class="w3-button w3-green ">Edit</a></p>
+                
+                <!-- Update button -->
+                <br>
+                <div class="options_align">
+                  <div id="wrapper">
+                    <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" class="w3-button w3-green ">Edit</a></p>
+                  </div>
+                  <div class="button_spacing"  id="wrapper">
+                    <p><a href="javascript:void(0)" class="w3-button w3-red ">Delete</a></p>
+                  </div>
+                </div>
               </div>
-              <div class="button_spacing"  id="wrapper">
-                <p><a href="javascript:void(0)" class="w3-button w3-red ">Delete</a></p>
-              </div>
+            
             </div>
-          </div>
-          
+              
           
           <!-- Update buttom-->
           <div id="update_fake_news_<%= data.news[i]._id %>" class = " popStyle" style = "overflow: auto;" >
@@ -79,7 +83,7 @@
                     
                     <!-- Exit button -->
                     <button type="button" class="close" aria-label="Close">
-                      <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" class="close_button">&times;</a>
+                      <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" id="close_button_fakenews">&times;</a>
                     </button>
                     
                     <!-- news title input -->

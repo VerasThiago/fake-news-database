@@ -9,6 +9,7 @@ var dbConn = function () {
     host: 'localhost',
     database: 'fake_news',
     password: 'thiago',
+
     port: 5432,
   });
 

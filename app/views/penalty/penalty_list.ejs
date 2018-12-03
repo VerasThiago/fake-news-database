@@ -1,17 +1,17 @@
 <html>
 
 <head>
-    <!-- CSS -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> -->
     <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="/js/style.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-      crossorigin="anonymous"></script>
-    <script src="semantic/dist/semantic.min.js"></script>
+    <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
 
 </head>
 
@@ -62,18 +62,23 @@
             
                         <!-- Update form-->
                         <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
-            
+                            
                             <!-- invisble input with penalty -->
                             <input type="text" name="_fake_news_id" value="<%= data.penalties[i]._fake_news_id %>" style="display:none;">
                             <input type="text" name="_penalty_type_id" value="<%= data.penalties[i]._penalty_type_id %>" style="display:none;">
                             <input type="text" name="_company_id" value="<%= data.penalties[i]._company_id %>" style="display:none;">
-            
+                            
+                            <!-- Exit button -->
+                            <button type="button" class="close" aria-label="Close">
+                            <a href="javascript:void(0)" onclick="toggle_visibility('update_penalty<%= data.penalties[i]._fake_news_id %><%= data.penalties[i]._penalty_type_id %><%= data.penalties[i]._company_id %>');" id="close_button_penalties">&times;</a>
+                            </button>
+
                             <!-- penalty amount -->
                             <h3> Amount : </h3><input type="number" name="amount" value="<%= data.penalties[i]._amount %>"><br>
             
                             <h3> Fake News : </h3>
                             
-                            <select name="fake_news_id">
+                            <select class="selectpicker form-control" name="fake_news_id">
                             
                                 <% for(var j = 0; j < data.all_fake_news.length; j++) {%>
                             
@@ -95,7 +100,7 @@
                             <h3> Penalty Type: </h3>
                             
 
-                            <select name="penalty_type_id">
+                            <select class="selectpicker" name="penalty_type_id">
                             
                                 <% for(var j = 0; j < data.all_penalty_type.length; j++) {%>
                             
@@ -116,7 +121,7 @@
             
                             <h3> Company : </h3>
             
-                            <select name="company_id">
+                            <select class="selectpicker" name="company_id">
             
                                 <% for(var j = 0; j < data.all_company.length; j++) {%>
             
@@ -147,8 +152,7 @@
             
                         </form>
             
-                        <!-- Exit button -->
-                        <a href="javascript:void(0)" onclick="toggle_visibility('update_penalty<%= data.penalties[i]._fake_news_id %><%= data.penalties[i]._penalty_type_id %><%= data.penalties[i]._company_id %>');">Exit</a>
+                        
             
                     </div>
                 </div>
