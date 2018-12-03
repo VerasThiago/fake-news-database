@@ -62,18 +62,23 @@
             
                         <!-- Update form-->
                         <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
-            
+                            
                             <!-- invisble input with penalty -->
                             <input type="text" name="_fake_news_id" value="<%= data.penalties[i]._fake_news_id %>" style="display:none;">
                             <input type="text" name="_penalty_type_id" value="<%= data.penalties[i]._penalty_type_id %>" style="display:none;">
                             <input type="text" name="_company_id" value="<%= data.penalties[i]._company_id %>" style="display:none;">
-            
+                            
+                            <!-- Exit button -->
+                            <button type="button" class="close" aria-label="Close">
+                            <a href="javascript:void(0)" onclick="toggle_visibility('update_penalty<%= data.penalties[i]._fake_news_id %><%= data.penalties[i]._penalty_type_id %><%= data.penalties[i]._company_id %>');" id="close_button_penalties">&times;</a>
+                            </button>
+
                             <!-- penalty amount -->
                             <h3> Amount : </h3><input type="number" name="amount" value="<%= data.penalties[i]._amount %>"><br>
             
                             <h3> Fake News : </h3>
                             
-                            <select name="fake_news_id">
+                            <select class="selectpicker form-control" name="fake_news_id">
                             
                                 <% for(var j = 0; j < data.all_fake_news.length; j++) {%>
                             
@@ -95,7 +100,7 @@
                             <h3> Penalty Type: </h3>
                             
 
-                            <select name="penalty_type_id">
+                            <select class="selectpicker" name="penalty_type_id">
                             
                                 <% for(var j = 0; j < data.all_penalty_type.length; j++) {%>
                             
@@ -116,7 +121,7 @@
             
                             <h3> Company : </h3>
             
-                            <select name="company_id">
+                            <select class="selectpicker" name="company_id">
             
                                 <% for(var j = 0; j < data.all_company.length; j++) {%>
             
@@ -147,8 +152,7 @@
             
                         </form>
             
-                        <!-- Exit button -->
-                        <a href="javascript:void(0)" onclick="toggle_visibility('update_penalty<%= data.penalties[i]._fake_news_id %><%= data.penalties[i]._penalty_type_id %><%= data.penalties[i]._company_id %>');">Exit</a>
+                        
             
                     </div>
                 </div>
