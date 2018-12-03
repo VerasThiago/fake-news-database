@@ -72,64 +72,12 @@ INSERT INTO fake_news_type (fake_news_type_name)
 INSERT INTO fake_news_type (fake_news_type_name)
     VALUES ('Conteudo fabricado'); 
 -- fake news
-INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, company_id, 
-                        government_power_id, fake_news_type_id)
-    VALUES('Bolsonaro mata Alan Turing, homossexual e ateu, pai da ciencia da computação',
-           'blah', FALSE, 3, 1, 5);
-INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, company_id, 
-                        government_power_id, fake_news_type_id)
-    VALUES('Campanha pro bolsonaro não tem nenhum apoio em manifestações',
-           'blah', FALSE, 3, 2, 1);
-INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, company_id, 
-                        government_power_id, fake_news_type_id)
-    VALUES('Foi comprovado que Haddad iria desviar dinheiro e acabar com a lava jato',
-           'blah', FALSE, 2, 1, 1);
-INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, company_id, 
-                        government_power_id, fake_news_type_id)
-    VALUES('Haddad nasceu com quatro braços e três pernas',
-           'blah', FALSE, 2, 2, 5);
-INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, company_id, 
-                        government_power_id, fake_news_type_id)
-    VALUES('A candidata a presidência Marina foi vista brincando com dinossauros em seu quintal',
-           'blah', FALSE, 9, 1, 5);
-INSERT INTO fake_news (fake_news_title, fake_news_content, fake_news_intention, company_id, 
-                        government_power_id, fake_news_type_id)
-    VALUES('O Candidato Cabo Daciolo foi visto beijando Ciro Gomes',
-           'blah', FALSE, 9, 1, 1);
-INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id,
-                      government_power_id, fake_news_type_id)
-    VALUES('Haddad pede doações pós eleições','blah', FALSE, 1, 1, 2);
-INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id,
-                      government_power_id, fake_news_type_id)
-    VALUES('Haddad faz 200 mil escolas em um dia',
-          'blah', TRUE, 10, 1, 4);
-INSERT INTO fake_news(fake_news_title, fake_news_content, fake_news_intention, company_id,
-                      government_power_id, fake_news_type_id)
-    VALUES('Estudos apontam bolsonaro ganhou uma guerra civil sozinho',
-          'blah', TRUE, 7, 1, 6);
--- fake news propagation method
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(1,1);
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(2,4);
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(3,3);
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(4,2);
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(3,5);
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(1,6);
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(1,7);
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(2,8);
-INSERT INTO fake_news_propagation_method(propagation_method_id, fake_news_id)
-    VALUES(3,9);  
--- arquivo
-INSERT INTO arquivo (extensao_id,arquivo_name,fake_news_id,arquivo_content )VALUES(1,7,lo_import('C:\Users\tvmma\Desktop\eu.png'))
--- penalty
-INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id)
-	VALUES (3000, 1, 1, 1);
-INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id)
-	VALUES (5000, 2, 2, 2);
+--'Bolsonaro mata Alan Turing, homossexual e ateu, pai da ciencia da computação'
+--'Campanha pro bolsonaro não tem nenhum apoio em manifestações'
+--'Foi comprovado que Haddad iria desviar dinheiro e acabar com a lava jato'
+--'Haddad nasceu com quatro braços e três pernas'
+--'A candidata a presidência Marina foi vista brincando com dinossauros em seu quintal'
+--'O Candidato Cabo Daciolo foi visto beijando Ciro Gomes'
+--'Haddad pede doações pós eleições'
+--'Haddad faz 200 mil escolas em um dia'
+--'Estudos apontam bolsonaro ganhou uma guerra civil sozinho'
