@@ -39,7 +39,7 @@
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
       <h1 align="center" class="w3-jumbo">ALL NEWS</h1>
         <%for(var i = 0; i < data.news.length; i++){%>
-          <div id="news_box">
+          <div id="box">
             <div class="news_box_margin">
 
               <tr>
@@ -81,16 +81,17 @@
                   <!-- Update form-->
                   <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
                     
-                    <!-- invisble input with news -->
-                    <input type="text" name="id" value = "<%= data.news[i]._id %>" style = "display:none;" >
-                    
                     <!-- Exit button -->
-                    <button type="button" class="close" aria-label="Close" href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" id="close_button_fakenews">
+                    <button type="button" class="close" aria-label="Close" href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');">
                       <a style="color:  red; font-size: 40px;" >&times;</a>
                     </button>
                     
+                    <!-- invisble input with news -->
+                    <input type="text" name="id" value = "<%= data.news[i]._id %>" style = "display:none;">
+                    
+                    
                     <!-- news title input -->
-                    <h3> Title : </h3><input type="text" name="title" placeholder="<%= data.news[i]._title %>"><br>
+                    <h3> Title : </h3><input type="text" name="title" maxlength="30" placeholder="<%= data.news[i]._title %>"><br>
                     
                     <!-- news content input -->
                     <h3> Content : </h3><input type="text" name="content" placeholder="<%= data.news[i]._content %>"><br>
