@@ -177,7 +177,7 @@
 
                     <h3> Political Parties envolved : </h3>
 
-                    <select class="selectpicker" name = "parties" multiple >
+                    <select class="selectpicker form-control" name = "parties" multiple >
                       <% for(var j = 0; j < data.all_parties.length; j++) {%>
 
                         <%if(data.news[i]._parties.includes(data.all_parties[j][1])){%>
@@ -194,7 +194,7 @@
 
                     <h3> Propagation method : </h3>
 
-                    <select class="selectpicker" name = "propagations" multiple >
+                    <select class="selectpicker form-control" name = "propagations" multiple >
                       <% for(var j = 0; j < data.all_propagation_method.length; j++) {%>
 
                         <%if(data.news[i]._propagations.includes(data.all_propagation_method[j][1])){%>

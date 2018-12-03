@@ -6,7 +6,7 @@ body,h1,h2,h3,h4,h5 {
 body {
   font-size:16px !important;
 }
-
+/* w3 stuff*/
 .w3-half img{
   margin-bottom:-6px;
   margin-top:16px;
@@ -18,6 +18,11 @@ body {
   opacity:1;
 }
 
+.w3-col{
+  margin-left: 25px;
+}
+
+/* -------------------- */
 .popStyle{
   top: 0;
   left: 0;
@@ -64,11 +69,6 @@ body {
 
 .files_box_margin {
   padding-top: 25px;
-}
-
-
-.w3-col{
-  margin-left: 25px;
 }
 
 .display_penalties {
