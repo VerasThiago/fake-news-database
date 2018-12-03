@@ -76,7 +76,7 @@
             <!-- fake news -->
             <h1> Fake News Title: </h1>
 
-            <select class="selectpicker form-control" name="fake_news" id = "fake_news">
+            <select class="" name="fake_news" id = "fake_news">
               <% for(var i = 0; i < data.all_fake_news.length; i++) {%>
               <option value="<%=data.all_fake_news[i][0]%>" id = "<%=data.all_fake_news[i][2]%>">
                 <%=data.all_fake_news[i][1]%>
@@ -100,7 +100,9 @@
         var news = document.getElementById('fake_news');
         var ok = false;
         for(var i = 0; i < news.length; i++){
+          console.log('sou id = ' + id + ' e to na news = ' + news[i].id );
           if(id == news[i].id){
+            console.log("ENTREI")
             news[i].style.display = "block";
             if(!ok){
               news.selectedIndex = i;
@@ -110,6 +112,11 @@
           else
             news[i].style.display = "none"; 
         }
+    }
+
+    function teste(){
+      console.log('OLA = ' + document.getElementById('company').value);
+      console.log('NES = ' + document.getElementById('fake_news')[0].id);
     }
   </script>
 

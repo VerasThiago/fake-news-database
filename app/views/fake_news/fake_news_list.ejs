@@ -60,7 +60,10 @@
                     <p><a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" class="w3-button w3-green ">Edit</a></p>
                   </div>
                   <div class="button_spacing"  id="wrapper">
-                    <p><a href="javascript:void(0)" class="w3-button w3-red ">Delete</a></p>
+                    <form action="delete" method="post" enctype="multipart/form-data">
+                        <input type="text" name="id" value = "<%= data.news[i]._id %>" style = "display:none;" >
+                       <p><input type="submit" value="Delete" class="w3-button w3-red "></p>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -82,8 +85,8 @@
                     <input type="text" name="id" value = "<%= data.news[i]._id %>" style = "display:none;" >
                     
                     <!-- Exit button -->
-                    <button type="button" class="close" aria-label="Close">
-                      <a href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" id="close_button_fakenews">&times;</a>
+                    <button type="button" class="close" aria-label="Close" href="javascript:void(0)" onclick="toggle_visibility('update_fake_news_<%= data.news[i]._id %>');" id="close_button_fakenews">
+                      <a style="color:  red; font-size: 40px;" >&times;</a>
                     </button>
                     
                     <!-- news title input -->
@@ -205,11 +208,8 @@
                       <%}%>
                     </select><br><br>
                     
-                    <!-- delete button -->
-                    <h3> Delete : </h3><input type="checkbox" name="delete"><br><br>
-
                     <!-- submit button  -->
-                    <input type="submit"/>
+                    <input type="submit" value="Enviar" class="w3-button w3-green ">
                     
                     
                   </form>

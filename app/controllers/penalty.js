@@ -134,10 +134,29 @@ module.exports.edit = (app, req, res) =>{
 												  null, data.amount);
 
 
-	if(data.delete){
-		PenaltyDAO.delete_penalty((err, result) => res.redirect('/penalty/list'));
-	}
-	else{
-		PenaltyDAO.update_penalty((err, result) => res.redirect('/penalty/list'));
-	}
+	PenaltyDAO.update_penalty((err, result) => res.redirect('/penalty/list'));
+}
+
+
+module.exports.delete = (app, req, res) => {
+
+	/**
+	 *
+	 *  This method deletes penalty that matches with 3 id' recieved from user form,
+	 *
+	 */
+
+	data = req.body;
+
+	//return res.send(data);
+
+	var connection = app.config.dbConnection();
+
+	//connection, fake_news_id, fake_news_title, company_id, company_name, penalty_type_id, penalty_type_name, amount
+
+	var PenaltyDAO = new app.app.models.PenaltyDAO(connection, data._fake_news_id, null,
+												  data._company_id, null,data._penalty_type_id);
+
+	PenaltyDAO.delete_penalty((err, result) => res.redirect('/penalty/list'));
+
 }

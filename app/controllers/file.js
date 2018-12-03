@@ -151,17 +151,30 @@ module.exports.edit = (app, req, res) =>{
 	// instantiating new file
 	var fileDAO = new app.app.models.FileDAO(connection, data.id, data.name?data.name:null, null, file?file.mimetype:null, data.fake_news_id ? data.fake_news_id:null, null, file ? (path + file.name):null);
 
-	if(data.delete == ''){
-		fileDAO.delete_file(() => res.redirect('/file/list'));
-	}
-	else{
 
-		// if have file, upload to pc to later upload on db
-		if(file)
-			file.mv(path + file.name); 
+	// if have file, upload to pc to later upload on db
+	if(file)
+		file.mv(path + file.name); 
 
-		// update file
-		fileDAO.update_file((err,result) =>	res.redirect('/file/list'));
-	}
+	// update file
+	fileDAO.update_file((err,result) =>	res.redirect('/file/list'));
+
+}
+
+module.exports.delete = (app, req, res) => {
+
+	/**
+	 *
+	 *  This method deletes file that matches with id rcieved from user form,
+	 *
+	 */
+
+	data = req.body;
+
+	var connection = app.config.dbConnection();
+
+	var fileDAO = new app.app.models.FileDAO(connection, data.id);
+
+	fileDAO.delete_file((err,result) => res.redirect('/file/list'));
 
 }

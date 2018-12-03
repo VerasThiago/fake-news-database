@@ -164,7 +164,7 @@ module.exports.edit = (app, req, res) => {
 	 *  This method upload data recieved from user form, insert in database and redirecting to the same page, but this time the form is a edit form and insert in an existing fake news in database
 	 *
 	 *	Checks if have list of political parties and propagation method, then transform in 2 lists, with the rest of data instantiate a object from
-	 *	fake news class and then checks if delete button was pressed to delete or update	
+	 *	fake news class and then update	fake news
      *
 	 */
 
@@ -208,11 +208,24 @@ module.exports.edit = (app, req, res) => {
 														data.parties, data.fake_news_intention,
 														data.fake_news_type, data.propagations, null);
 
-	if(data.delete){
-		Fake_newsDAO.delete_fake_news((err,result) => res.redirect('/fakenews/list'));
-	}
-	else{
-		Fake_newsDAO.update_fake_news((err,result) =>res.redirect('/fakenews/list'));
-	}
+	Fake_newsDAO.update_fake_news((err,result) =>res.redirect('/fakenews/list'));
+
+}
+
+module.exports.delete = (app, req, res) => {
+
+	/**
+	 *
+	 *  This method deletes fake news that matches with id rcieved from user form,
+	 *
+	 */
+
+	data = req.body;
+
+	var connection = app.config.dbConnection();
+
+	var Fake_newsDAO =  new app.app.models.Fake_newsDAO(connection, data.id);
+
+	Fake_newsDAO.delete_fake_news((err,result) => res.redirect('/fakenews/list'));
 
 }

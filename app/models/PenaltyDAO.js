@@ -103,7 +103,7 @@ PenaltyDAO.prototype.delete_penalty = function (callback) {
          */
 
         text: 'DELETE FROM penalty WHERE penalty_type_id = $1 AND fake_news_id = $2 AND company_id = $3;',
-        values: [this._penalty_type_id[0], this._fake_news_id[0], this._company_id[0]]
+        values: [this._penalty_type_id, this._fake_news_id, this._company_id]
     };
 
     this._connection.query(query, callback);

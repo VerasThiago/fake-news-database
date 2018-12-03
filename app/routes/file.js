@@ -15,5 +15,9 @@ module.exports = (app) => {
 	app.post('/file/edit', (req, res) => {
 		app.app.controllers.file.edit(app, req, res);
 	});
+
+	app.post('/file/delete', (req, res) => {
+		app.app.controllers.file.delete(app, req, res);
+	});
 	
 }

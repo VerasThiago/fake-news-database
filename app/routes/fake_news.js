@@ -17,5 +17,9 @@ module.exports = (app) => {
 	app.post('/fakenews/edit', (req,res) => {
 		app.app.controllers.fake_news.edit(app, req, res);
 	});
+
+	app.post('/fakenews/delete', (req,res) => {
+		app.app.controllers.fake_news.delete(app, req, res);
+	});
 	
 }

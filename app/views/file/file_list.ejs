@@ -12,6 +12,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="/js/style.js"></script>
     <!-- Template: https://www.w3schools.com/w3css/tryw3css_templates_interior_design.htm -->
+
+    <style>
+        .rightt {
+            float: right;
+            vertical-align: text-top;
+            margin: 0 auto;
+            width: 50%;
+        }
+    </style>
 	</head>
 	<body>
 
@@ -60,7 +69,7 @@
 
           <!-- Only possibility is image, so display image tag -->
           <%} else{%>
-            <img src="/uploads/<%= data.files[i]._file_name %>" height="100" width="150" alt = "/uploads/<%= data.files[i]._file_name %>">
+            <img src="/uploads/<%= data.files[i]._file_name %>" height="300" width="33%" alt = "/uploads/<%= data.files[i]._file_name %>">
           <% } %>
 
           <!-- Update buttom-->
@@ -70,8 +79,14 @@
               
                 <!-- Update form-->
                 <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
+
+                  <!-- Exit button -->
+                  <!-- Exit button -->
+                  <button type="button" class="close" aria-label="Close" href="javascript:void(0)" onclick="toggle_visibility('update_file<%= data.files[i]._file_id %>');">
+                    <a style="color:  red; font-size: 40px;" >&times;</a>
+                  </button>
                   
-                  <h1>Update here (leave it blank if have some data that you don't want to update)</h1>
+                  <h1>Update</h1>
 
                   <!-- invisble input with file id -->
                   <input type="text" name="id" value = "<%= data.files[i]._file_id %>" style = "display:none;" >
@@ -99,26 +114,31 @@
                           <%}%>
                   
                       <%}%>
-                  </select>
-
-                  <!-- delete button -->
-                  <h3> Delete : </h3><input type="checkbox" name="delete" value="" placeholder=""><br><br>
+                  </select> <br><br>
 
                   <!-- submit button  -->
-                  <input type="submit"/>
+                  <input type="submit" value="Enviar" class="w3-button w3-green "> 
                 </form>
 
                   
-                <!-- Exit button -->
-                <p><a href="javascript:void(0)" onclick="toggle_visibility('update_file<%= data.files[i]._file_id %>');">Exit</a></p>
+                
               </div>
             </div>
           </div>
           
+          <div class="options_align" style=" padding-top: 5px;">
+          
+            <!-- Update button -->
+            <div id="wrapper">
+              <p><a href="javascript:void(0)" onclick="toggle_visibility('update_file<%= data.files[i]._file_id %>');" class="w3-button w3-green">Edit</a></p>
+            </div>
 
-          <!-- Update button -->
-          <div id="wrapper">
-            <p><a href="javascript:void(0)" onclick="toggle_visibility('update_file<%= data.files[i]._file_id %>');" class="w3-button w3-green">Edit</a></p>
+            <div class="button_spacing rightt"  id="wrapper">
+              <form action="delete" method="post" enctype="multipart/form-data">
+                <input type="text" name="id" value = "<%= data.files[i]._file_id %>" style = "display:none;" >
+                <p><input type="submit" value="Delete" class="w3-button w3-red "></p>
+              </form>
+            </div>            
           </div>
 
           <br>

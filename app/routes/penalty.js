@@ -16,4 +16,8 @@ module.exports = (app) => {
 		app.app.controllers.penalty.edit(app, req, res);
 	});
 
+	app.post('/penalty/delete', (req,res) => {
+		app.app.controllers.penalty.delete(app, req, res);
+	});
+
 };
