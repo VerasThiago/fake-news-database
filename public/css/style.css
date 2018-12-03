@@ -62,6 +62,11 @@ body {
   padding-top: 15px;
 }
 
+.files_box_margin {
+  padding-top: 25px;
+}
+
+
 .w3-col{
   margin-left: 25px;
 }
@@ -83,7 +88,7 @@ a {
   text-decoration: none !important;
 }
 
-#news_box{
+#box{
   border-style: outset;
   border-width: thin;
   border-color: #EEEEEE;
