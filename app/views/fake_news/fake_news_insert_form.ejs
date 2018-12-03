@@ -38,7 +38,7 @@
     </nav>
     
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
-      <div class="w3-row-padding">
+      <div class="w3-row">
         <form class="fileupload" action="upload" method="post" enctype="multipart/form-data">
           <h1 class="w3-jumbo">Fake news</h1>
           <div class="w3-half">
@@ -69,7 +69,7 @@
 
                <h1> Propagation method : </h1>
 
-              <select class="selectpicker" name = "propagation_method" multiple >
+              <select class="selectpicker form-control" name = "propagation_method" multiple >
               <% for(var i = 0; i < data.all_propagation_method.length; i++) {%>
                 <option value="<%=data.all_propagation_method[i][0]%>"><%=data.all_propagation_method[i][1]%></option>
               <%}%>
@@ -83,7 +83,7 @@
             <!-- parties envolved -->
             <h1> Parties envolved : </h1>
 
-            <select class="selectpicker" name = "parties" multiple >
+            <select class="selectpicker form-control" name = "parties" multiple >
             <% for(var i = 0; i < data.all_parties.length; i++) {%>
               <option value="<%=data.all_parties[i][0]%>"><%=data.all_parties[i][1]%></option>
             <%}%>
