@@ -45,7 +45,9 @@ body {
   margin-left: 500px;
 }
 
-
+.news_box_margin {
+  margin-left: 10px;
+}
 
 a {
   text-decoration: none !important;
@@ -53,6 +55,8 @@ a {
 
 #news_box{
   border-style: outset;
+  border-width: thin;
+  border-color: #EEEEEE;
   /* background-color: #EEEEEE; */
 }
 

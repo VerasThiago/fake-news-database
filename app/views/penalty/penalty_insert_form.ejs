@@ -44,40 +44,39 @@
     
 
         <form class="fileupload" action="upload" method="post" enctype="multipart/form-data">
-          <div class="w3-half">
         
         
             <!-- fake news content -->
             <h1> Amount : </h1><input type="number" name="amount"><br>
         
             <!-- company that published fake news -->
-            <h1> Company Name : </h1><br>
+            <h1> Company Name : </h1>
         
-            <select name="company" id = "company" onchange="filter_news();">
+            <select class="selectpicker" name="company" id = "company" onchange="filter_news();">
               <% for(var i = 0; i < data.all_company.length; i++) {%>
               <option value="<%=data.all_company[i][0]%>">
                 <%=data.all_company[i][1]%>
               </option>
               <%}%>
-            </select>
+            </select><br><br>
 
             <!-- penalty type of the fake news -->
-            <h1> Penalty Type Name : </h1><br>
+            <h1> Penalty Type Name : </h1>
 
-            <select name="penalty_type">
+            <select class="selectpicker" name="penalty_type">
               <% for(var i = 0; i < data.all_penalty_type.length; i++) {%>
               <option value="<%=data.all_penalty_type[i][0]%>">
                 <%=data.all_penalty_type[i][1]%>
 
               </option>
               <%}%>
-            </select>
+            </select><br><br>
 
             
             <!-- fake news -->
-            <h1> Fake News Title: </h1><br>
+            <h1> Fake News Title: </h1>
 
-            <select name="fake_news" id = "fake_news">
+            <select class="selectpicker form-control" name="fake_news" id = "fake_news">
               <% for(var i = 0; i < data.all_fake_news.length; i++) {%>
               <option value="<%=data.all_fake_news[i][0]%>" id = "<%=data.all_fake_news[i][2]%>">
                 <%=data.all_fake_news[i][1]%>
