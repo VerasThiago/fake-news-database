@@ -89,7 +89,7 @@ CREATE OR REPLACE FUNCTION insert_penalty_db(amount INT, penalty_type INT, fake_
 RETURNS VOID AS $$
 BEGIN
     if(amount IS NOT NULL and amount > 0 )then
-         INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id) VALUES(amount, penalty_type, fake_news, company)
+         INSERT INTO penalty(penalty_amount, penalty_type_id, fake_news_id, company_id) VALUES(amount, penalty_type, fake_news, company);
     end if;
 END;
 $$ LANGUAGE plpgsql;
