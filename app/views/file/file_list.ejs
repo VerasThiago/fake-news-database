@@ -47,103 +47,110 @@
     </nav>
 	
     <div class="w3-main" style="margin-left:340px;margin-right:40px">
-      <h1 class="w3-jumbo">ALL FILES</h1>
+
+      <h1 align="center" class="w3-jumbo">ALL FILES</h1>
+      
       <%for(var i = 0; i < data.files.length; i++){%>
-        <tr>
-          <!-- Display all data-->
-          <td>Name : <%= data.files[i]._file_name %></td><br>
-          <td>Extensão  : <%= data.files[i]._extension_name %></td><br>
-          <td>Fake news title  : <%= data.files[i]._fake_news_title %></td><br>
-          
-          <!-- Check if extension is audio and display audio tag -->
-          <%if(data.files[i]._extension_name == 'audio/mpeg'){%>
-            <audio src="/uploads/<%= data.files[i]._file_name %>" controls>
-              <p>Seu navegador não suporta o elemento audio </p>
-            </audio>
 
-          <!-- Check if extension is video and display video tag -->
-          <%} else if (data.files[i]._extension_name == 'video/mp4'){%>
-            <video width="320" height="240" controls>
-              <source src="/uploads/<%= data.files[i]._file_name %>" type="video/mp4">
-            </video>
+        <div align="center" class="w3-row display_files">
 
-          <!-- Only possibility is image, so display image tag -->
-          <%} else{%>
-            <img src="/uploads/<%= data.files[i]._file_name %>" height="300" width="33%" alt = "/uploads/<%= data.files[i]._file_name %>">
-          <% } %>
+          <div id="news_box" class="w3-col news_box_margin" >
 
-          <!-- Update buttom-->
-          <div id="update_file<%= data.files[i]._file_id %>" class = "popStyle">
-            <div class="popupBoxWrapper">
-              <div class="popupBoxContent">
+            <tr>
+              <!-- Display all data-->
+              <td>Name : <%= data.files[i]._file_name %></td><br>
+              <td>Extensão  : <%= data.files[i]._extension_name %></td><br>
+              <td>Fake news title  : <%= data.files[i]._fake_news_title %></td><br>
               
-                <!-- Update form-->
-                <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
-
-                  <!-- Exit button -->
-                  <!-- Exit button -->
-                  <button type="button" class="close" aria-label="Close" href="javascript:void(0)" onclick="toggle_visibility('update_file<%= data.files[i]._file_id %>');">
-                    <a style="color:  red; font-size: 40px;" >&times;</a>
-                  </button>
+              <!-- Check if extension is audio and display audio tag -->
+              <%if(data.files[i]._extension_name == 'audio/mpeg'){%>
+                <audio src="/uploads/<%= data.files[i]._file_name %>" controls>
+                  <p>Seu navegador não suporta o elemento audio </p>
+                </audio>
+    
+              <!-- Check if extension is video and display video tag -->
+              <%} else if (data.files[i]._extension_name == 'video/mp4'){%>
+                <video width="320" height="240" controls>
+                  <source src="/uploads/<%= data.files[i]._file_name %>" type="video/mp4">
+                </video>
+    
+              <!-- Only possibility is image, so display image tag -->
+              <%} else{%>
+                <img src="/uploads/<%= data.files[i]._file_name %>" height="300" width="33%" alt = "/uploads/<%= data.files[i]._file_name %>">
+              <% } %>
+    
+              <!-- Update buttom-->
+              <div id="update_file<%= data.files[i]._file_id %>" class = "popStyle">
+                <div class="popupBoxWrapper">
+                  <div class="popupBoxContent">
                   
-                  <h1>Update</h1>
-
-                  <!-- invisble input with file id -->
-                  <input type="text" name="id" value = "<%= data.files[i]._file_id %>" style = "display:none;" >
-
-                  <!-- name input to write file name -->
-                  <h3> Name : </h3><input type="text" name="name" placeholder="<%= data.files[i]._file_name %>"><br>
-
-                  <!-- file input to upload file -->
-                  <h3> File : </h3><input type="file" name="upfile" value="" placeholder=""><br><br>
-
-                  <select name="fake_news_id">
-                  
-                      <% for(var j = 0; j < data.all_fake_news.length; j++) {%>
-                  
-                          <%if(data.all_fake_news[j][1] == data.files[i]._fake_news_title){%>
-                  
-                              <option value="<%=data.all_fake_news[j][0]%>" selected>
-                              <%=data.all_fake_news[j][1]%>%>
-                  
-                          <%} else{%>
-                  
-                              <option value="<%=data.all_fake_news[j][0]%>">
-                              <%=data.all_fake_news[j][1]%>%>
-                  
+                    <!-- Update form-->
+                    <form class="fileupload" action="edit" method="post" enctype="multipart/form-data">
+    
+                      <!-- Exit button -->
+                      <!-- Exit button -->
+                      <button type="button" class="close" aria-label="Close" href="javascript:void(0)" onclick="toggle_visibility('update_file<%= data.files[i]._file_id %>');">
+                        <a style="color:  red; font-size: 40px;" >&times;</a>
+                      </button>
+                      
+                      <h1>Update</h1>
+    
+                      <!-- invisble input with file id -->
+                      <input type="text" name="id" value = "<%= data.files[i]._file_id %>" style = "display:none;" >
+    
+                      <!-- name input to write file name -->
+                      <h3> Name : </h3><input type="text" name="name" placeholder="<%= data.files[i]._file_name %>"><br>
+    
+                      <!-- file input to upload file -->
+                      <h3> File : </h3><input type="file" name="upfile" value="" placeholder=""><br><br>
+    
+                      <select name="fake_news_id">
+                      
+                          <% for(var j = 0; j < data.all_fake_news.length; j++) {%>
+                      
+                              <%if(data.all_fake_news[j][1] == data.files[i]._fake_news_title){%>
+                      
+                                  <option value="<%=data.all_fake_news[j][0]%>" selected>
+                                  <%=data.all_fake_news[j][1]%>%>
+                      
+                              <%} else{%>
+                      
+                                  <option value="<%=data.all_fake_news[j][0]%>">
+                                  <%=data.all_fake_news[j][1]%>%>
+                      
+                              <%}%>
+                      
                           <%}%>
-                  
-                      <%}%>
-                  </select> <br><br>
-
-                  <!-- submit button  -->
-                  <input type="submit" value="Enviar" class="w3-button w3-green "> 
-                </form>
-
-                  
-                
+                      </select> <br><br>
+    
+                      <!-- submit button  -->
+                      <input type="submit" value="Enviar" class="w3-button w3-green "> 
+                    </form>
+                  </div>
+                </div>
               </div>
-            </div>
+              
+              <div class="file_buttons_align">
+              
+                <!-- Update button -->
+                <div id="wrapper">
+                  <p><a href="javascript:void(0)" onclick="toggle_visibility('update_file<%= data.files[i]._file_id %>');" class="w3-button w3-green">Edit</a></p>
+                </div>
+    
+                <div class="button_spacing "  id="wrapper">
+                  <form action="delete" method="post" enctype="multipart/form-data">
+                    <input type="text" name="id" value = "<%= data.files[i]._file_id %>" style = "display:none;" >
+                    <p><input type="submit" value="Delete" class="w3-button w3-red "></p>
+                  </form>
+                </div>            
+              </div>
+    
+              <br>
+              <br>
+            </tr>
           </div>
-          
-          <div class="options_align" style=" padding-top: 5px;">
-          
-            <!-- Update button -->
-            <div id="wrapper">
-              <p><a href="javascript:void(0)" onclick="toggle_visibility('update_file<%= data.files[i]._file_id %>');" class="w3-button w3-green">Edit</a></p>
-            </div>
+        </div>
 
-            <div class="button_spacing rightt"  id="wrapper">
-              <form action="delete" method="post" enctype="multipart/form-data">
-                <input type="text" name="id" value = "<%= data.files[i]._file_id %>" style = "display:none;" >
-                <p><input type="submit" value="Delete" class="w3-button w3-red "></p>
-              </form>
-            </div>            
-          </div>
-
-          <br>
-          <br>
-        </tr>
       <%}%>
     </div>
 </html>

@@ -19,11 +19,14 @@ body {
 }
 
 .popStyle{
-  top: 0; left: 0; position: fixed; width: 100%; height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
   background-color: rgba(0,0,0,0.7); display: none;
 }
 .popupBoxWrapper{
-  display: flex;
   width: 550px;
   margin: 50px auto; 
   text-align: left; 
@@ -31,20 +34,49 @@ body {
 .popupBoxContent{
   background-color: #FFF;
   padding: 15px;
+  width: 100%;
 }
 
 .options_align {
   display: flex;
   flex-direction: row;
+  padding-top: 5px;
+  
+}
+
+.file_buttons_align {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+  justify-content: space-around;
+  justify-items: center;
 }
 
 .button_spacing {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .news_box_margin {
   margin-left: 10px;
   margin-top: 10px;
+  padding-top: 15px;
+}
+
+.w3-col{
+  margin-left: 25px;
+}
+
+.display_penalties {
+  display: inline-block;
+  vertical-align: top;
+  width: 49.5%;
+  align-content: center; 
+}
+
+.display_files {
+  /* display: inline-block; */
+  /* margin-left: -30px; */
+  /* overflow: hidden; */
 }
 
 a {
@@ -72,14 +104,14 @@ a {
   font-size: 20px;
   font-weight: bold;
 }
-
+/* 
 #close_button_fakenews {
   margin-left: 500px;
 }
 
 #close_button_penalties {
   margin-left: 700px;
-}
+} */
 
 /*
  * Font awesome stuff
